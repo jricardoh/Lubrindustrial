@@ -1,0 +1,17 @@
+ID EQUIPO	LOCACION	EMPLEADO	EQUIPO PADRE	NUMERO	MODELO	SERIE	TIPO	ESTADO	FABRICANTE	FECHA COMPRA	FECHA INICIO	FECHA VENTA	CONTRATISTA	PIEZAS
+2	Locación Quito	Jhonny Cajamarca		EQ001	eq00a	aaa3323	Equipo industrial	Activo	Pionx	2014-02-01	2016-02-01	2018-02-01	Ricardo	p1;p2;p3
+3	Locación Quito	Jhonny Cajamarca		EQ002	eeeerrr	12321321	Equipo mecánico	Activo	Pionx	2014-02-01	2014-02-01	2014-02-01	na	na
+5	Locación Quito	Jhonny Cajamarca	EQ001 Equipo industrial pesado	EQ004	ddsad	dsadsa	Montacargas pesado	Activo	na	2010-01-01	2010-01-01	2010-01-01	na	na
+7	Locación Quito	Jhonny Cajamarca	EQ003 Equipo eléctrico manual	EQ006	cccccsa	dffs4	Comprensor grande	Activo	na	2010-01-01	2010-01-01	2010-01-01	na	nna
+8	Locación Quito	Jhonny Cajamarca	EQ006 Comprensor bomba	EQ007	OPD	g	c1	Activo	na	2010-01-01	2010-01-01	2010-01-01	na	na
+9	Locación Quito	Jhonny Cajamarca	EQ006 Comprensor bomba	EQ016	dsfk	fg	g2	Activo	na	2010-01-01	2010-01-01	2010-01-01	na	na
+10	Locación Quito	Jhonny Cajamarca	EQ007 Comprensor g1	EQ009	das	fasd	Sg1	Activo	na	2010-01-01	2010-01-01	2010-01-01	na	na
+11	Locación Quito	Jhonny Cajamarca		EQ010	wretr	ythrh	Caldero grande	Activo	na	2010-01-01	2010-01-01	2010-01-01	na	na
+12	Locación Quito	Jhonny Cajamarca		EQ011	sdaf	fsd	Ensambla portátiles	Activo	na	2010-01-01	2010-01-01	2010-01-01	na	na
+13	Locación Quito	Jhonny Cajamarca	EQ011 Ensambladora pcs	EQ012	dsa	sadda	carcasas	na	na	2010-01-01	2010-01-01	2010-01-01	ba	ba
+14	Locación Quito	Jhonny Cajamarca	EQ016 Caldero baño	EQ013	DSAFS	FDS	Comprensor sub g2	NA	na	2009-01-01	2009-01-01	2009-01-01	na	na
+15	Locación Quito	Jhonny Cajamarca	EQ003 Equipo eléctrico manual	EQ014	das	da	sss	na	na	2009-01-01	2009-01-01	2009-01-01	na	na
+17	Locación Quito	Jhonny Cajamarca		EQ016	SFD	GD	CALD	Ac	na	2008-01-01	2008-01-01	2008-01-01	na	na
+4	Locación Guayaquil	Jhonny Cajamarca		EQ003	eeeerrr	12321321	Equipo eléctrico	Activo	Pionx	2014-02-01	2014-02-01	2014-02-01	na	na
+6	Locación Guayaquil	Jhonny Cajamarca	EQ002 Equipo mecánico liviano	EQ005	hgytewtr	wqegrd	Eq. lev autos	Activo	das	2010-01-01	2010-01-01	2010-01-01	na	na
+16	Locación Guayaquil	Jhonny Cajamarca		EQ015	dsaf	fd	Martilladora	na	na	2008-01-01	2008-01-01	2008-01-01	na	na

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="377f0f76-fddf-446d-80be-f4c364155a2e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM ORDENTRABAJO WHERE ACTIVO <> 0 AND ID_ORDTR=1;]]>
+	</queryString>
+	<field name="NRO_ORDTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCRIPCION_ORDTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ESTADO_ORDTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TIPO_ORDTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRIORIDAD_ORDTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHAHORASOLICITUD_ORDTR" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHAHORAREQUERIDA_ORDTR" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RESPUESTA_ORDTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INICIO_ORDTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TERMINO_ORDTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHAHORAENTREGA_ORDTR" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DURACIONDIAS_ORDTR" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ACEPTADOPOR_ORDTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FALLA_ORDTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCRIPCIONCAUSA_ORDTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ACCIONREALIZADA_ORDTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PREVENCIONTOMADA_ORDTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="NRO_ORDTR">
+		<groupExpression><![CDATA[$F{NRO_ORDTR}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement style="SubTitle" x="143" y="13" width="657" height="24" forecolor="#000000" uuid="85764884-b0c7-4fdf-b98c-5b561a2831d2"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NRO_ORDTR}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Opaque" x="97" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="63c29b88-ed81-4516-ae08-ffa938df006e"/>
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="30">
+				<frame>
+					<reportElement mode="Opaque" x="652" y="0" width="150" height="30" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="51dfef1a-b60a-4845-88e3-99a22ba8eae1"/>
+				</frame>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band height="575" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-20" y="234" width="20" height="241" backcolor="#000000" uuid="69041d3a-4614-4a1a-9386-f43b2c84ce94"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="475" width="105" height="100" backcolor="#666666" uuid="a72525a8-0cae-46ca-88e9-11f95086f145"/>
+				<textField>
+					<reportElement style="Column header" x="0" y="0" width="104" height="73" forecolor="#000000" uuid="00a35a68-d633-4101-b429-e4e69e3c1bfd"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="58" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="0" y="77" width="104" height="20" forecolor="#000000" uuid="68fcb96c-6be6-41cf-a57e-c4d85b6c89ee"/>
+					<box leftPadding="4" rightPadding="4"/>
+					<textElement textAlignment="Center">
+						<font size="16" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement mode="Transparent" x="42" y="73" width="20" height="1" backcolor="#FFFFFF" uuid="1e7b3027-4a58-4a06-bc41-1c17bde52581"/>
+				</line>
+			</frame>
+		</band>
+	</background>
+	<title>
+		<band height="104" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="0" width="802" height="67" uuid="51722896-01c5-47ac-bbd7-b7d28b2be61e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="30" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Órdenes de Trabajo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="232" y="67" width="568" height="37" uuid="3034f279-a19e-42ab-96fb-6f8178e842cc"/>
+				<textElement textAlignment="Right">
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[Lubrindustrial]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="97" y="5" width="705" height="20" backcolor="#666666" uuid="d6518927-facb-4d9a-a2ec-ed719dba38a7"/>
+				<staticText>
+					<reportElement style="Column header" x="0" y="0" width="44" height="15" uuid="c754ad2c-7311-40d2-af3b-f81f65c30c09"/>
+					<text><![CDATA[Descripción]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="44" y="0" width="44" height="15" uuid="c799321b-a674-48cd-9a2b-f981d1bf68ca"/>
+					<text><![CDATA[Estado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="88" y="0" width="44" height="15" uuid="bdfd6b10-73a6-4b8c-8f64-9d18fb969667"/>
+					<text><![CDATA[Tipo Orden]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="132" y="0" width="44" height="15" uuid="2f9ef3e8-e644-4fe5-b5db-bc4db9b1e026"/>
+					<text><![CDATA[Prioridad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="176" y="0" width="44" height="15" uuid="38be53de-f223-4ec9-b013-85a0c21e080e"/>
+					<text><![CDATA[Fecha Solicitud]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="220" y="0" width="44" height="15" uuid="62181abc-8a2b-4e4c-b933-a9434d80d1ce"/>
+					<text><![CDATA[Fecha Requerida]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="264" y="0" width="44" height="15" uuid="1b748cd3-82b8-4b44-8e4f-ccd4786412a2"/>
+					<text><![CDATA[Respuesta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="308" y="0" width="44" height="15" uuid="f9206a84-cfb8-4bc3-9b84-fc0689348708"/>
+					<text><![CDATA[Inicio Orden]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="352" y="0" width="44" height="15" uuid="257f058c-9aec-4695-86ca-0db4ee71614b"/>
+					<text><![CDATA[Término Orden]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="396" y="0" width="44" height="15" uuid="8de20fab-c6f3-4b32-a63c-ba112d2540b9"/>
+					<text><![CDATA[Fecha Entrega]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="440" y="0" width="44" height="15" uuid="0a6b0ddc-b02d-462b-834c-cee794ab5a1b"/>
+					<text><![CDATA[Duración]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="484" y="0" width="44" height="15" uuid="c049b7df-e488-41e0-82a1-393c8eaf1a0e"/>
+					<text><![CDATA[Aceptado por]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="528" y="0" width="44" height="15" uuid="9cfc59f4-db82-4acb-ab18-d9e694b21d2a"/>
+					<text><![CDATA[Falla]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="572" y="0" width="44" height="15" uuid="34d5b449-0ab3-4ccf-adb4-b7a8c3bb94e2"/>
+					<text><![CDATA[Causa]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="616" y="0" width="44" height="15" uuid="9c675291-231f-4b58-929a-441b8ba6a186"/>
+					<text><![CDATA[Acción Realizada]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="660" y="0" width="44" height="15" uuid="b7c1fa05-8810-4b4a-9feb-a31418f358bc"/>
+					<text><![CDATA[Prevención Tomada]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<frame>
+				<reportElement x="97" y="1" width="705" height="15" uuid="cccc4e6d-06a5-4789-9d2a-cded57d05268"/>
+				<textField>
+					<reportElement style="Detail" x="0" y="0" width="44" height="15" uuid="60698008-b398-4a9f-a7d7-9499f7cd4cb6"/>
+					<textFieldExpression><![CDATA[$F{DESCRIPCION_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="44" y="0" width="44" height="15" uuid="5dbe0dff-942f-4130-a536-109c1c25ba50"/>
+					<textFieldExpression><![CDATA[$F{ESTADO_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="88" y="0" width="44" height="15" uuid="490566e9-2fcc-4f0a-8d9c-55161d7d143a"/>
+					<textFieldExpression><![CDATA[$F{TIPO_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="132" y="0" width="44" height="15" uuid="75004862-10f9-4f2d-8d57-62133d83d8b2"/>
+					<textFieldExpression><![CDATA[$F{PRIORIDAD_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="176" y="0" width="44" height="15" uuid="5e913284-fb9a-4aa0-8769-85e010e355a1"/>
+					<textFieldExpression><![CDATA[$F{FECHAHORASOLICITUD_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="220" y="0" width="44" height="15" uuid="407911f3-33fd-4772-b977-6684015846ad"/>
+					<textFieldExpression><![CDATA[$F{FECHAHORAREQUERIDA_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="264" y="0" width="44" height="15" uuid="69737700-cd60-420f-91a1-10d34c117e3c"/>
+					<textFieldExpression><![CDATA[$F{RESPUESTA_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="308" y="0" width="44" height="15" uuid="f6ad52e8-3718-4d3c-b773-2ace49739811"/>
+					<textFieldExpression><![CDATA[$F{INICIO_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="352" y="0" width="44" height="15" uuid="4b5d2a0a-dc0a-42e8-8ffb-a2ab9fbc28d0"/>
+					<textFieldExpression><![CDATA[$F{TERMINO_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="396" y="0" width="44" height="15" uuid="dc5fca2a-9d3c-4a13-a880-be158cb3a8a2"/>
+					<textFieldExpression><![CDATA[$F{FECHAHORAENTREGA_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="440" y="0" width="44" height="15" uuid="8af41c25-79ee-42e3-8d59-eefc0cfa410c"/>
+					<textFieldExpression><![CDATA[$F{DURACIONDIAS_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="484" y="0" width="44" height="15" uuid="0c1c2ebc-976a-4800-9166-424ff20bb0ad"/>
+					<textFieldExpression><![CDATA[$F{ACEPTADOPOR_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="528" y="0" width="44" height="15" uuid="265b5615-3043-4077-afac-d242016a9548"/>
+					<textFieldExpression><![CDATA[$F{FALLA_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="572" y="0" width="44" height="15" uuid="1d2039f2-67f4-4c51-ba51-194dadb291fd"/>
+					<textFieldExpression><![CDATA[$F{DESCRIPCIONCAUSA_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="616" y="0" width="44" height="15" uuid="a0caf3b6-d45f-4470-9c9e-32906d3a267c"/>
+					<textFieldExpression><![CDATA[$F{ACCIONREALIZADA_ORDTR}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="660" y="0" width="44" height="15" uuid="d1c3dd99-1b85-4e4b-871e-b836190cdb7a"/>
+					<textFieldExpression><![CDATA[$F{PREVENCIONTOMADA_ORDTR}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="97" y="16" width="705" height="1" uuid="ca9d0a12-ad7f-43bc-8edb-bd6f2dd9381d"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="39" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="671" y="0" width="131" height="20" forecolor="#000000" uuid="553e38f5-164b-4ed2-9280-5c9c1101d3da"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="96" y="0" width="267" height="20" uuid="69d1387d-0a37-4c65-b7d0-562cff8e4e7a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Ordenes de Trabajo]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

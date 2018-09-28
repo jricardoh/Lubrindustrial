@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     articulo.`ID_ART` AS articulo_ID_ART,
+     articulo.`ID_PROV` AS articulo_ID_PROV,
+     articulo.`NRO_ART` AS articulo_NRO_ART,
+     articulo.`DESCRIPCION_ART` AS articulo_DESCRIPCION_ART,
+     articulo.`ESPECIFICACIONES_ART` AS articulo_ESPECIFICACIONES_ART,
+     articulo.`FABRICANTE_ART` AS articulo_FABRICANTE_ART,
+     articulo.`UNIDADMEDIDA_ART` AS articulo_UNIDADMEDIDA_ART,
+     articulo.`COSTOESTANDAR_ART` AS articulo_COSTOESTANDAR_ART,
+     articulo.`MAXIMO_ART` AS articulo_MAXIMO_ART,
+     articulo.`PUNTOREORDEN_ART` AS articulo_PUNTOREORDEN_ART,
+     articulo.`CANTIDADREORDEN_ART` AS articulo_CANTIDADREORDEN_ART,
+     articulo.`MINIMO_ART` AS articulo_MINIMO_ART,
+     articulo.`TIEMPOENTR_NRODIAS_ART` AS articulo_TIEMPOENTR_NRODIAS_ART,
+     articulo.`NOTAS_ART` AS articulo_NOTAS_ART,
+     articulo.`CANTIDAD_ART` AS articulo_CANTIDAD_ART,
+     articulo.`DESCCANTIDAD_ART` AS articulo_DESCCANTIDAD_ART,
+     articulo.`ACTIVO` AS articulo_ACTIVO
+FROM
+     `articulo` articulo]]>
+	</queryString>
+	<field name="articulo_ID_ART" class="java.lang.Integer"/>
+	<field name="articulo_ID_PROV" class="java.lang.Integer"/>
+	<field name="articulo_NRO_ART" class="java.lang.String"/>
+	<field name="articulo_DESCRIPCION_ART" class="java.lang.String"/>
+	<field name="articulo_ESPECIFICACIONES_ART" class="java.lang.String"/>
+	<field name="articulo_FABRICANTE_ART" class="java.lang.String"/>
+	<field name="articulo_UNIDADMEDIDA_ART" class="java.lang.String"/>
+	<field name="articulo_COSTOESTANDAR_ART" class="java.lang.Float"/>
+	<field name="articulo_MAXIMO_ART" class="java.lang.Float"/>
+	<field name="articulo_PUNTOREORDEN_ART" class="java.lang.Float"/>
+	<field name="articulo_CANTIDADREORDEN_ART" class="java.lang.Float"/>
+	<field name="articulo_MINIMO_ART" class="java.lang.Float"/>
+	<field name="articulo_TIEMPOENTR_NRODIAS_ART" class="java.lang.Integer"/>
+	<field name="articulo_NOTAS_ART" class="java.lang.String"/>
+	<field name="articulo_CANTIDAD_ART" class="java.lang.Float"/>
+	<field name="articulo_DESCCANTIDAD_ART" class="java.lang.String"/>
+	<field name="articulo_ACTIVO" class="java.lang.Integer"/>
+	<group name="articulo_NRO_ART">
+		<groupExpression><![CDATA[$F{articulo_NRO_ART}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#333333" />
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{articulo_NRO_ART}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC" />
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<group name="articulo_UNIDADMEDIDA_ART">
+		<groupExpression><![CDATA[$F{articulo_UNIDADMEDIDA_ART}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<textField>
+					<reportElement style="SubTitle" x="0" y="4" width="460" height="20" />
+					<textElement>
+						<font size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{articulo_UNIDADMEDIDA_ART}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="articulo_FABRICANTE_ART">
+		<groupExpression><![CDATA[$F{articulo_FABRICANTE_ART}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="-20" y="0" width="595" height="64" />
+				<imageExpression><![CDATA["wood.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="0" y="5" width="263" height="33" />
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Articulos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="63" y="39" width="200" height="22" forecolor="#FFFFFF" />
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Art]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" 
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="39" height="15" />
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="39" y="19" width="39" height="15" />
+				<text><![CDATA[articulo_ID_PROV]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="78" y="19" width="39" height="15" />
+				<text><![CDATA[articulo_DESCRIPCION_ART]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="117" y="19" width="39" height="15" />
+				<text><![CDATA[articulo_ESPECIFICACIONES_ART]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="156" y="19" width="39" height="15" />
+				<text><![CDATA[articulo_COSTOESTANDAR_ART]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="195" y="19" width="39" height="15" />
+				<text><![CDATA[articulo_MAXIMO_ART]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="234" y="19" width="39" height="15" />
+				<text><![CDATA[articulo_PUNTOREORDEN_ART]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="273" y="19" width="39" height="15" />
+				<text><![CDATA[articulo_CANTIDADREORDEN_ART]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="312" y="19" width="39" height="15" />
+				<text><![CDATA[articulo_MINIMO_ART]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="351" y="19" width="39" height="15" />
+				<text><![CDATA[articulo_TIEMPOENTR_NRODIAS_ART]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="390" y="19" width="39" height="15" />
+				<text><![CDATA[articulo_NOTAS_ART]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="429" y="19" width="39" height="15" />
+				<text><![CDATA[articulo_CANTIDAD_ART]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="468" y="19" width="39" height="15" />
+				<text><![CDATA[articulo_DESCCANTIDAD_ART]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="507" y="19" width="39" height="15" />
+				<text><![CDATA[articulo_ACTIVO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" />
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="39" height="15" 
+				<textFieldExpression><![CDATA[$F{articulo_ID_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="39" y="0" width="39" height="15" />
+				<textFieldExpression><![CDATA[$F{articulo_ID_PROV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="78" y="0" width="39" height="15"/>
+				<textFieldExpression><![CDATA[$F{articulo_DESCRIPCION_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="117" y="0" width="39" height="15" />
+				<textFieldExpression><![CDATA[$F{articulo_ESPECIFICACIONES_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="156" y="0" width="39" height="15" />
+				<textFieldExpression><![CDATA[$F{articulo_COSTOESTANDAR_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="195" y="0" width="39" height="15" />
+				<textFieldExpression><![CDATA[$F{articulo_MAXIMO_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="234" y="0" width="39" height="15" />
+				<textFieldExpression><![CDATA[$F{articulo_PUNTOREORDEN_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="273" y="0" width="39" height="15" />
+				<textFieldExpression><![CDATA[$F{articulo_CANTIDADREORDEN_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="312" y="0" width="39" height="15" />
+				<textFieldExpression><![CDATA[$F{articulo_MINIMO_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="351" y="0" width="39" height="15" />
+				<textFieldExpression><![CDATA[$F{articulo_TIEMPOENTR_NRODIAS_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="390" y="0" width="39" height="15" />
+				<textFieldExpression><![CDATA[$F{articulo_NOTAS_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="429" y="0" width="39" height="15" />
+				<textFieldExpression><![CDATA[$F{articulo_CANTIDAD_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="468" y="0" width="39" height="15" />
+				<textFieldExpression><![CDATA[$F{articulo_DESCCANTIDAD_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="507" y="0" width="39" height="15" />
+				<textFieldExpression><![CDATA[$F{articulo_ACTIVO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" />
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" />
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" />
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" />
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

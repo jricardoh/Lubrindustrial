@@ -1,0 +1,4 @@
+ID EMPLEADO	DEPARTAMENTO	NUMERO	NOMBRE	APELLIDO	CARGO	TELF. TRABAJO	EXTENSION	TELF. PERSONAL	TELF. CASA	EAMIL 1	EMAIL 2	DIRECCION OFICINA	SUELDO	SOBRETIEMPO
+1	Departamento de Sistemas	EMP001	Jhonny	Cajamarca	Especialista TICS	0989097643	314	0987077325	023170481	jho.cjtb72@gmail.com	jocajamarca@espe.edu.ec	Av. Eloy Alfaro y Flores	450.5	22.0
+2	Departamento de Sistemas	EMP002	Ricardo	Herrera	Diseñador gráfico	094578967	234	0968765743	02344574	ricardo@gmail.com	ricardo@hotmail.com	Quito, Obrero Independiente	450.5	22.0
+3	Departamento de Finanzas	EMP003	Carlos	Morales	Electricista	022277527	2253	0988972655	023388622	cmorqales@correo.com	cm@correo2.com	Av. Shyris	230.0	20.0
