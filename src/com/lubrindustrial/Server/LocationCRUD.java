@@ -136,22 +136,62 @@ public class LocationCRUD {
             
             if (resultado.next()) {
                   Location loc = new Location();
+                  System.out.println("Estoy en locacion visualizar");
                   loc.setIdDepartment(resultado.getInt("ID_DEPT"));
                   loc.setIdLocation(resultado.getInt("ID_LOCT"));
                   loc.setNroLocation(resultado.getString("NRO_LOCT"));
                   loc.setDescLocation(resultado.getString("DESCRIPCION_LOCT"));
                   loc.setActivoLocation(resultado.getInt("ACTIVO"));
                   loc.setNameDepartment(resultado.getString("DESCRIPCION_DEPT"));
+                  
                   listaLocs.add(loc);
             }
             
+            conexion.Desconectar();
             return listaLocs;
 
         } catch (SQLException ex){
             System.err.println("Error en devolver registros LOCATIONS: " + ex.getMessage());
             ex.printStackTrace();
-            
+            conexion.Desconectar();
             return new ArrayList<Location>();
+        }
+    }
+    
+    public Location obtenerLocation(int cod){
+        Location loc = new Location();
+        Conexion conexion = new Conexion(this.host);
+        conexion.Conectar();
+        ResultSet resultado=null;
+        try{
+            conexion.getStmt();
+            //resultado= conexion.getStmt().executeQuery("SELECT * FROM LOCACION WHERE ACTIVO <> 0");
+            resultado= conexion.getStmt().executeQuery("SELECT l.ID_DEPT, l.ID_LOCT, l.NRO_LOCT, l.DESCRIPCION_LOCT, d.DESCRIPCION_DEPT, l.ACTIVO " +
+                                                        "FROM DEPARTAMENTO d JOIN LOCACION l " +
+                                                        "ON (d.ID_DEPT = l.ID_DEPT) " +
+                                                        "WHERE l.ACTIVO <> 0 and l.ID_LOC="+cod);
+            /*SELECT l.ID_DEPT, l.ID_LOCT, l.NRO_LOCT, l.DESCRIPCION_LOCT, d.DESCRIPCION_DEPT, l.ACTIVO
+              FROM DEPARTAMENTO d JOIN LOCACION l
+              ON (d.ID_DEPT = l.ID_DEPT)*/
+            
+            if (resultado.next()) {
+  
+                  loc.setIdDepartment(resultado.getInt("ID_DEPT"));
+                  loc.setIdLocation(resultado.getInt("ID_LOCT"));
+                  loc.setNroLocation(resultado.getString("NRO_LOCT"));
+                  loc.setDescLocation(resultado.getString("DESCRIPCION_LOCT"));
+                  loc.setActivoLocation(resultado.getInt("ACTIVO"));
+                  loc.setNameDepartment(resultado.getString("DESCRIPCION_DEPT"));
+                 
+            }
+            
+            return loc;
+
+        } catch (SQLException ex){
+            System.err.println("Error en devolver registros LOCATIONS: " + ex.getMessage());
+            ex.printStackTrace();
+            
+            return new Location();
         }
     }
     

@@ -151,7 +151,7 @@ public class EquipmentCRUD {
             // ojo con el where activo <>0
             resultado = conexion.getStmt().executeQuery("SELECT eq.ID_EMP,eq.ID_LOCT,lo.DESCRIPCION_LOCT,eq.ID_EQ,eq.DESCRIPCION_EQ, eq.IDPADRE_EQ,eq.DESCRIPCION_EQ,eq.ID_EQ,eq.DESCRIPCION_EQ,eq.NRO_EQ,"
                     + "eq.NROMODELO_EQ,eq.NROSERIE_EQ,eq.TIPO_EQ,eq.ESTADO_EQ,eq.FABRICANTE_EQ,eq.FECHACOMPRA_EQ,eq.FECHAINI_EQ,eq.FECHAVEN_EQ,eq.CONTRATISTA_EQ,"
-                    + "eq.ACTIVO,de.ID_DEPT,de.DESCRIPCION_DEPT,em.NOMBRE_EMP,EM.APELLIDO_EMP,eq.PIEZAS_EQ "
+                    + "eq.ACTIVO,de.ID_DEPT,de.DESCRIPCION_DEPT,em.NOMBRE_EMP,EM.APELLIDO_EMP,eq.PIEZAS_EQ,eq.FOTO_EQ "
                     + "FROM EQUIPO eq JOIN EMPLEADO em JOIN LOCACION lo JOIN DEPARTAMENTO de "
                     + "ON(em.ID_EMP=eq.ID_EMP and eq.ID_LOCT=lo.ID_LOCT and lo.ID_DEPT=de.ID_DEPT) "
                     + "WHERE eq.ACTIVO <> 0");
@@ -185,6 +185,7 @@ public class EquipmentCRUD {
                 equi.setDescLoc(resultado.getString("DESCRIPCION_LOCT"));
                 equi.setDescEmple(resultado.getString("NOMBRE_EMP") + " " + resultado.getString("APELLIDO_EMP"));
                 equi.setPiezas(resultado.getString("PIEZAS_EQ"));
+                equi.setFoto(resultado.getString("FOTO_EQ"));
                 listaEqui.add(equi);
                 if (equi.getIdPadreEq() != 0) {
                     resultado2 = conexion2.getStmt().executeQuery("SELECT NRO_EQ,DESCRIPCION_EQ FROM EQUIPO WHERE ID_EQ=" + equi.getIdPadreEq() + " and ACTIVO <> 0");
@@ -225,7 +226,7 @@ public class EquipmentCRUD {
             // ojo con el where activo <>0
             resultado = conexion.getStmt().executeQuery("SELECT eq.ID_EMP,eq.ID_LOCT,lo.DESCRIPCION_LOCT,eq.ID_EQ,eq.DESCRIPCION_EQ, eq.IDPADRE_EQ,eq.DESCRIPCION_EQ,eq.ID_EQ,eq.DESCRIPCION_EQ,eq.NRO_EQ,"
                     + "eq.NROMODELO_EQ,eq.NROSERIE_EQ,eq.TIPO_EQ,eq.ESTADO_EQ,eq.FABRICANTE_EQ,eq.FECHACOMPRA_EQ,eq.FECHAINI_EQ,eq.FECHAVEN_EQ,eq.CONTRATISTA_EQ,"
-                    + "eq.ACTIVO,de.ID_DEPT,de.DESCRIPCION_DEPT "
+                    + "eq.ACTIVO,de.ID_DEPT,de.DESCRIPCION_DEPT,em.NOMBRE_EMP,EM.APELLIDO_EMP,eq.PIEZAS_EQ, eq.FOTO_EQ "
                     + "FROM EQUIPO eq JOIN EMPLEADO em JOIN LOCACION lo JOIN DEPARTAMENTO de "
                     + "ON(em.ID_EMP=eq.ID_EMP and eq.ID_LOCT=lo.ID_LOCT and lo.ID_DEPT=de.ID_DEPT) "
                     + "WHERE eq.ACTIVO <> 0 AND eq.ID_EQ = '" + idEquipment + "'");
@@ -256,6 +257,10 @@ public class EquipmentCRUD {
                 equi.setFechaVentEquipment(resultado.getString("FECHAVEN_EQ"));
                 equi.setContratistaEquipment(resultado.getString("CONTRATISTA_EQ"));
                 equi.setActivoEquipment(resultado.getInt("ACTIVO"));
+                equi.setDescLoc(resultado.getString("DESCRIPCION_LOCT"));
+                equi.setDescEmple(resultado.getString("NOMBRE_EMP") + " " + resultado.getString("APELLIDO_EMP"));
+                equi.setPiezas(resultado.getString("PIEZAS_EQ"));
+                equi.setFoto(resultado.getString("FOTO_EQ"));
                 listaEqui.add(equi);
                 if (equi.getIdPadreEq() != 0) {
                     resultado2 = conexion2.getStmt().executeQuery("SELECT NRO_EQ,DESCRIPCION_EQ FROM EQUIPO WHERE ID_EQ=" + equi.getIdPadreEq() + " and ACTIVO <> 0");
@@ -321,6 +326,7 @@ public class EquipmentCRUD {
                 equi.setFechaVentEquipment(resultado.getString("FECHAVEN_EQ"));
                 equi.setContratistaEquipment(resultado.getString("CONTRATISTA_EQ"));
                 equi.setActivoEquipment(resultado.getInt("ACTIVO"));
+                
 //                listaEqui.add(equi);
                 if (equi.getIdPadreEq() != 0) {
                     resultado2 = conexion2.getStmt().executeQuery("SELECT NRO_EQ,DESCRIPCION_EQ FROM EQUIPO WHERE ID_EQ=" + equi.getIdPadreEq() + " and ACTIVO <> 0");

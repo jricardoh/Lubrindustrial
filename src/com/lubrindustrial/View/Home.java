@@ -73,7 +73,7 @@ public class Home extends javax.swing.JFrame {
         mostrarIP();
         this.user = us;
         inicializarFrames();
-        System.out.println("sa:" + user.getNomUser());
+        //System.out.println("sa:" + user.getNomUser());
         this.host = hostname;
 
     }

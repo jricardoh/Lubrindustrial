@@ -15,44 +15,70 @@ import com.lubrindustrial.Server.Equipment;
 import com.lubrindustrial.Server.EquipmentCRUD;
 import com.lubrindustrial.Server.Location;
 import com.lubrindustrial.Server.LocationCRUD;
+import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 
 
-public class EquipmentNew extends javax.swing.JInternalFrame {
+public class EquipmentView extends javax.swing.JInternalFrame {
 
     ArrayList<Employee> empleados = new ArrayList<Employee>();
     ArrayList<Location> locaciones = new ArrayList<Location>();
     ArrayList<Equipment> equipos = new ArrayList<Equipment>();
+    User user = new User();
+    public static String ruta="";
 
-    public EquipmentNew() {
+    public EquipmentView() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
         }catch(Exception e){
             System.err.println(e.getMessage());
         }
         initComponents();
+                //System.out.println("ruta txt: "+txt_foto1.getText());
+        //txt_foto.setVisible(false);
         this.setIconifiable(true);
         this.setClosable(true);
-        llenarComboBoxLoc();
-        llenarComboBoxEquiposPadres();
-        llenarComboBoxResponsable();
+        lblID.setVisible(false);
+        lblID.setEnabled(false);
+//        this.setLocationRelativeTo(null);
+//        rsscalelabel.RSScaleLabel.setScaleLabel(lblImage, "carburador.jpg");
+        cargarFoto();
+
     }
 
+    public EquipmentView(User us) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        //System.out.println("ruta txt: "+txt_foto1.getText());
+        //txt_foto.setVisible(false);
+        this.setIconifiable(true);
+        this.setClosable(true);
+        lblID.setVisible(false);
+        lblID.setEnabled(false);
+        
+        user = us;
+        cargarFoto();
+    }
+    
     private void Volver(){
         Equipments obj = new Equipments();
         Home.escritorio.add(obj);
@@ -64,6 +90,20 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
         //
         obj.show();
+    }
+    
+    private void cargarFoto(){
+//        ruta="C:\\Users\\Marcelo\\Desktop\\LUBRINDUSTRIALES_TRABAJO\\FINAL_OCTUBRE\\Lubrindustrial-master\\FotosEquipos\\cald.jpg";
+        //ruta=txt_foto1.getText();
+        System.out.println("ruta: "+ruta);
+        try{
+            ImageIcon icon = new ImageIcon(ruta);
+            Icon icono = new ImageIcon(icon.getImage().getScaledInstance(110, 110, Image.SCALE_DEFAULT));
+            lblImage.setText(null);            
+            lblImage.setIcon( icono );
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Error abriendo la imagen "+ ex);       
+        }
     }
     
      public static Date ParseFecha(String fecha)
@@ -80,40 +120,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         return fechaDate;
     }
     
-    private void llenarComboBoxResponsable(){
-        
-        EmployeeCRUD empCRUD = new EmployeeCRUD();
-        empleados = empCRUD.visualizar(); // devuelve todos los registros de la BD
-        cbox_responsable.removeAllItems();
-
-        for (Employee e : empleados) {
-            cbox_responsable.addItem(e.getIdEmployee() + " " + e.getNomEmployee() + " "+ e.getApeEmployee());
-        }
-    } 
-   
-    private void llenarComboBoxEquiposPadres(){
-        
-        EquipmentCRUD equipCRUD = new EquipmentCRUD();
-        equipos = equipCRUD.visualizar(); // devuelve todos los registros de la BD
-        cbox_padreEQ.removeAllItems();
-
-        cbox_padreEQ.addItem("Ninguno");
-        for (Equipment e : equipos) {
-            cbox_padreEQ.addItem(e.getIdEquipment() + " " + e.getDescEquipment());
-        }
-    }
-     
-    private void llenarComboBoxLoc() {
-        
-        LocationCRUD locCRUD = new LocationCRUD();
-        locaciones = locCRUD.visualizar(); // devuelve todos los registros de la BD
-        cbox_location1.removeAllItems();
-        System.out.println("Tamaño locaciones: "+locaciones.size());
-        for (Location l : locaciones) {
-            cbox_location1.addItem(l.getIdLocation() + " " + l.getDescLocation());
-        }
-    }
-
+    
     
 
     /**
@@ -127,7 +134,6 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
 
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jButton12 = new javax.swing.JButton();
         jLabel25 = new javax.swing.JLabel();
         txt_DescEquipment = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
@@ -148,23 +154,24 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         txt_ContratistaEquipment = new javax.swing.JTextField();
-        txt_NroEquipment = new javax.swing.JTextField();
-        cbox_padreEQ = new javax.swing.JComboBox<>();
-        btnSave1 = new javax.swing.JButton();
+        txt_EqPadre = new javax.swing.JTextField();
         btnCancelar1 = new javax.swing.JButton();
         txt_FechaIniEquipment = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        cbox_location1 = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        cbox_responsable = new javax.swing.JComboBox<>();
         jLabel36 = new javax.swing.JLabel();
-        txt_Piezas = new javax.swing.JTextField();
+        txt_foto1 = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
-        txt_foto = new javax.swing.JTextField();
+        lblImage = new javax.swing.JLabel();
+        txt_NroEquipment1 = new javax.swing.JTextField();
+        txt_Locacion = new javax.swing.JTextField();
+        txt_Responsable = new javax.swing.JTextField();
+        txt_Piezas1 = new javax.swing.JTextField();
+        lblID = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(true);
-        setTitle("Nuevo Equipo");
+        setTitle("Detalles de Equipo");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -173,13 +180,10 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         jLabel8.setText("Equipo Padre");
         jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, 20));
 
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/eraser.png"))); // NOI18N
-        jButton12.setText("Limpiar campos");
-        jPanel4.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, -1, -1));
-
         jLabel25.setText("Descripción");
         jPanel4.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, 20));
 
+        txt_DescEquipment.setEditable(false);
         txt_DescEquipment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_DescEquipmentActionPerformed(evt);
@@ -198,6 +202,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         jLabel26.setText("No. Modelo");
         jPanel4.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, 20));
 
+        txt_NroModEquipment.setEditable(false);
         txt_NroModEquipment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_NroModEquipmentActionPerformed(evt);
@@ -216,6 +221,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         jLabel27.setText("No. Serie");
         jPanel4.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, 20));
 
+        txt_NroSerieEquipment.setEditable(false);
         txt_NroSerieEquipment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_NroSerieEquipmentActionPerformed(evt);
@@ -234,6 +240,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         jLabel28.setText("Tipo de Equipo");
         jPanel4.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, 20));
 
+        txt_TipoEquipment.setEditable(false);
         txt_TipoEquipment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_TipoEquipmentActionPerformed(evt);
@@ -252,6 +259,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         jLabel29.setText("Estado");
         jPanel4.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, -1, 20));
 
+        txt_EstadoEquipment.setEditable(false);
         txt_EstadoEquipment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_EstadoEquipmentActionPerformed(evt);
@@ -273,6 +281,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         jLabel31.setText("Fabricante");
         jPanel4.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, -1, 20));
 
+        txt_FabricEquipment.setEditable(false);
         txt_FabricEquipment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_FabricEquipmentActionPerformed(evt);
@@ -291,6 +300,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         jLabel32.setText("Fecha de Compra");
         jPanel4.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, -1, 20));
 
+        txt_FechaCompEquipment.setEditable(false);
         txt_FechaCompEquipment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_FechaCompEquipmentActionPerformed(evt);
@@ -309,6 +319,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         jLabel33.setText("Fecha Inicial");
         jPanel4.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, 20));
 
+        txt_FechaVentEquipment.setEditable(false);
         txt_FechaVentEquipment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_FechaVentEquipmentActionPerformed(evt);
@@ -330,6 +341,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         jLabel35.setText("Contratista");
         jPanel4.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, -1, 20));
 
+        txt_ContratistaEquipment.setEditable(false);
         txt_ContratistaEquipment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_ContratistaEquipmentActionPerformed(evt);
@@ -345,37 +357,21 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         });
         jPanel4.add(txt_ContratistaEquipment, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 153, -1));
 
-        txt_NroEquipment.addActionListener(new java.awt.event.ActionListener() {
+        txt_EqPadre.setEditable(false);
+        txt_EqPadre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_NroEquipmentActionPerformed(evt);
+                txt_EqPadreActionPerformed(evt);
             }
         });
-        txt_NroEquipment.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_EqPadre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_NroEquipmentKeyReleased(evt);
+                txt_EqPadreKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_NroEquipmentKeyTyped(evt);
+                txt_EqPadreKeyTyped(evt);
             }
         });
-        jPanel4.add(txt_NroEquipment, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 153, -1));
-
-        cbox_padreEQ.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbox_padreEQActionPerformed(evt);
-            }
-        });
-        jPanel4.add(cbox_padreEQ, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 150, -1));
-
-        btnSave1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        btnSave1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/guardar.png"))); // NOI18N
-        btnSave1.setText("Guardar");
-        btnSave1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSave1ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(btnSave1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, -1, -1));
+        jPanel4.add(txt_EqPadre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 153, -1));
 
         btnCancelar1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/cancelar.png"))); // NOI18N
@@ -385,8 +381,9 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
                 btnCancelar1ActionPerformed(evt);
             }
         });
-        jPanel4.add(btnCancelar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, -1, -1));
+        jPanel4.add(btnCancelar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, 150, -1));
 
+        txt_FechaIniEquipment.setEditable(false);
         txt_FechaIniEquipment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_FechaIniEquipmentActionPerformed(evt);
@@ -405,65 +402,108 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         jLabel9.setText("Id de Locación");
         jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, 20));
 
-        cbox_location1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbox_location1ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(cbox_location1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 150, -1));
-
         jLabel10.setText("Responsable");
         jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, 20));
-
-        cbox_responsable.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbox_responsableActionPerformed(evt);
-            }
-        });
-        jPanel4.add(cbox_responsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 150, -1));
 
         jLabel36.setText("Piezas");
         jPanel4.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, -1, 20));
 
-        txt_Piezas.addActionListener(new java.awt.event.ActionListener() {
+        txt_foto1.setEditable(false);
+        txt_foto1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_PiezasActionPerformed(evt);
+                txt_foto1ActionPerformed(evt);
             }
         });
-        txt_Piezas.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_foto1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_PiezasKeyReleased(evt);
+                txt_foto1KeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_PiezasKeyTyped(evt);
+                txt_foto1KeyTyped(evt);
             }
         });
-        jPanel4.add(txt_Piezas, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, 153, -1));
+        jPanel4.add(txt_foto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 153, -1));
 
-        jLabel37.setText("Foto");
+        jLabel37.setText("Imagen");
         jPanel4.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 230, -1, 20));
 
-        txt_foto.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImage.setText("Imagen");
+        lblImage.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblImage.setPreferredSize(new java.awt.Dimension(45, 15));
+        lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txt_fotoMouseClicked(evt);
+                lblImageMouseClicked(evt);
             }
         });
-        txt_foto.addActionListener(new java.awt.event.ActionListener() {
+        jPanel4.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 110, 110));
+
+        txt_NroEquipment1.setEditable(false);
+        txt_NroEquipment1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_fotoActionPerformed(evt);
+                txt_NroEquipment1ActionPerformed(evt);
             }
         });
-        txt_foto.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_NroEquipment1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_fotoKeyReleased(evt);
+                txt_NroEquipment1KeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_fotoKeyTyped(evt);
+                txt_NroEquipment1KeyTyped(evt);
             }
         });
-        jPanel4.add(txt_foto, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 230, 153, -1));
+        jPanel4.add(txt_NroEquipment1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 153, -1));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 660, 340));
+        txt_Locacion.setEditable(false);
+        txt_Locacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_LocacionActionPerformed(evt);
+            }
+        });
+        txt_Locacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_LocacionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_LocacionKeyTyped(evt);
+            }
+        });
+        jPanel4.add(txt_Locacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 153, -1));
+
+        txt_Responsable.setEditable(false);
+        txt_Responsable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_ResponsableActionPerformed(evt);
+            }
+        });
+        txt_Responsable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_ResponsableKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_ResponsableKeyTyped(evt);
+            }
+        });
+        jPanel4.add(txt_Responsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 153, -1));
+
+        txt_Piezas1.setEditable(false);
+        txt_Piezas1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_Piezas1ActionPerformed(evt);
+            }
+        });
+        txt_Piezas1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_Piezas1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_Piezas1KeyTyped(evt);
+            }
+        });
+        jPanel4.add(txt_Piezas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, 153, -1));
+
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 660, 360));
+        getContentPane().add(lblID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 40, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -576,84 +616,17 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_ContratistaEquipmentKeyTyped
 
-    private void txt_NroEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_NroEquipmentActionPerformed
+    private void txt_EqPadreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_EqPadreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_NroEquipmentActionPerformed
+    }//GEN-LAST:event_txt_EqPadreActionPerformed
 
-    private void txt_NroEquipmentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_NroEquipmentKeyReleased
+    private void txt_EqPadreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_EqPadreKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_NroEquipmentKeyReleased
+    }//GEN-LAST:event_txt_EqPadreKeyReleased
 
-    private void txt_NroEquipmentKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_NroEquipmentKeyTyped
+    private void txt_EqPadreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_EqPadreKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_NroEquipmentKeyTyped
-
-    private void cbox_padreEQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_padreEQActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbox_padreEQActionPerformed
-
-    private void btnSave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave1ActionPerformed
-
-        EquipmentCRUD equiCRUD = new EquipmentCRUD();
-        Equipment e = new Equipment();
-        String cadEquip="",cadLoc="",cadEmple="";
-        
-        try{
-            cadLoc=cbox_location1.getSelectedItem().toString();
-            String []splitLoc = cadLoc.split(" ");
-            cadLoc = splitLoc[0];
-                      
-            cadEmple=cbox_responsable.getSelectedItem().toString();
-            String []splitEm = cadEmple.split(" ");
-            cadEmple = splitEm[0];
-            
-            if(cbox_padreEQ.getItemCount()==1){
-                e.setIdPadreEq(0);
-            }else{
-                if(cbox_padreEQ.getSelectedItem().toString().equals("Ninguno")){
-                    e.setIdPadreEq(0);
-                    System.out.println("Registro de un padre");
-                }else{
-                    cadEquip=cbox_padreEQ.getSelectedItem().toString();
-                    String []splitPadre = cadEquip.split(" ");
-                    cadEquip = splitPadre[0];
-                    e.setIdPadreEq(Integer.parseInt(cadEquip));
-                }
-                
-            }
-                
-            //e.setIdEquipment(Integer.parseInt(txt_idEquipment.getText()));
-            
-            e.setIdLocation(Integer.parseInt(cadLoc));
-            e.setIdEmployee(Integer.parseInt(cadEmple));
-            
-            e.setNroEquipment(txt_NroEquipment.getText());
-            e.setDescEquipment(txt_DescEquipment.getText());
-            e.setNroModEquipment(txt_NroModEquipment.getText());
-            e.setNroSerieEquipment(txt_NroSerieEquipment.getText());
-            e.setTipoEquipment(txt_TipoEquipment.getText());
-            e.setEstadoEquipment(txt_EstadoEquipment.getText());
-            e.setFabricEquipment(txt_FabricEquipment.getText());
-            e.setFechaCompEquipment((txt_FechaCompEquipment.getText()));
-            e.setFechaIniEquipment((txt_FechaIniEquipment.getText()));
-            e.setFechaVentEquipment((txt_FechaVentEquipment.getText()));
-            e.setContratistaEquipment(txt_ContratistaEquipment.getText());
-            e.setPiezas(txt_Piezas.getText());
-            e.setFoto(txt_foto.getText());
-            e.setActivoEquipment(1);
-
-            if(equiCRUD.insertar(e)){
-                JOptionPane.showMessageDialog(null, "EQUIPO REGISTRADO","REGISTRO EXITOSO",JOptionPane.INFORMATION_MESSAGE);
-                Volver();
-            }else{
-                JOptionPane.showMessageDialog(null, "EQUIPO NO REGISTRADO","ERROR EN EL REGISTRO", JOptionPane.ERROR_MESSAGE);
-            }
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Error obtener los datos", "ERROR DATOS", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Excepcion "+ex.getMessage());
-        }
-
-    }//GEN-LAST:event_btnSave1ActionPerformed
+    }//GEN-LAST:event_txt_EqPadreKeyTyped
 
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
         Volver();
@@ -673,60 +646,71 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_FechaIniEquipmentKeyTyped
 
-    private void cbox_location1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_location1ActionPerformed
+    private void txt_foto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_foto1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbox_location1ActionPerformed
+    }//GEN-LAST:event_txt_foto1ActionPerformed
 
-    private void cbox_responsableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_responsableActionPerformed
+    private void txt_foto1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_foto1KeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbox_responsableActionPerformed
+    }//GEN-LAST:event_txt_foto1KeyReleased
 
-    private void txt_PiezasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_PiezasActionPerformed
+    private void txt_foto1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_foto1KeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_PiezasActionPerformed
+    }//GEN-LAST:event_txt_foto1KeyTyped
 
-    private void txt_PiezasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_PiezasKeyReleased
+    private void txt_NroEquipment1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_NroEquipment1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_PiezasKeyReleased
+    }//GEN-LAST:event_txt_NroEquipment1ActionPerformed
 
-    private void txt_PiezasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_PiezasKeyTyped
+    private void txt_NroEquipment1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_NroEquipment1KeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_PiezasKeyTyped
+    }//GEN-LAST:event_txt_NroEquipment1KeyReleased
 
-    private void txt_fotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_fotoActionPerformed
+    private void txt_NroEquipment1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_NroEquipment1KeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_fotoActionPerformed
+    }//GEN-LAST:event_txt_NroEquipment1KeyTyped
 
-    private void txt_fotoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_fotoKeyReleased
+    private void txt_LocacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_LocacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_fotoKeyReleased
+    }//GEN-LAST:event_txt_LocacionActionPerformed
 
-    private void txt_fotoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_fotoKeyTyped
+    private void txt_LocacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_LocacionKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_fotoKeyTyped
+    }//GEN-LAST:event_txt_LocacionKeyReleased
 
-    private void txt_fotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_fotoMouseClicked
+    private void txt_LocacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_LocacionKeyTyped
         // TODO add your handling code here:
-        String path="";
-        try{
- 
-            JFileChooser explorador = new JFileChooser();
-            explorador.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-            explorador.showOpenDialog(explorador);
-            
-            path=explorador.getSelectedFile().getAbsolutePath();
-            String abs=explorador.getSelectedFile().getAbsolutePath();
-            String rel=explorador.getSelectedFile().getPath();
-//            System.out.println("abs: "+abs);
-//            System.out.println("rel: "+rel);
-//            System.out.println(path);
-            txt_foto.setText(path);
-            
-        }catch(Exception ex){
-            System.out.println(""+ex.getMessage());
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_txt_fotoMouseClicked
+    }//GEN-LAST:event_txt_LocacionKeyTyped
+
+    private void txt_ResponsableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ResponsableActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_ResponsableActionPerformed
+
+    private void txt_ResponsableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ResponsableKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_ResponsableKeyReleased
+
+    private void txt_ResponsableKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ResponsableKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_ResponsableKeyTyped
+
+    private void txt_Piezas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_Piezas1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_Piezas1ActionPerformed
+
+    private void txt_Piezas1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_Piezas1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_Piezas1KeyReleased
+
+    private void txt_Piezas1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_Piezas1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_Piezas1KeyTyped
+
+    private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
+        // TODO add your handling code here:
+        frmFotoMaximiza obj = new frmFotoMaximiza(ruta);
+        obj.show();
+    }//GEN-LAST:event_lblImageMouseClicked
 public void validarletra(java.awt.event.KeyEvent evt)
 {
     char c=evt.getKeyChar();
@@ -739,11 +723,6 @@ public void validarletra(java.awt.event.KeyEvent evt)
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar1;
-    private javax.swing.JButton btnSave1;
-    private javax.swing.JComboBox<String> cbox_location1;
-    private javax.swing.JComboBox<String> cbox_padreEQ;
-    private javax.swing.JComboBox<String> cbox_responsable;
-    private javax.swing.JButton jButton12;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -761,18 +740,23 @@ public void validarletra(java.awt.event.KeyEvent evt)
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField txt_ContratistaEquipment;
-    private javax.swing.JTextField txt_DescEquipment;
-    private javax.swing.JTextField txt_EstadoEquipment;
-    private javax.swing.JTextField txt_FabricEquipment;
-    private javax.swing.JTextField txt_FechaCompEquipment;
-    private javax.swing.JTextField txt_FechaIniEquipment;
-    private javax.swing.JTextField txt_FechaVentEquipment;
-    private javax.swing.JTextField txt_NroEquipment;
-    private javax.swing.JTextField txt_NroModEquipment;
-    private javax.swing.JTextField txt_NroSerieEquipment;
-    private javax.swing.JTextField txt_Piezas;
-    private javax.swing.JTextField txt_TipoEquipment;
-    private javax.swing.JTextField txt_foto;
+    public static javax.swing.JLabel lblID;
+    private javax.swing.JLabel lblImage;
+    public static javax.swing.JTextField txt_ContratistaEquipment;
+    public static javax.swing.JTextField txt_DescEquipment;
+    public static javax.swing.JTextField txt_EqPadre;
+    public static javax.swing.JTextField txt_EstadoEquipment;
+    public static javax.swing.JTextField txt_FabricEquipment;
+    public static javax.swing.JTextField txt_FechaCompEquipment;
+    public static javax.swing.JTextField txt_FechaIniEquipment;
+    public static javax.swing.JTextField txt_FechaVentEquipment;
+    public static javax.swing.JTextField txt_Locacion;
+    public static javax.swing.JTextField txt_NroEquipment1;
+    public static javax.swing.JTextField txt_NroModEquipment;
+    public static javax.swing.JTextField txt_NroSerieEquipment;
+    public static javax.swing.JTextField txt_Piezas1;
+    public static javax.swing.JTextField txt_Responsable;
+    public static javax.swing.JTextField txt_TipoEquipment;
+    public static javax.swing.JTextField txt_foto1;
     // End of variables declaration//GEN-END:variables
 }

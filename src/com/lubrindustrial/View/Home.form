@@ -271,9 +271,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton7">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="D:\Software lubricantes\AVANCE FINAL 24-09-2018\Lubrindustrial_v25\Lubrindustrial\src\com\lubrindustrial\Icons\engr-.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Proveedores"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -285,9 +282,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton8">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="D:\Software lubricantes\AVANCE FINAL 24-09-2018\Lubrindustrial_v25\Lubrindustrial\src\com\lubrindustrial\Icons\Fondo-.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Instrucciones"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>

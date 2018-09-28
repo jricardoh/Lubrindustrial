@@ -80,8 +80,8 @@ public class Equipments extends javax.swing.JInternalFrame {
 
         for (Equipment e : equipos) {
             datos[0] = Integer.toString(e.getIdEquipment());
-            datos[1] = Integer.toString(e.getIdLocation());
-            datos[2] = Integer.toString(e.getIdEmployee());
+            datos[1] = Integer.toString(e.getIdLocation())+" "+e.getDescLoc();
+            datos[2] = Integer.toString(e.getIdEmployee())+" "+e.getDescEmple();
             datos[3] = e.getNroEquipment();
             datos[4] = e.getDescEquipment();
             datos[5] = e.getNroModEquipment();
@@ -94,9 +94,9 @@ public class Equipments extends javax.swing.JInternalFrame {
             datos[12] = e.getFechaVentEquipment().toString();
             datos[13] = e.getContratistaEquipment();
             datos[14] = e.getPiezas();
-            datos[15] = e.getFoto();
+            datos[15] = e.getDescEquipPadre();
             //datos[14] = Integer.toString(e.getActivoEquipment());
-            datos[16] = e.getDescEquipPadre();
+            //datos[16] = e.getDescEquipPadre();
             model.addRow(datos);
         }
 
@@ -108,13 +108,13 @@ public class Equipments extends javax.swing.JInternalFrame {
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
         EquipmentCRUD equiCRUD = new EquipmentCRUD();
-
+        
         equipos = equiCRUD.visualizar(idEquipment); // devuelve todos los registros de la BD
 
         for (Equipment e : equipos) {
             datos[0] = Integer.toString(e.getIdEquipment());
-            datos[1] = Integer.toString(e.getIdLocation());
-            datos[2] = Integer.toString(e.getIdEmployee());
+            datos[1] = Integer.toString(e.getIdLocation())+" "+e.getDescLoc();
+            datos[2] = Integer.toString(e.getIdEmployee())+" "+e.getDescEmple();
             datos[3] = e.getNroEquipment();
             datos[4] = e.getDescEquipment();
             datos[5] = e.getNroModEquipment();
@@ -140,9 +140,11 @@ public class Equipments extends javax.swing.JInternalFrame {
         EmployeeCRUD empCRUD = new EmployeeCRUD();
         empleados = empCRUD.visualizar(); // devuelve todos los registros de la BD
         EquipmentEdit.cbox_responsable.removeAllItems();
+        //EquipmentView.cbox_responsable.removeAllItems();
 
         for (Employee e : empleados) {
             EquipmentEdit.cbox_responsable.addItem(e.getIdEmployee() + " " + e.getNomEmployee() + " " + e.getApeEmployee());
+            //EquipmentView.cbox_responsable.addItem(e.getIdEmployee() + " " + e.getNomEmployee() + " " + e.getApeEmployee());
         }
     }
 
@@ -151,10 +153,12 @@ public class Equipments extends javax.swing.JInternalFrame {
         EquipmentCRUD equipCRUD = new EquipmentCRUD();
         equipos = equipCRUD.visualizar(); // devuelve todos los registros de la BD
         EquipmentEdit.cbox_padreEQ.removeAllItems();
-
+        //EquipmentView.cbox_padreEQ.removeAllItems();
+        
         EquipmentEdit.cbox_padreEQ.addItem("Ninguno");
         for (Equipment e : equipos) {
             EquipmentEdit.cbox_padreEQ.addItem(e.getIdEquipment() + " " + e.getDescEquipment());
+            //EquipmentView.cbox_padreEQ.addItem(e.getIdEquipment() + " " + e.getDescEquipment());
         }
     }
 
@@ -163,9 +167,11 @@ public class Equipments extends javax.swing.JInternalFrame {
         LocationCRUD locCRUD = new LocationCRUD();
         locaciones = locCRUD.visualizar(); // devuelve todos los registros de la BD
         EquipmentEdit.cbox_location.removeAllItems();
-
+        //EquipmentView.cbox_location.removeAllItems();
+        
         for (Location l : locaciones) {
             EquipmentEdit.cbox_location.addItem(l.getIdLocation() + " " + l.getDescLocation());
+            //EquipmentView.cbox_location.addItem(l.getIdLocation() + " " + l.getDescLocation());
         }
     }
 
@@ -189,11 +195,11 @@ public class Equipments extends javax.swing.JInternalFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnArbol = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -279,7 +285,7 @@ public class Equipments extends javax.swing.JInternalFrame {
                 .addComponent(cbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtInput, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -310,14 +316,6 @@ public class Equipments extends javax.swing.JInternalFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/door_exit.png"))); // NOI18N
-        jButton3.setText("Cerrar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
             }
         });
 
@@ -353,6 +351,14 @@ public class Equipments extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/door_exit.png"))); // NOI18N
+        jButton3.setText("Detalles");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -360,22 +366,25 @@ public class Equipments extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
                         .addComponent(btnArbol)
                         .addGap(4, 4, 4)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDelete)
-                        .addGap(13, 13, 13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(jButton3))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,11 +393,13 @@ public class Equipments extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(btnEdit)
-                    .addComponent(btnDelete)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton3))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnEdit)
+                        .addComponent(btnDelete))
                     .addComponent(jButton4)
-                    .addComponent(jButton3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -405,6 +416,9 @@ public class Equipments extends javax.swing.JInternalFrame {
 
     private void tab_equipmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab_equipmentMouseClicked
 
+        if(evt.getClickCount()==2){
+            
+        }
     }//GEN-LAST:event_tab_equipmentMouseClicked
 
     private void txtInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInputActionPerformed
@@ -519,7 +533,47 @@ public class Equipments extends javax.swing.JInternalFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
 //        this.dispose();
-        this.doDefaultCloseAction();
+        //this.doDefaultCloseAction();
+        int filasel = tab_equipment.getSelectedRow();
+        if (filasel == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione primero la columna");
+        } else {
+            EquipmentView obj = new EquipmentView();
+            Home.escritorio.add(obj);
+            obj.toFront();
+            //centrar
+            //Para centrar la ventana abierta
+            Dimension dimension = escritorio.getSize();
+            Dimension FrameSize = obj.getSize();
+            obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
+            obj.show();
+            this.dispose();
+
+            String dat[] = new String[18];
+            dat = arregloEquipos(Integer.parseInt(tab_equipment.getValueAt(filasel, 0).toString()));
+            //EquipmentView.lblID.setText(dat[0]);
+            EquipmentView.txt_NroEquipment1.setText(dat[0]);
+            EquipmentView.txt_EqPadre.setText(dat[3]);
+            EquipmentView.txt_DescEquipment.setText(dat[4]);
+            EquipmentView.txt_NroModEquipment.setText(dat[5]);
+            EquipmentView.txt_NroSerieEquipment.setText(dat[6]);
+            EquipmentView.txt_TipoEquipment.setText(dat[7]);
+            EquipmentView.txt_EstadoEquipment.setText(dat[8]);
+            EquipmentView.txt_FabricEquipment.setText(dat[9]);
+            EquipmentView.txt_FechaCompEquipment.setText(dat[10]);
+            EquipmentView.txt_FechaIniEquipment.setText(dat[11]);
+            EquipmentView.txt_FechaVentEquipment.setText(dat[12]);
+            EquipmentView.txt_ContratistaEquipment.setText(dat[13]);
+            EquipmentView.txt_Piezas1.setText(dat[14]);
+            EquipmentView.txt_Locacion.setText(dat[1]);
+            EquipmentView.txt_Responsable.setText(dat[2]);
+            EquipmentView.txt_EqPadre.setText(dat[16]);
+            EquipmentView.txt_foto1.setText(dat[15]);
+            EquipmentView.ruta=dat[15];
+//            llenarComboBoxEquiposPadres();
+//            llenarComboBoxLoc();
+//            llenarComboBoxResponsable();
+        }
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -568,9 +622,9 @@ public class Equipments extends javax.swing.JInternalFrame {
             EquipmentEdit.txt_ContratistaEquipment.setText(dat[13]);
             EquipmentEdit.txt_Piezas.setText(dat[14]);
             EquipmentEdit.txt_foto.setText(dat[15]);
-            llenarComboBoxEquiposPadres();
-            llenarComboBoxLoc();
-            llenarComboBoxResponsable();
+//            llenarComboBoxEquiposPadres();
+//            llenarComboBoxLoc();
+//            llenarComboBoxResponsable();
         }
 
 
