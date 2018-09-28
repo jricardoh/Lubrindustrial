@@ -229,13 +229,9 @@ public class ReportsExcel {
 	path="src/Operabilidad.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
-            e.write("ID ORDEN\tID MANTENIMIENTO\tNUMERO ORDEN\tDESCRIPCION\tESTADO\tTIPO\tPRIORIDAD\tFECHA SOLICITUD\tFECHA REQUERIDA\tRESPUESTA\tINICIO ORDEN\tTERMINO ORDEN\tFECHA ENTREGA\tDURACION DIAS\tACEPTADO POR\tFALLAS\tDESCRIPCION CAUSAS\tACCION REALIZADA\tPREVENCION TOMADA\n");
+            e.write("ID OPERABILIDAD\tID DESCRIPCION EQUIPO\tDESCRIPCION OPERABILIDAD\n");
             for(OPERABILIDAD op: ops){
-                e.write(ord.getIdOrdtr()+"\t"+ord.getIdMant()+"\t"+ord.getNroOrdtr()+"\t"+ord.getDescOrdtr()+"\t"+ord.getEstOrdtr()+"\t"+
-                        ord.getTipoOrdtr()+"\t"+ord.getPriorOrdtr()+"\t"+ord.getFechHorSolicitudOrdtr()+"\t"+ord.getFechHorReqOrdtr()+"\t"+
-                        ord.getRespOrdtr()+"\t"+ord.getInicioOrdtr()+"\t"+ord.getTermOrdtr()+"\t"+ord.getFechHoraEntOrdtr()+"\t"+
-                        ord.getDuracionDiasOrdtr()+"\t"+ord.getAceptPorOrdtr()+"\t"+ord.getFallaOrdtr()+"\t"+ord.getDescCausaOrdtr()+"\t"+
-                        ord.getAccionRealizOrdtr()+"\t"+ord.getPrevenTomadaOrdtr()+"\n");
+                e.write(op.getIdOp()+"\t"+op.getDescEquipo()+"\t"+op.getDescripcion()+"\n");
             }
 	    e.close();
             return true;
@@ -246,18 +242,14 @@ public class ReportsExcel {
 	}	
     }
     
-    public boolean escribirExcelPeriodosOperabilidad(ArrayList<OrdenTrabajos> ords)
+    public boolean escribirExcelPeriodosOperabilidad(ArrayList<PERIODO> pers)
     {
 	path="src/PeriodosOperabilidad.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
-            e.write("ID ORDEN\tID MANTENIMIENTO\tNUMERO ORDEN\tDESCRIPCION\tESTADO\tTIPO\tPRIORIDAD\tFECHA SOLICITUD\tFECHA REQUERIDA\tRESPUESTA\tINICIO ORDEN\tTERMINO ORDEN\tFECHA ENTREGA\tDURACION DIAS\tACEPTADO POR\tFALLAS\tDESCRIPCION CAUSAS\tACCION REALIZADA\tPREVENCION TOMADA\n");
-            for(OrdenTrabajos ord: ords){
-                e.write(ord.getIdOrdtr()+"\t"+ord.getIdMant()+"\t"+ord.getNroOrdtr()+"\t"+ord.getDescOrdtr()+"\t"+ord.getEstOrdtr()+"\t"+
-                        ord.getTipoOrdtr()+"\t"+ord.getPriorOrdtr()+"\t"+ord.getFechHorSolicitudOrdtr()+"\t"+ord.getFechHorReqOrdtr()+"\t"+
-                        ord.getRespOrdtr()+"\t"+ord.getInicioOrdtr()+"\t"+ord.getTermOrdtr()+"\t"+ord.getFechHoraEntOrdtr()+"\t"+
-                        ord.getDuracionDiasOrdtr()+"\t"+ord.getAceptPorOrdtr()+"\t"+ord.getFallaOrdtr()+"\t"+ord.getDescCausaOrdtr()+"\t"+
-                        ord.getAccionRealizOrdtr()+"\t"+ord.getPrevenTomadaOrdtr()+"\n");
+            e.write("ID OPERABILIDAD\tFECHA INICIO\tFECHA FIN\tDIAS OPERABILIDAD\tDESCRIPCION PERIODO\tHORAS PERDIODO\tACTIVIDAD\n");
+            for(PERIODO p: pers){
+                e.write(p.getIdOp()+"\t"+p.getFechaInicio()+"\t"+p.getFechaFin()+"\t"+p.getDiasDiferencia()+"\t"+p.getDescipcionPeriodo()+"\t"+p.getHorasPeriodo()+"\n");
             }
 	    e.close();
             return true;
@@ -269,18 +261,16 @@ public class ReportsExcel {
     }
     
     
-    public boolean escribirExcelPedidoMateriales(ArrayList<OrdenTrabajos> ords)
+    public boolean escribirExcelPedidoMateriales(ArrayList<PEDIDOMATERIAL> pedsM)
     {
 	path="src/PedidosMateriales.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
-            e.write("ID ORDEN\tID MANTENIMIENTO\tNUMERO ORDEN\tDESCRIPCION\tESTADO\tTIPO\tPRIORIDAD\tFECHA SOLICITUD\tFECHA REQUERIDA\tRESPUESTA\tINICIO ORDEN\tTERMINO ORDEN\tFECHA ENTREGA\tDURACION DIAS\tACEPTADO POR\tFALLAS\tDESCRIPCION CAUSAS\tACCION REALIZADA\tPREVENCION TOMADA\n");
-            for(OrdenTrabajos ord: ords){
-                e.write(ord.getIdOrdtr()+"\t"+ord.getIdMant()+"\t"+ord.getNroOrdtr()+"\t"+ord.getDescOrdtr()+"\t"+ord.getEstOrdtr()+"\t"+
-                        ord.getTipoOrdtr()+"\t"+ord.getPriorOrdtr()+"\t"+ord.getFechHorSolicitudOrdtr()+"\t"+ord.getFechHorReqOrdtr()+"\t"+
-                        ord.getRespOrdtr()+"\t"+ord.getInicioOrdtr()+"\t"+ord.getTermOrdtr()+"\t"+ord.getFechHoraEntOrdtr()+"\t"+
-                        ord.getDuracionDiasOrdtr()+"\t"+ord.getAceptPorOrdtr()+"\t"+ord.getFallaOrdtr()+"\t"+ord.getDescCausaOrdtr()+"\t"+
-                        ord.getAccionRealizOrdtr()+"\t"+ord.getPrevenTomadaOrdtr()+"\n");
+            e.write("ID PEDIDO\tARTICULO\tCANTIDAD\tUNIDAD MEDIDA\tPEDIPO POR\tENTREGADO A\tAUTORIZADO POR\tAPROBADO POR\tDESCRIPCION PEDIDO\tFECHA HORA SOLICITUD\tFECHA HORA ENTREGA\n");
+            for(PEDIDOMATERIAL ped: pedsM){
+                e.write(ped.getIdPedido()+"\t"+ped.getDescArt()+"\t"+ped.getCantidad()+"\t"+ped.getUnidadCantidad()+"\t"+ped.getDescEmpPedido()+"\t"+
+                        ped.getDescEmpEntregado()+"\t"+ped.getDescEmpAutorizado()+"\t"+ped.getDescEmpAprobado()+"\t"+ped.getDescripcion()+"\t"+
+                        ped.getFechaHoraSolicitud()+"\t"+ped.getFechaHoraEntrega()+"\n");
             }
 	    e.close();
             return true;
