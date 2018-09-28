@@ -31,6 +31,7 @@ public class Equipments extends javax.swing.JInternalFrame {
     ArrayList<Location> locaciones = new ArrayList<Location>();
     ArrayList<Equipment> equipos = new ArrayList<Equipment>();
     User user = new User();
+    //EquipmentView obj = new EquipmentView();
     
     public Equipments() {
         try {
@@ -570,6 +571,7 @@ public class Equipments extends javax.swing.JInternalFrame {
             EquipmentView.txt_EqPadre.setText(dat[16]);
             EquipmentView.txt_foto1.setText(dat[15]);
             EquipmentView.ruta=dat[15];
+            System.out.println("Ruta desde equipo: "+dat[15]);
 //            llenarComboBoxEquiposPadres();
 //            llenarComboBoxLoc();
 //            llenarComboBoxResponsable();

@@ -113,6 +113,19 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
             cbox_location1.addItem(l.getIdLocation() + " " + l.getDescLocation());
         }
     }
+    
+    private String agregaBarraInvertida(String r){
+        String aux="";
+        for(int i=0; i<r.length(); i++){
+            if(r.charAt(i)=='\\'){
+                aux+=(r.charAt(i)+"\\");
+            }else{
+                aux+=(r.charAt(i));
+            }
+            
+        }
+        return aux;
+    }
 
     
 
@@ -443,6 +456,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         jLabel37.setText("Foto");
         jPanel4.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 230, -1, 20));
 
+        txt_foto.setEditable(false);
         txt_foto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_fotoMouseClicked(evt);
@@ -715,11 +729,10 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
             explorador.showOpenDialog(explorador);
             
             path=explorador.getSelectedFile().getAbsolutePath();
-            String abs=explorador.getSelectedFile().getAbsolutePath();
-            String rel=explorador.getSelectedFile().getPath();
+            path=agregaBarraInvertida(path);
 //            System.out.println("abs: "+abs);
 //            System.out.println("rel: "+rel);
-//            System.out.println(path);
+            //System.out.println(path);
             txt_foto.setText(path);
             
         }catch(Exception ex){

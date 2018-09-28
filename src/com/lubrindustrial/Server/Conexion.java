@@ -156,7 +156,7 @@ public class Conexion {
               Class.forName("org.gjt.mm.mysql.Driver");
               con = DriverManager.getConnection(getConnectionUrl(),userName,password);
               stm=con.createStatement();
-              System.out.println("Conectado");
+              //System.out.println("Conectado");
          }catch(Exception e){
              errString= "Error de conexion con la Base de Datos";
              System.out.println(errString);

@@ -136,7 +136,7 @@ public class LocationCRUD {
             
             if (resultado.next()) {
                   Location loc = new Location();
-                  System.out.println("Estoy en locacion visualizar");
+                  //System.out.println("Estoy en locacion visualizar");
                   loc.setIdDepartment(resultado.getInt("ID_DEPT"));
                   loc.setIdLocation(resultado.getInt("ID_LOCT"));
                   loc.setNroLocation(resultado.getString("NRO_LOCT"));

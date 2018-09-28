@@ -224,5 +224,72 @@ public class ReportsExcel {
 	}	
     }
     
+    public boolean escribirExcelOperabilidad(ArrayList<OPERABILIDAD> ops)
+    {
+	path="src/Operabilidad.xls";
+	try {
+            FileWriter e = new FileWriter(path, false);
+            e.write("ID ORDEN\tID MANTENIMIENTO\tNUMERO ORDEN\tDESCRIPCION\tESTADO\tTIPO\tPRIORIDAD\tFECHA SOLICITUD\tFECHA REQUERIDA\tRESPUESTA\tINICIO ORDEN\tTERMINO ORDEN\tFECHA ENTREGA\tDURACION DIAS\tACEPTADO POR\tFALLAS\tDESCRIPCION CAUSAS\tACCION REALIZADA\tPREVENCION TOMADA\n");
+            for(OPERABILIDAD op: ops){
+                e.write(ord.getIdOrdtr()+"\t"+ord.getIdMant()+"\t"+ord.getNroOrdtr()+"\t"+ord.getDescOrdtr()+"\t"+ord.getEstOrdtr()+"\t"+
+                        ord.getTipoOrdtr()+"\t"+ord.getPriorOrdtr()+"\t"+ord.getFechHorSolicitudOrdtr()+"\t"+ord.getFechHorReqOrdtr()+"\t"+
+                        ord.getRespOrdtr()+"\t"+ord.getInicioOrdtr()+"\t"+ord.getTermOrdtr()+"\t"+ord.getFechHoraEntOrdtr()+"\t"+
+                        ord.getDuracionDiasOrdtr()+"\t"+ord.getAceptPorOrdtr()+"\t"+ord.getFallaOrdtr()+"\t"+ord.getDescCausaOrdtr()+"\t"+
+                        ord.getAccionRealizOrdtr()+"\t"+ord.getPrevenTomadaOrdtr()+"\n");
+            }
+	    e.close();
+            return true;
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+	}	
+    }
+    
+    public boolean escribirExcelPeriodosOperabilidad(ArrayList<OrdenTrabajos> ords)
+    {
+	path="src/PeriodosOperabilidad.xls";
+	try {
+            FileWriter e = new FileWriter(path, false);
+            e.write("ID ORDEN\tID MANTENIMIENTO\tNUMERO ORDEN\tDESCRIPCION\tESTADO\tTIPO\tPRIORIDAD\tFECHA SOLICITUD\tFECHA REQUERIDA\tRESPUESTA\tINICIO ORDEN\tTERMINO ORDEN\tFECHA ENTREGA\tDURACION DIAS\tACEPTADO POR\tFALLAS\tDESCRIPCION CAUSAS\tACCION REALIZADA\tPREVENCION TOMADA\n");
+            for(OrdenTrabajos ord: ords){
+                e.write(ord.getIdOrdtr()+"\t"+ord.getIdMant()+"\t"+ord.getNroOrdtr()+"\t"+ord.getDescOrdtr()+"\t"+ord.getEstOrdtr()+"\t"+
+                        ord.getTipoOrdtr()+"\t"+ord.getPriorOrdtr()+"\t"+ord.getFechHorSolicitudOrdtr()+"\t"+ord.getFechHorReqOrdtr()+"\t"+
+                        ord.getRespOrdtr()+"\t"+ord.getInicioOrdtr()+"\t"+ord.getTermOrdtr()+"\t"+ord.getFechHoraEntOrdtr()+"\t"+
+                        ord.getDuracionDiasOrdtr()+"\t"+ord.getAceptPorOrdtr()+"\t"+ord.getFallaOrdtr()+"\t"+ord.getDescCausaOrdtr()+"\t"+
+                        ord.getAccionRealizOrdtr()+"\t"+ord.getPrevenTomadaOrdtr()+"\n");
+            }
+	    e.close();
+            return true;
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+	}	
+    }
+    
+    
+    public boolean escribirExcelPedidoMateriales(ArrayList<OrdenTrabajos> ords)
+    {
+	path="src/PedidosMateriales.xls";
+	try {
+            FileWriter e = new FileWriter(path, false);
+            e.write("ID ORDEN\tID MANTENIMIENTO\tNUMERO ORDEN\tDESCRIPCION\tESTADO\tTIPO\tPRIORIDAD\tFECHA SOLICITUD\tFECHA REQUERIDA\tRESPUESTA\tINICIO ORDEN\tTERMINO ORDEN\tFECHA ENTREGA\tDURACION DIAS\tACEPTADO POR\tFALLAS\tDESCRIPCION CAUSAS\tACCION REALIZADA\tPREVENCION TOMADA\n");
+            for(OrdenTrabajos ord: ords){
+                e.write(ord.getIdOrdtr()+"\t"+ord.getIdMant()+"\t"+ord.getNroOrdtr()+"\t"+ord.getDescOrdtr()+"\t"+ord.getEstOrdtr()+"\t"+
+                        ord.getTipoOrdtr()+"\t"+ord.getPriorOrdtr()+"\t"+ord.getFechHorSolicitudOrdtr()+"\t"+ord.getFechHorReqOrdtr()+"\t"+
+                        ord.getRespOrdtr()+"\t"+ord.getInicioOrdtr()+"\t"+ord.getTermOrdtr()+"\t"+ord.getFechHoraEntOrdtr()+"\t"+
+                        ord.getDuracionDiasOrdtr()+"\t"+ord.getAceptPorOrdtr()+"\t"+ord.getFallaOrdtr()+"\t"+ord.getDescCausaOrdtr()+"\t"+
+                        ord.getAccionRealizOrdtr()+"\t"+ord.getPrevenTomadaOrdtr()+"\n");
+            }
+	    e.close();
+            return true;
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+	}	
+    }
+    
 }
 

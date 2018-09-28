@@ -239,7 +239,7 @@ public class ArticleNew extends javax.swing.JInternalFrame {
         });
         jPanel2.add(txt_fabricante, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 140, -1));
 
-        jLabel14.setText("Unidad de Medida");
+        jLabel14.setText("Densidad");
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 100, 20));
 
         txt_unidadMedida.addKeyListener(new java.awt.event.KeyAdapter() {
