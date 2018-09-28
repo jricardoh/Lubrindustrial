@@ -512,7 +512,7 @@ public class Employees extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        EmployeesNew obj = new EmployeesNew();
+        EmployeesNew obj = new EmployeesNew(host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -536,7 +536,7 @@ public class Employees extends javax.swing.JInternalFrame {
             //cuenta = .getText();
             int n = JOptionPane.showConfirmDialog(null, "¿Esta seguro de borrar el registro? ", "Confirmar borrado", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
-                EmployeeCRUD obj = new EmployeeCRUD();
+                EmployeeCRUD obj = new EmployeeCRUD(host);
                 obj.eliminar(Integer.parseInt(tab_employees.getValueAt(filasel, 0).toString()),user);
                 agregarDatos();
             }
@@ -570,7 +570,7 @@ public class Employees extends javax.swing.JInternalFrame {
         if (filasel == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione primero la columna");
         } else {
-            EmployeesEdit obj = new EmployeesEdit(user);
+            EmployeesEdit obj = new EmployeesEdit(user,host);
             Home.escritorio.add(obj);
             obj.toFront();
             //centrar
@@ -604,8 +604,8 @@ public class Employees extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        ReportsExcel reporte = new ReportsExcel();
-        EmployeeCRUD empCRUD = new EmployeeCRUD();
+        ReportsExcel reporte = new ReportsExcel(host);
+        EmployeeCRUD empCRUD = new EmployeeCRUD(host);
         ArrayList<Employee> emps = empCRUD.visualizar();
         if(reporte.escribirExcelEmpleados(emps)){
             JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE EMPLEADOS CREADO","ARCHIVO GUARDADO EXITOSAMENTE",JOptionPane.INFORMATION_MESSAGE);

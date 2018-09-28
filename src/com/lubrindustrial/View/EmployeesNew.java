@@ -29,7 +29,7 @@ public class EmployeesNew extends javax.swing.JInternalFrame {
 
     ArrayList<Department> departamentos = new ArrayList<Department>();
     ArrayList<Location> locaciones = new ArrayList<Location>();
-    
+    String host = "";
     public EmployeesNew() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -37,6 +37,20 @@ public class EmployeesNew extends javax.swing.JInternalFrame {
             System.err.println(e.getMessage());
         }
         initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        llenarComboBoxDep();
+//        llenarComboBoxLoc();
+    }
+    
+    public EmployeesNew(String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        host=hostname;
         this.setIconifiable(true);
         this.setClosable(true);
         llenarComboBoxDep();
@@ -57,7 +71,7 @@ public class EmployeesNew extends javax.swing.JInternalFrame {
     }
 
     private void llenarComboBoxDep() {
-        DepartmentCRUD deptCRUD = new DepartmentCRUD();
+        DepartmentCRUD deptCRUD = new DepartmentCRUD(host);
 
         departamentos = deptCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -409,7 +423,7 @@ public class EmployeesNew extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        EmployeeCRUD empCRUD = new EmployeeCRUD();
+        EmployeeCRUD empCRUD = new EmployeeCRUD(host);
         Employee e = new Employee();
         String cadD=""/*,cadL=""*/;
         try{
