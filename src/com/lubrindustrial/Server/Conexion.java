@@ -31,6 +31,8 @@ public class Conexion {
     
             this.host = ipPrueba;
             // ESTE ES UN COMENTARIO
+            // ESTE ES UN SEGUNDO COMENTARIO
+            // este es otro comentario
         
     }
     

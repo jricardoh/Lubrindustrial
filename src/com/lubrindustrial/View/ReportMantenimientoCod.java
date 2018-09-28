@@ -23,6 +23,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -458,6 +459,7 @@ public class ReportMantenimientoCod extends javax.swing.JInternalFrame {
 
         try {
             JasperReport reporte = JasperCompileManager.compileReport("reportMantCod1.jrxml");
+            //JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/reportMantCod1.jrxml"));
             JasperPrint print = JasperFillManager.fillReport(reporte, null, this.cn);
             JasperViewer jviewer = new JasperViewer(print,false);
             jviewer.show();
