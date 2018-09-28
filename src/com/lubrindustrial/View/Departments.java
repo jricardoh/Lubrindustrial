@@ -24,6 +24,7 @@ public class Departments extends javax.swing.JInternalFrame {
     int valor_encontrado;
     ArrayList<Department> departamentos = new ArrayList<Department>();
     User user = new User();
+    public String host="";
     
     public int getvalorencontrado() {
         int valorencontrado = valor_encontrado;
@@ -58,6 +59,22 @@ public class Departments extends javax.swing.JInternalFrame {
 //        tab_departments.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 //        tab_departments.doLayout();
         user = usu;
+    }
+    
+    public Departments(User usu, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        agregarDatos();
+//        tab_departments.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//        tab_departments.doLayout();
+        user = usu;
+        host=hostname;
     }
     
     public int seleccionaritem() {

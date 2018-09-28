@@ -31,6 +31,7 @@ public class Equipments extends javax.swing.JInternalFrame {
     ArrayList<Location> locaciones = new ArrayList<Location>();
     ArrayList<Equipment> equipos = new ArrayList<Equipment>();
     User user = new User();
+    public String host;
     //EquipmentView obj = new EquipmentView();
     
     public Equipments() {
@@ -60,6 +61,24 @@ public class Equipments extends javax.swing.JInternalFrame {
         tab_equipment.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tab_equipment.doLayout();
         user = usu;
+    }
+    
+    public Equipments(User usu, String hostname) {
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        tab_equipment.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tab_equipment.doLayout();
+        user = usu;
+        host=hostname;
+        
+        agregarDatos();
     }
     
     public int seleccionaritem() {

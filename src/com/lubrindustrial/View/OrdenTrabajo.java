@@ -31,7 +31,7 @@ public class OrdenTrabajo extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     ArrayList<OrdenTrabajos> ot = new ArrayList<OrdenTrabajos>();
     User user = new User();
-    
+    String host="";
     /**
      * Creates new form OrdenTrabajo
      */
@@ -62,6 +62,23 @@ public class OrdenTrabajo extends javax.swing.JInternalFrame {
         tab_ordentrabajo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tab_ordentrabajo.doLayout();
         user = usu;
+    }
+    
+    public OrdenTrabajo(User usu, String hostname) {
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        tab_ordentrabajo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tab_ordentrabajo.doLayout();
+        user = usu;
+        host=hostname;
+        agregarDatos();
     }
     
     public int seleccionaritem() {

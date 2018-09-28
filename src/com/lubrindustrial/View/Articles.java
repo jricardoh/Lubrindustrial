@@ -30,7 +30,7 @@ public class Articles extends javax.swing.JInternalFrame {
     ArrayList<Article> articulos = new ArrayList<Article>();
     ArrayList<Supplier> proveedores = new ArrayList<Supplier>();
     User user = new User();
-    
+    String host="";
     public int getvalorencontrado() {
         int valorencontrado = valor_encontrado;
         return valorencontrado = valor_encontrado;
@@ -64,6 +64,23 @@ public class Articles extends javax.swing.JInternalFrame {
         tab_articles.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tab_articles.doLayout();
         user = usu;
+    }
+    
+    public Articles(User usu, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        tab_articles.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tab_articles.doLayout();
+        user = usu;
+        host=hostname;
+        agregarDatos();
     }
     
     public int seleccionaritem() {

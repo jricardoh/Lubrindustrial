@@ -28,7 +28,7 @@ public class Locations extends javax.swing.JInternalFrame {
     ArrayList<Location> locs = new ArrayList<Location>();
     ArrayList<Department> departamentos = new ArrayList<Department>();
     User user = new User();
-    
+    String host = "";
 //ArrayList<Articulos> lista = new ArrayList<Articulos>();
     public Locations() {
         try {
@@ -57,6 +57,23 @@ public class Locations extends javax.swing.JInternalFrame {
 //        tab_locations.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 //        tab_locations.doLayout();
         user = usu;
+    }
+     
+     public Locations(User usu, String hostname) {
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+//        tab_locations.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//        tab_locations.doLayout();
+        user = usu;
+        host=hostname;
+        agregarDatos();
     }
     
     public int seleccionaritem() {

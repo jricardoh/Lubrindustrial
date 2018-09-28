@@ -26,6 +26,7 @@ public class Suppliers extends javax.swing.JInternalFrame {
     int valor_encontrado;
     ArrayList<Supplier> proveedores = new ArrayList<Supplier>();
     User user = new User();
+    String host="";
     
     public int getvalorencontrado() {
         int valorencontrado = valor_encontrado;
@@ -61,6 +62,23 @@ public class Suppliers extends javax.swing.JInternalFrame {
         tab_suppliers.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tab_suppliers.doLayout();
         user = usu;
+    }
+    
+    public Suppliers(User usu, String hostname) {
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        tab_suppliers.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tab_suppliers.doLayout();
+        user = usu;
+        host=hostname;
+        agregarDatos();
     }
     
     public int seleccionaritem() {

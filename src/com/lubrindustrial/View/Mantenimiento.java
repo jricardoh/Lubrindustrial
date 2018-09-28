@@ -33,7 +33,7 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
     DefaultTableModel modelo=new DefaultTableModel();
     ArrayList<Mantenimientos> mant = new ArrayList<Mantenimientos>();
     User user = new User();
-    
+    String host="";
     //ArrayList<Employee> emp = new ArrayList<Employee>();
     /**
      * Creates new form Mantenimiento
@@ -65,6 +65,23 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
         tab_mantenimiento.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tab_mantenimiento.doLayout();
         user = usu;
+    }
+    
+    public Mantenimiento(User usu, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        tab_mantenimiento.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tab_mantenimiento.doLayout();
+        user = usu;
+        host=hostname;
+        agregarDatos();
     }
     
     public int seleccionaritem() {

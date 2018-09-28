@@ -28,6 +28,7 @@ public class Employees extends javax.swing.JInternalFrame {
     ArrayList<Department> departamentos = new ArrayList<Department>();
 //    int valor_encontrado;
     User user = new User();
+    public String host;
     
     public Employees() {
         try {
@@ -59,6 +60,26 @@ public class Employees extends javax.swing.JInternalFrame {
         //llenarComboBoxDep();
         user = usu;
         System.out.println("dddd:" + user.getApeUser());
+    }
+    
+    public Employees(User usu, String hostname) {
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        tab_employees.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tab_employees.doLayout();
+        //llenarComboBoxDep();
+        user = usu;
+        this.host=hostname;
+        //System.out.println("Soy la direccion ene emp view: "+host);
+        agregarDatos();
+        //System.out.println("dddd:" + user.getApeUser());
     }
     
 //    public int getvalorencontrado() {
@@ -123,7 +144,7 @@ public class Employees extends javax.swing.JInternalFrame {
         String datos[] = new String[17];//ARRAY DE 17
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        EmployeeCRUD empCRUD = new EmployeeCRUD();
+        EmployeeCRUD empCRUD = new EmployeeCRUD(host);
 
         emp = empCRUD.visualizar(); // devuelve todos los registros de la BD
 

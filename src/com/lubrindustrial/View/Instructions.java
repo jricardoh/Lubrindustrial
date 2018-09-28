@@ -26,7 +26,7 @@ public class Instructions extends javax.swing.JInternalFrame {
     int valor_encontrado;
     ArrayList<Instruction> instrucciones = new ArrayList<Instruction>();
     User user = new User();
-    
+    String host="";
     public int getvalorencontrado() {
         int valorencontrado = valor_encontrado;
         return valorencontrado = valor_encontrado;
@@ -60,6 +60,23 @@ public class Instructions extends javax.swing.JInternalFrame {
 //        tab_instructions.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 //        tab_instructions.doLayout();
         user = usu;
+    }
+    
+    public Instructions(User usu, String hostname) {
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+//        tab_instructions.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//        tab_instructions.doLayout();
+        user = usu;
+        host=hostname;
+        agregarDatos();
     }
     
     public int seleccionaritem() {

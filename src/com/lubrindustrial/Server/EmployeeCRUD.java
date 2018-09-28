@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class EmployeeCRUD {
     
-    String host;
+    String host="localhost";
     
     public EmployeeCRUD(){
         
@@ -29,6 +29,8 @@ public class EmployeeCRUD {
     public ArrayList<Employee> visualizarPorDepartamento(int idDep) {
         ArrayList<Employee> listaEmp = new ArrayList<Employee>();
         Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado = null;
         try {
@@ -83,7 +85,9 @@ public class EmployeeCRUD {
 
     
     public boolean insertar(Employee emp) {
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta = 0;
         try {
@@ -105,7 +109,9 @@ public class EmployeeCRUD {
     }
 
     public boolean modificar(Employee emp, User usu) {
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta = 0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -153,7 +159,9 @@ public class EmployeeCRUD {
     }
 
     public boolean eliminar(int codigo, User usu) {
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta = 0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -190,7 +198,9 @@ public class EmployeeCRUD {
 
     public ArrayList<Employee> visualizar() {
         ArrayList<Employee> listaEmp = new ArrayList<Employee>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado = null;
         try {
@@ -244,7 +254,9 @@ public class EmployeeCRUD {
 
     public ArrayList<Employee> visualizar(int idEmpleado) {
         ArrayList<Employee> listaEmp = new ArrayList<Employee>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado = null;
         try {
@@ -298,7 +310,9 @@ public class EmployeeCRUD {
 
     public Employee obtenerEmp(int idEmpleado) {
 //        ArrayList<Employee> listaEmp = new ArrayList<Employee>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado = null;
         try {
@@ -347,7 +361,9 @@ public class EmployeeCRUD {
     public ArrayList<Employee> mostrarPorCodigo(int codigo) {
         ArrayList<Employee> listaEmp = new ArrayList<Employee>();
 
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado = null;
         try {
@@ -379,7 +395,9 @@ public class EmployeeCRUD {
     public ArrayList<Employee> visualizar(String texto, int item) {
 
         ArrayList<Employee> listaEmp = new ArrayList<Employee>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado = null;
         String Filtro = "" + texto + "_%";
