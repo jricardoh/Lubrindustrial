@@ -71,7 +71,7 @@ public class EmployeesEdit extends javax.swing.JInternalFrame {
             System.err.println(e.getMessage());
         }
         initComponents();
-//        llenarComboBoxDep();
+        
         lblID.setVisible(false);
         lblID.setEnabled(false);
         this.setIconifiable(true);
@@ -79,10 +79,12 @@ public class EmployeesEdit extends javax.swing.JInternalFrame {
         
         user = us;
         host=hostname;
+        
+        llenarComboBoxDep();
     }
     
     private void Volver(){
-        Employees obj = new Employees();
+        Employees obj = new Employees(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar

@@ -11,6 +11,7 @@ import com.lubrindustrial.Server.Department;
 import com.lubrindustrial.Server.DepartmentCRUD;
 import com.lubrindustrial.Server.Employee;
 import com.lubrindustrial.Server.EmployeeCRUD;
+import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
 import java.sql.Connection;
@@ -29,6 +30,7 @@ public class EmployeesNew extends javax.swing.JInternalFrame {
 
     ArrayList<Department> departamentos = new ArrayList<Department>();
     ArrayList<Location> locaciones = new ArrayList<Location>();
+    User user = new User();
     String host = "";
     public EmployeesNew() {
         try{
@@ -43,7 +45,7 @@ public class EmployeesNew extends javax.swing.JInternalFrame {
 //        llenarComboBoxLoc();
     }
     
-    public EmployeesNew(String hostname) {
+    public EmployeesNew(User us, String hostname) {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
         }catch(Exception e){
@@ -51,6 +53,7 @@ public class EmployeesNew extends javax.swing.JInternalFrame {
         }
         initComponents();
         host=hostname;
+        user=us;
         this.setIconifiable(true);
         this.setClosable(true);
         llenarComboBoxDep();
@@ -58,7 +61,7 @@ public class EmployeesNew extends javax.swing.JInternalFrame {
     }
 
     private void Volver(){
-        Employees obj = new Employees();
+        Employees obj = new Employees(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar

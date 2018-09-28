@@ -33,7 +33,9 @@ public class UserCRUD {
     
   
     public boolean insertar(User use){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         try {
@@ -55,7 +57,9 @@ public class UserCRUD {
     }
     
     public boolean modificar(User use){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         try{
@@ -84,7 +88,9 @@ public class UserCRUD {
     }
     
     public boolean eliminar(int codigo){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         try{
@@ -109,7 +115,9 @@ public class UserCRUD {
     
     public ArrayList<User> visualizar(String nomUsuario){
         ArrayList<User> listaUsu = new ArrayList<User>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -142,7 +150,9 @@ public class UserCRUD {
     
     public User obtenerUsuario(String nomUsuario){
         
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         System.out.println(this.host);
         ResultSet resultado=null;
@@ -175,7 +185,9 @@ public class UserCRUD {
     public int numUsers(){
         
         int count = 0;
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar ();
         ResultSet resultado = null;
     
@@ -197,7 +209,9 @@ public class UserCRUD {
     
     public String leerPass(String nomUsuario){
         ArrayList<User> listaUsu = new ArrayList<User>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -230,7 +244,9 @@ public class UserCRUD {
     
         public String[] leerNomApe(String nomUsuario){
         ArrayList<User> listaUsu = new ArrayList<User>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         String[] nomApe = new String[2];

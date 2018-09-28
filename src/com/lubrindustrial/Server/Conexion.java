@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -158,7 +159,7 @@ public class Conexion {
               Class.forName("org.gjt.mm.mysql.Driver");
               con = DriverManager.getConnection(getConnectionUrl(),userName,password);
               stm=con.createStatement();
-              System.out.println("Conectado a "+url);
+              JOptionPane.showMessageDialog(null, "CONECTADO A: "+url,"HOST",JOptionPane.INFORMATION_MESSAGE);
          }catch(Exception e){
              errString= "Error de conexion con la Base de Datos";
              System.out.println(errString);

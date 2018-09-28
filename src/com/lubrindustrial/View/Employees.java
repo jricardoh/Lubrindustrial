@@ -512,7 +512,7 @@ public class Employees extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        EmployeesNew obj = new EmployeesNew(host);
+        EmployeesNew obj = new EmployeesNew(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
