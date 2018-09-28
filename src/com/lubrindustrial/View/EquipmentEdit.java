@@ -38,6 +38,7 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
     ArrayList<Location> locaciones = new ArrayList<Location>();
     ArrayList<Equipment> equipos = new ArrayList<Equipment>();
     User user = new User();
+    String host="";
 
     public EquipmentEdit() {
         try{
@@ -58,7 +59,7 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
 
     }
 
-    public EquipmentEdit(User us) {
+    public EquipmentEdit(User us, String hostname) {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
         }catch(Exception e){
@@ -74,10 +75,11 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
         lblID.setEnabled(false);
         
         user = us;
+        host=hostname;
     }
     
     private void Volver(){
-        Equipments obj = new Equipments();
+        Equipments obj = new Equipments(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -118,7 +120,7 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
      
     private void llenarComboBoxResponsable(){
         
-        EmployeeCRUD empCRUD = new EmployeeCRUD();
+        EmployeeCRUD empCRUD = new EmployeeCRUD(host);
         empleados = empCRUD.visualizar(); // devuelve todos los registros de la BD
         cbox_responsable.removeAllItems();
 
@@ -129,7 +131,7 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
    
     private void llenarComboBoxEquiposPadres(){
         
-        EquipmentCRUD equipCRUD = new EquipmentCRUD();
+        EquipmentCRUD equipCRUD = new EquipmentCRUD(host);
         equipos = equipCRUD.visualizar(); // devuelve todos los registros de la BD
         cbox_padreEQ.removeAllItems();
 
@@ -141,7 +143,7 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
      
     private void llenarComboBoxLoc() {
         
-        LocationCRUD locCRUD = new LocationCRUD();
+        LocationCRUD locCRUD = new LocationCRUD(host);
         locaciones = locCRUD.visualizar(); // devuelve todos los registros de la BD
         cbox_location.removeAllItems();
 
@@ -633,7 +635,7 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
 
     private void btnSave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave1ActionPerformed
 
-        EquipmentCRUD equiCRUD = new EquipmentCRUD();
+        EquipmentCRUD equiCRUD = new EquipmentCRUD(host);
         Equipment e = new Equipment();
         String cadEquip="",cadLoc="",cadEmple="";
         

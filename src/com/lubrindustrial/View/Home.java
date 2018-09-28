@@ -103,7 +103,7 @@ public class Home extends javax.swing.JFrame {
 //    Reports repView = new Reports(this.user);
 public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         this.empView = new Employees(this.user,this.host);
-//        this.equiView = new Equipments(this.user,this.host);
+        this.equiView = new Equipments(this.user,this.host);
 //        this.deptView = new Departments(this.user,this.host);
 //        this.loctView = new Locations(this.user,this.host);
 //        this.artView = new Articles(this.user,this.host);

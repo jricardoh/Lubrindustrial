@@ -23,7 +23,9 @@ public class AuditoriaCRUD {
     
     public boolean insertarAuditoria(Auditoria aud){
         
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion(host);
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         try{

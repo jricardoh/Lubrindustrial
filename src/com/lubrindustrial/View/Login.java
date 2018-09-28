@@ -198,7 +198,7 @@ int contador = 0;
             use = query.visualizar(txtCuenta.getText());
             
             for (User u : use) {
-                JOptionPane.showMessageDialog(null, "Usuario: "+u.getIdUser(), "Usuario", JOptionPane.WARNING_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "Usuario: "+u.getIdUser(), "Usuario", JOptionPane.WARNING_MESSAGE);
                 datos[0] = Integer.toString(u.getIdUser());
                 datos[1] = u.getNomUser();
                 datos[2] = u.getApeUser();

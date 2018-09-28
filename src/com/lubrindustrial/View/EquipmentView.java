@@ -40,6 +40,7 @@ public class EquipmentView extends javax.swing.JInternalFrame {
     ArrayList<Location> locaciones = new ArrayList<Location>();
     ArrayList<Equipment> equipos = new ArrayList<Equipment>();
     User user = new User();
+    String host="";
     public static String ruta="";
 
     public EquipmentView() {
@@ -60,8 +61,9 @@ public class EquipmentView extends javax.swing.JInternalFrame {
         //cargarFoto();
 
     }
+    
 
-    public EquipmentView(User us) {
+    public EquipmentView(User us,String hostname) {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
         }catch(Exception e){
@@ -76,11 +78,12 @@ public class EquipmentView extends javax.swing.JInternalFrame {
         lblID.setEnabled(false);
         
         user = us;
+        host=hostname;
         //cargarFoto();
     }
     
     private void Volver(){
-        Equipments obj = new Equipments();
+        Equipments obj = new Equipments(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
