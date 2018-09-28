@@ -166,21 +166,21 @@ public class Conexion {
           return con;
      }
 
-//     public Connection Conectar(String host){
-//        con=null;
-//         try{
-//              Class.forName("org.gjt.mm.mysql.Driver");
-//              con = DriverManager.getConnection(getConnectionUrl(),userName,password);
-//              stm=con.createStatement();
-//              System.out.println("Conectado");
-//         }catch(Exception e){
-//             errString= "Error de conexion con la Base de Datos";
-//             System.out.println(errString);
-//             System.out.println(""+e.getMessage());
-//             return null;
-//         }
-//          return con;
-//     }
+     public Connection Conectar(String host){
+        con=null;
+         try{
+              Class.forName("org.gjt.mm.mysql.Driver");
+              con = DriverManager.getConnection(getConnectionUrl(),userName,password);
+              stm=con.createStatement();
+              System.out.println("Conectado");
+         }catch(Exception e){
+             errString= "Error de conexion con la Base de Datos";
+             System.out.println(errString);
+             System.out.println(""+e.getMessage());
+             return null;
+         }
+          return con;
+     }
      
      /* Mostrar las propiedades del controlador y los detalles de la base de datos */
 
