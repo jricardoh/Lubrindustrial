@@ -30,6 +30,7 @@ public class Conexion {
     public Conexion(String ipPrueba, int n){
     
             this.host = ipPrueba;
+            // ESTE ES UN COMENTARIO
         
     }
     
