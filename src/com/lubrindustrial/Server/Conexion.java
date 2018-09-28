@@ -27,7 +27,7 @@ public class Conexion {
     private String errString;
      // Constructor public Connect(){}
 
-    public Conexion(String ipPrueba){
+    public Conexion(String ipPrueba, int n){
     
             this.host = ipPrueba;
         
