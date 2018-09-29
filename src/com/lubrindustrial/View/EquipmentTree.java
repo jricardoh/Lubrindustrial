@@ -9,6 +9,7 @@ import com.lubrindustrial.Server.Department;
 import com.lubrindustrial.Server.DepartmentCRUD;
 import com.lubrindustrial.Server.Equipment;
 import com.lubrindustrial.Server.EquipmentCRUD;
+import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class EquipmentTree extends javax.swing.JInternalFrame {
     
     ArrayList<Equipment> equipos = new ArrayList<>(); 
     ArrayList<DefaultMutableTreeNode> padres = new ArrayList<>();
+    String host="";
+    User user= new User();
     
     public EquipmentTree() {
         try{
@@ -44,9 +47,23 @@ public class EquipmentTree extends javax.swing.JInternalFrame {
         cargarArbolEquipos();
     }
     
+    public EquipmentTree(User us, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        host=hostname;
+        user=us;
+        cargarArbolEquipos();
+    }
+    
     private void cargarArbolEquipos(){
         int indexPadre=0, distRaiz=0;
-        EquipmentCRUD eqCRUD = new EquipmentCRUD();
+        EquipmentCRUD eqCRUD = new EquipmentCRUD(host);
         equipos = eqCRUD.visualizar(); // CARGO TODOS LOS EQUIPOS DE LA BD
         DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Árbol de Equipos"); // SE CARGA LA RAIZ DEL ARBOL
         
@@ -242,7 +259,7 @@ public class EquipmentTree extends javax.swing.JInternalFrame {
     }
     
     private void Volver(){
-        Equipments obj = new Equipments();
+        Equipments obj = new Equipments(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar

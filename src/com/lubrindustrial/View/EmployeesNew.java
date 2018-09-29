@@ -11,6 +11,7 @@ import com.lubrindustrial.Server.Department;
 import com.lubrindustrial.Server.DepartmentCRUD;
 import com.lubrindustrial.Server.Employee;
 import com.lubrindustrial.Server.EmployeeCRUD;
+import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
 import java.sql.Connection;
@@ -29,7 +30,8 @@ public class EmployeesNew extends javax.swing.JInternalFrame {
 
     ArrayList<Department> departamentos = new ArrayList<Department>();
     ArrayList<Location> locaciones = new ArrayList<Location>();
-    
+    User user = new User();
+    String host = "";
     public EmployeesNew() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -42,9 +44,24 @@ public class EmployeesNew extends javax.swing.JInternalFrame {
         llenarComboBoxDep();
 //        llenarComboBoxLoc();
     }
+    
+    public EmployeesNew(User us, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        host=hostname;
+        user=us;
+        this.setIconifiable(true);
+        this.setClosable(true);
+        llenarComboBoxDep();
+//        llenarComboBoxLoc();
+    }
 
     private void Volver(){
-        Employees obj = new Employees();
+        Employees obj = new Employees(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -57,7 +74,7 @@ public class EmployeesNew extends javax.swing.JInternalFrame {
     }
 
     private void llenarComboBoxDep() {
-        DepartmentCRUD deptCRUD = new DepartmentCRUD();
+        DepartmentCRUD deptCRUD = new DepartmentCRUD(host);
 
         departamentos = deptCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -409,7 +426,7 @@ public class EmployeesNew extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        EmployeeCRUD empCRUD = new EmployeeCRUD();
+        EmployeeCRUD empCRUD = new EmployeeCRUD(host);
         Employee e = new Employee();
         String cadD=""/*,cadL=""*/;
         try{

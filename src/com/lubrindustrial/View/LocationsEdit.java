@@ -28,6 +28,7 @@ public class LocationsEdit extends javax.swing.JInternalFrame {
 
     ArrayList<Department> departamentos = new ArrayList<Department>();
     User user = new User();
+    String host;
 
     public LocationsEdit() {
         try{
@@ -59,8 +60,26 @@ public class LocationsEdit extends javax.swing.JInternalFrame {
         user = us;
     }
     
+    public LocationsEdit(User us, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        lblID.setVisible(false);
+        lblID.setEnabled(false);
+        
+        user = us;
+        host=hostname;
+        llenarComboBox();
+    }
+    
     private void Volver(){
-        Locations obj = new Locations();
+        Locations obj = new Locations(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -73,7 +92,7 @@ public class LocationsEdit extends javax.swing.JInternalFrame {
     }
     
     private void llenarComboBox(){
-        DepartmentCRUD deptCRUD = new DepartmentCRUD();
+        DepartmentCRUD deptCRUD = new DepartmentCRUD(host);
         
         departamentos = deptCRUD.visualizar(); // devuelve todos los registros de la BD
         
@@ -194,7 +213,7 @@ public class LocationsEdit extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        LocationCRUD loctCRUD = new LocationCRUD();
+        LocationCRUD loctCRUD = new LocationCRUD(host);
         Location l = new Location();
         String cad="";
         try{

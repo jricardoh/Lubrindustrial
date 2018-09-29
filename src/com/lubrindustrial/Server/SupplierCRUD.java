@@ -28,7 +28,9 @@ public class SupplierCRUD {
     
     public boolean insertar(Supplier s){
         
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         try {
@@ -52,7 +54,9 @@ public class SupplierCRUD {
     }
     
     public boolean modificar(Supplier supp, User usu){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -93,7 +97,9 @@ public class SupplierCRUD {
     }
     
     public boolean eliminar(int codigo, User usu){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();  
@@ -130,7 +136,9 @@ public class SupplierCRUD {
     
     public ArrayList<Supplier> visualizar(){
         ArrayList<Supplier> listaProveedores = new ArrayList<Supplier>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -163,7 +171,9 @@ public class SupplierCRUD {
     
     public ArrayList<Supplier> visualizar(int idSupplier){
         ArrayList<Supplier> listaProveedores = new ArrayList<Supplier>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -196,7 +206,9 @@ public class SupplierCRUD {
     
     public Supplier obtenerProv(int idSupplier){
 //        ArrayList<Supplier> listaProveedores = new ArrayList<Supplier>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -230,7 +242,9 @@ public class SupplierCRUD {
     public ArrayList<Supplier> visualizar(String texto, int item){
         
         ArrayList<Supplier> listaSupp = new ArrayList<Supplier>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         String Filtro=""+texto+"_%";

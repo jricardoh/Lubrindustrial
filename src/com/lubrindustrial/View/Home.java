@@ -37,7 +37,7 @@ public class Home extends javax.swing.JFrame {
      */
     private static String cuenta;
     private static String nivel;
-    public static String host;
+    public String host;
     User user = new User();
 
     public Home() throws UnknownHostException {
@@ -54,10 +54,12 @@ public class Home extends javax.swing.JFrame {
         lblNivel.setVisible(false);
         alertaMantenimiento();
         mostrarIP();
-
+        
+//        host="192.168.0.1";
+//        inicializarFrames();
     }
 
-    public Home(User us, String hostname) throws UnknownHostException {
+    public Home(User us, String hostname) throws UnknownHostException { // utilizo para jalar el User y Host
         try {
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
         } catch (Exception e) {
@@ -69,13 +71,14 @@ public class Home extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         lblCuenta.setVisible(false);
         lblNivel.setVisible(false);
-        alertaMantenimiento();
+        //alertaMantenimiento();
         mostrarIP();
         this.user = us;
+        this.host = hostname;
         inicializarFrames();
         //System.out.println("sa:" + user.getNomUser());
-        this.host = hostname;
-
+        
+        //System.out.println("Me conecto a la IP: "+host);
     }
         Employees empView; 
         Equipments equiView;
@@ -98,18 +101,18 @@ public class Home extends javax.swing.JFrame {
 //    Mantenimiento mantView = new Mantenimiento(this.user);
 //    OrdenTrabajo ordtrView = new OrdenTrabajo(this.user);
 //    Reports repView = new Reports(this.user);
-public void inicializarFrames(){
-        this.empView = new Employees(this.user);
-        this.equiView = new Equipments(this.user);
-        this.deptView = new Departments(this.user);
-        this.loctView = new Locations(this.user);
-        this.artView = new Articles(this.user);
-        this.suppView = new Suppliers(this.user);
-        this.instView = new Instructions(this.user);
-        this.mantView = new Mantenimiento(this.user);
-        this.ordtrView = new OrdenTrabajo(this.user);
-        this.repView = new Reports(this.user,this.host);
-        this.pedView = new GestionPedidos(this.user,this.host);
+public void inicializarFrames(){ // hay que enviar tambien la direccion IP
+        this.empView = new Employees(this.user,this.host);
+        this.equiView = new Equipments(this.user,this.host);
+        this.deptView = new Departments(this.user,this.host);
+        this.loctView = new Locations(this.user,this.host);
+        this.artView = new Articles(this.user,this.host);
+        this.suppView = new Suppliers(this.user,this.host);
+        this.instView = new Instructions(this.user,this.host);
+        this.mantView = new Mantenimiento(this.user,this.host);
+        this.ordtrView = new OrdenTrabajo(this.user,this.host);        
+//        this.repView = new Reports(this.user,this.host);
+//        this.pedView = new GestionPedidos(this.user,this.host);
 }
       
     

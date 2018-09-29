@@ -26,6 +26,7 @@ public class Suppliers extends javax.swing.JInternalFrame {
     int valor_encontrado;
     ArrayList<Supplier> proveedores = new ArrayList<Supplier>();
     User user = new User();
+    String host="";
     
     public int getvalorencontrado() {
         int valorencontrado = valor_encontrado;
@@ -63,6 +64,23 @@ public class Suppliers extends javax.swing.JInternalFrame {
         user = usu;
     }
     
+    public Suppliers(User usu, String hostname) {
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        tab_suppliers.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tab_suppliers.doLayout();
+        user = usu;
+        host=hostname;
+        agregarDatos();
+    }
+    
     public int seleccionaritem() {
         int item = cbox.getSelectedIndex();
         return item;
@@ -81,7 +99,7 @@ public class Suppliers extends javax.swing.JInternalFrame {
         String datos[] = new String[8];//ARRAY DE 3
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        SupplierCRUD supCRUD = new SupplierCRUD();
+        SupplierCRUD supCRUD = new SupplierCRUD(host);
 
         proveedores = supCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -106,7 +124,7 @@ public class Suppliers extends javax.swing.JInternalFrame {
         String datos[] = new String[8];//ARRAY DE 3
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        SupplierCRUD supCRUD = new SupplierCRUD();
+        SupplierCRUD supCRUD = new SupplierCRUD(host);
 
         proveedores = supCRUD.visualizar(idProveedor); // devuelve todos los registros de la BD
 
@@ -307,7 +325,7 @@ public class Suppliers extends javax.swing.JInternalFrame {
 
         DefaultTableModel model = (DefaultTableModel) tab_suppliers.getModel();
         model.setRowCount(0);
-        SupplierCRUD supp_query = new SupplierCRUD();
+        SupplierCRUD supp_query = new SupplierCRUD(host);
         String datos[] = new String[9];//ARRAY DE 3
         if (txtInput.getText().isEmpty()) {
 
@@ -368,7 +386,7 @@ public class Suppliers extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        SupplierNew obj = new SupplierNew();
+        SupplierNew obj = new SupplierNew(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -393,7 +411,7 @@ public class Suppliers extends javax.swing.JInternalFrame {
             //cuenta = .getText();
             int n = JOptionPane.showConfirmDialog(null, "¿Esta seguro de borrar el registro? ", "Confirmar borrado", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
-                SupplierCRUD obj = new SupplierCRUD();
+                SupplierCRUD obj = new SupplierCRUD(host);
                 obj.eliminar(Integer.parseInt(tab_suppliers.getValueAt(filasel, 0).toString()), user);
                 agregarDatos();
             }
@@ -426,7 +444,7 @@ public class Suppliers extends javax.swing.JInternalFrame {
         if (filasel == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione primero la columna");
         } else {
-            SupplierEdit obj = new SupplierEdit();
+            SupplierEdit obj = new SupplierEdit(user,host);
             Home.escritorio.add(obj);
             obj.toFront();
             //centrar
@@ -455,8 +473,8 @@ public class Suppliers extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        ReportsExcel reporte = new ReportsExcel();
-        SupplierCRUD eqCRUD = new SupplierCRUD();
+        ReportsExcel reporte = new ReportsExcel(host);
+        SupplierCRUD eqCRUD = new SupplierCRUD(host);
         ArrayList<Supplier> sups = eqCRUD.visualizar();
         if(reporte.escribirExcelProveedores(sups)){
             JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE PROVEEDORES CREADO","ARCHIVO GUARDADO EXITOSAMENTE",JOptionPane.INFORMATION_MESSAGE);

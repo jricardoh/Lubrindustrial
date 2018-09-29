@@ -27,7 +27,9 @@ public class EquipmentCRUD {
     }
     
     public boolean insertar(Equipment equi) {
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta = 0;
         try {
@@ -51,7 +53,9 @@ public class EquipmentCRUD {
     }
 
     public boolean modificar(Equipment equi, User usu) {
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta = 0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -98,10 +102,12 @@ public class EquipmentCRUD {
     }
 
     public boolean eliminar(int codigo, User usu) {
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta = 0;
-        AuditoriaCRUD audCRUD = new AuditoriaCRUD();
+        AuditoriaCRUD audCRUD = new AuditoriaCRUD(host);
         Equipment equi = obtenerEquipo(codigo);
         try {
             respuesta = conexion.getStmt().executeUpdate("UPDATE EQUIPO set ACTIVO='" + 0
@@ -136,10 +142,14 @@ public class EquipmentCRUD {
     public ArrayList<Equipment> visualizar() {
         ArrayList<Equipment> listaEqui = new ArrayList<Equipment>();
 
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
 
-        Conexion conexion2 = new Conexion(this.host);
+        Conexion conexion2 = new Conexion();
+        conexion2.setHost(host);
+        
         conexion2.Conectar();
 
         ResultSet resultado = null;
@@ -211,10 +221,14 @@ public class EquipmentCRUD {
     public ArrayList<Equipment> visualizar(int idEquipment) {
         ArrayList<Equipment> listaEqui = new ArrayList<Equipment>();
 
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
 
         Conexion conexion2 = new Conexion();
+        conexion2.setHost(host);
+        
         conexion2.Conectar();
 
         ResultSet resultado = null;
@@ -286,10 +300,14 @@ public class EquipmentCRUD {
     public Equipment obtenerEquipo(int idEquipment) {
 //        ArrayList<Equipment> listaEqui = new ArrayList<Equipment>();
 
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
 
-        Conexion conexion2 = new Conexion(this.host);
+        Conexion conexion2 = new Conexion();
+        conexion2.setHost(host);
+        
         conexion2.Conectar();
 
         ResultSet resultado = null;
@@ -352,7 +370,9 @@ public class EquipmentCRUD {
     public ResultSet cumplePuntoReorden() {
 
         //ArrayList<Article> listaEqui = new ArrayList<Article>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado = null;
         ResultSet resultado2 = null;
@@ -394,9 +414,14 @@ public class EquipmentCRUD {
     public ArrayList<Equipment> enviarDatosTabla(ResultSet resultado) {
 
         ArrayList<Equipment> listaEqui = new ArrayList<Equipment>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
-        Conexion conexion2 = new Conexion(this.host);
+        
+        Conexion conexion2 = new Conexion();
+        conexion.setHost(host);
+        
         conexion2.Conectar();
         ResultSet resultado2 = null;
         try {
@@ -443,10 +468,14 @@ public class EquipmentCRUD {
     public ArrayList<Equipment> visualizar(String texto, int item) {
 
         ArrayList<Equipment> listaEqui = new ArrayList<Equipment>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
 
-        Conexion conexion2 = new Conexion(this.host);
+        Conexion conexion2 = new Conexion();
+        conexion2.setHost(host);
+        
         conexion2.Conectar();
 
         ResultSet resultado = null;

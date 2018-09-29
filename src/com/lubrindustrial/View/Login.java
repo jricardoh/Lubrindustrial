@@ -194,10 +194,11 @@ int contador = 0;
             
             String datos[] = new String[8];//ARRAY DE 8
             UserCRUD query = new UserCRUD(txtHost.getText());
-            System.out.println(txtHost.getText());
+            //System.out.println(txtHost.getText());
             use = query.visualizar(txtCuenta.getText());
             
             for (User u : use) {
+                //JOptionPane.showMessageDialog(null, "Usuario: "+u.getIdUser(), "Usuario", JOptionPane.WARNING_MESSAGE);
                 datos[0] = Integer.toString(u.getIdUser());
                 datos[1] = u.getNomUser();
                 datos[2] = u.getApeUser();
@@ -209,10 +210,10 @@ int contador = 0;
 
             }
             
-            for (int i=0;i<datos.length;i++)
-            {
-                System.out.println(datos[i]);
-            }
+//            for (int i=0;i<datos.length;i++)
+//            {
+//                //System.out.println(datos[i]);
+//            }
 
             if(datos[7].equals("1")){
                 if(datos[6].equals(Hasher.convertToMD5(Hasher.convertToSHA1(Hasher.convertToSHA1(txtPass.getText())))) == true){
@@ -223,7 +224,7 @@ int contador = 0;
                     obj.lblCuenta.setText(txtCuenta.getText());
                     obj.lblNomApe.setText("Bienvenido/a " + datos[1] + " " + datos[2]);
                     
-                    System.out.println("cuenta: " + datos[5]);
+                    //System.out.println("cuenta: " + datos[5]);
                     //cuentaEmpleado = Integer.parseInt(txtCuenta.getText());
                     this.dispose();
                 }
@@ -244,7 +245,7 @@ int contador = 0;
         }
         }catch(Exception e){
             
-        JOptionPane.showMessageDialog(null, "No se ha encontrado el usuario", "Usuario no registrado", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "No se ha encontrado el usuario "+e.getMessage(), "Usuario no registrado", JOptionPane.WARNING_MESSAGE);
             
         }
     }//GEN-LAST:event_btnIngresarActionPerformed

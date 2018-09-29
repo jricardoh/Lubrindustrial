@@ -11,6 +11,7 @@ import com.lubrindustrial.Server.Department;
 import com.lubrindustrial.Server.DepartmentCRUD;
 import com.lubrindustrial.Server.Supplier;
 import com.lubrindustrial.Server.SupplierCRUD;
+import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -29,7 +30,8 @@ public class ArticleNew extends javax.swing.JInternalFrame {
      */
     
     ArrayList<Supplier> proveedores = new ArrayList<Supplier>();
-    
+    User user = new User();
+    String host;
     public ArticleNew() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -42,8 +44,24 @@ public class ArticleNew extends javax.swing.JInternalFrame {
         llenarComboBox();
     }
     
+    public ArticleNew(User us, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        user = us;
+        host = hostname;
+        
+        llenarComboBox();
+    }
+    
     private void llenarComboBox(){
-        SupplierCRUD supCRUD = new SupplierCRUD();
+        SupplierCRUD supCRUD = new SupplierCRUD(host);
         
         proveedores = supCRUD.visualizar(); // devuelve todos los registros de la BD
         
@@ -55,7 +73,7 @@ public class ArticleNew extends javax.swing.JInternalFrame {
     }
     
     private void Volver(){
-        Articles obj = new Articles();
+        Articles obj = new Articles(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -239,7 +257,7 @@ public class ArticleNew extends javax.swing.JInternalFrame {
         });
         jPanel2.add(txt_fabricante, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 140, -1));
 
-        jLabel14.setText("Unidad de Medida");
+        jLabel14.setText("Densidad");
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 100, 20));
 
         txt_unidadMedida.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -365,7 +383,7 @@ public class ArticleNew extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_NumberKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        ArticleCRUD artCRUD = new ArticleCRUD();
+        ArticleCRUD artCRUD = new ArticleCRUD(host);
         Article art = new Article();
         String cad="";
         

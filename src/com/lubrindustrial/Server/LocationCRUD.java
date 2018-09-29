@@ -27,7 +27,9 @@ public class LocationCRUD {
     }
     
     public boolean insertar(Location loc){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         try {
@@ -48,7 +50,9 @@ public class LocationCRUD {
     }
     
     public boolean modificar(Location loc, User usu){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -84,7 +88,9 @@ public class LocationCRUD {
     }
     
     public boolean eliminar(int codigo, User usu){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -120,7 +126,9 @@ public class LocationCRUD {
     
     public ArrayList<Location> visualizar(){
         ArrayList<Location> listaLocs = new ArrayList<Location>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -136,7 +144,7 @@ public class LocationCRUD {
             
             if (resultado.next()) {
                   Location loc = new Location();
-                  System.out.println("Estoy en locacion visualizar");
+                  //System.out.println("Estoy en locacion visualizar");
                   loc.setIdDepartment(resultado.getInt("ID_DEPT"));
                   loc.setIdLocation(resultado.getInt("ID_LOCT"));
                   loc.setNroLocation(resultado.getString("NRO_LOCT"));
@@ -160,7 +168,9 @@ public class LocationCRUD {
     
     public Location obtenerLocation(int cod){
         Location loc = new Location();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -197,7 +207,9 @@ public class LocationCRUD {
     
     public ArrayList<Location> visualizar(int idLocation){
         ArrayList<Location> listaLocs = new ArrayList<Location>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -234,7 +246,9 @@ public class LocationCRUD {
     public ArrayList<Location> visualizar(String texto, int item){
         
         ArrayList<Location> listaLocs = new ArrayList<Location>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         String Filtro=""+texto+"_%";

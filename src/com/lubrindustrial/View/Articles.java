@@ -30,7 +30,7 @@ public class Articles extends javax.swing.JInternalFrame {
     ArrayList<Article> articulos = new ArrayList<Article>();
     ArrayList<Supplier> proveedores = new ArrayList<Supplier>();
     User user = new User();
-    
+    String host="";
     public int getvalorencontrado() {
         int valorencontrado = valor_encontrado;
         return valorencontrado = valor_encontrado;
@@ -64,6 +64,23 @@ public class Articles extends javax.swing.JInternalFrame {
         tab_articles.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tab_articles.doLayout();
         user = usu;
+    }
+    
+    public Articles(User usu, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        tab_articles.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tab_articles.doLayout();
+        user = usu;
+        host=hostname;
+        agregarDatos();
     }
     
     public int seleccionaritem() {
@@ -455,7 +472,7 @@ public class Articles extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        ArticleNew obj = new ArticleNew();
+        ArticleNew obj = new ArticleNew(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -481,8 +498,8 @@ public class Articles extends javax.swing.JInternalFrame {
             //cuenta = .getText();
             int n = JOptionPane.showConfirmDialog(null, "¿Esta seguro de borrar el registro? ", "Confirmar borrado", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
-                ArticleCRUD obj = new ArticleCRUD();
-                UserCRUD usrCRUD = new UserCRUD();
+                ArticleCRUD obj = new ArticleCRUD(host);
+                UserCRUD usrCRUD = new UserCRUD(host);
                 obj.eliminar(Integer.parseInt(tab_articles.getValueAt(filasel, 0).toString()),user);
                 agregarDatos();
             }
@@ -514,7 +531,7 @@ public class Articles extends javax.swing.JInternalFrame {
         if (filasel == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione primero la columna");
         } else {
-            ArticleEdit obj = new ArticleEdit();
+            ArticleEdit obj = new ArticleEdit(user,host);
             Home.escritorio.add(obj);
             obj.toFront();
             //centrar
@@ -559,8 +576,8 @@ public class Articles extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        ReportsExcel reporte = new ReportsExcel();
-        ArticleCRUD artCRUD = new ArticleCRUD();
+        ReportsExcel reporte = new ReportsExcel(host);
+        ArticleCRUD artCRUD = new ArticleCRUD(host);
         ArrayList<Article> arts = artCRUD.visualizar();
         if(reporte.escribirExcelArticulos(arts)){
             JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE ARTICULOS CREADO","ARCHIVO GUARDADO EXITOSAMENTE",JOptionPane.INFORMATION_MESSAGE);

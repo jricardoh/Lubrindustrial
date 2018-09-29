@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  */
 public class DepartmentCRUD {
     
-    String host;
+    String host="localhost";
     
     public DepartmentCRUD(){
         
@@ -31,7 +31,9 @@ public class DepartmentCRUD {
     
     
     public boolean insertar(Department dep){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         try {
@@ -52,7 +54,9 @@ public class DepartmentCRUD {
     }
     
     public boolean modificar(Department dep, User usu){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -86,7 +90,9 @@ public class DepartmentCRUD {
     }
     
     public boolean eliminar(int codigo, User usu){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -122,7 +128,9 @@ public class DepartmentCRUD {
     
     public ArrayList<Department> visualizar(){
         ArrayList<Department> listaDepartamentos = new ArrayList<Department>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -150,7 +158,9 @@ public class DepartmentCRUD {
     
     public ArrayList<Department> visualizar(int idDept){
         ArrayList<Department> listaDepartamentos = new ArrayList<Department>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -178,7 +188,9 @@ public class DepartmentCRUD {
     
     public Department obtenerDept(int idDept){
 //        ArrayList<Department> listaDepartamentos = new ArrayList<Department>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -207,7 +219,9 @@ public class DepartmentCRUD {
     public ArrayList<Department> visualizar(String texto, int item){
         
         ArrayList<Department> listaDept = new ArrayList<Department>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         String Filtro=""+texto+"_%";

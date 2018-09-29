@@ -26,7 +26,7 @@ public class frmFotoMaximiza extends javax.swing.JFrame {
     
     private void cargarFoto(String ruta){
         try{
-            ruta="C:\\Users\\Marcelo\\Pictures\\BALON.jpg";
+            //uta="C:\\Users\\Marcelo\\Pictures\\BALON.jpg";
             ImageIcon icon = new ImageIcon(ruta);
             Icon icono = new ImageIcon(icon.getImage().getScaledInstance(420, 500, Image.SCALE_DEFAULT));
             lblFoto.setText(null);            

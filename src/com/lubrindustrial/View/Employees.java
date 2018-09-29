@@ -28,6 +28,7 @@ public class Employees extends javax.swing.JInternalFrame {
     ArrayList<Department> departamentos = new ArrayList<Department>();
 //    int valor_encontrado;
     User user = new User();
+    public String host;
     
     public Employees() {
         try {
@@ -59,6 +60,26 @@ public class Employees extends javax.swing.JInternalFrame {
         //llenarComboBoxDep();
         user = usu;
         System.out.println("dddd:" + user.getApeUser());
+    }
+    
+    public Employees(User usu, String hostname) {
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        tab_employees.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tab_employees.doLayout();
+        //llenarComboBoxDep();
+        user = usu;
+        this.host=hostname;
+        //System.out.println("Soy la direccion ene emp view: "+host);
+        agregarDatos();
+        //System.out.println("dddd:" + user.getApeUser());
     }
     
 //    public int getvalorencontrado() {
@@ -123,7 +144,7 @@ public class Employees extends javax.swing.JInternalFrame {
         String datos[] = new String[17];//ARRAY DE 17
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        EmployeeCRUD empCRUD = new EmployeeCRUD();
+        EmployeeCRUD empCRUD = new EmployeeCRUD(host);
 
         emp = empCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -491,7 +512,7 @@ public class Employees extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        EmployeesNew obj = new EmployeesNew();
+        EmployeesNew obj = new EmployeesNew(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -515,7 +536,7 @@ public class Employees extends javax.swing.JInternalFrame {
             //cuenta = .getText();
             int n = JOptionPane.showConfirmDialog(null, "¿Esta seguro de borrar el registro? ", "Confirmar borrado", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
-                EmployeeCRUD obj = new EmployeeCRUD();
+                EmployeeCRUD obj = new EmployeeCRUD(host);
                 obj.eliminar(Integer.parseInt(tab_employees.getValueAt(filasel, 0).toString()),user);
                 agregarDatos();
             }
@@ -549,7 +570,7 @@ public class Employees extends javax.swing.JInternalFrame {
         if (filasel == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione primero la columna");
         } else {
-            EmployeesEdit obj = new EmployeesEdit(user);
+            EmployeesEdit obj = new EmployeesEdit(user,host);
             Home.escritorio.add(obj);
             obj.toFront();
             //centrar
@@ -583,8 +604,8 @@ public class Employees extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        ReportsExcel reporte = new ReportsExcel();
-        EmployeeCRUD empCRUD = new EmployeeCRUD();
+        ReportsExcel reporte = new ReportsExcel(host);
+        EmployeeCRUD empCRUD = new EmployeeCRUD(host);
         ArrayList<Employee> emps = empCRUD.visualizar();
         if(reporte.escribirExcelEmpleados(emps)){
             JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE EMPLEADOS CREADO","ARCHIVO GUARDADO EXITOSAMENTE",JOptionPane.INFORMATION_MESSAGE);

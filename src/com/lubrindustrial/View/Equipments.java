@@ -31,6 +31,8 @@ public class Equipments extends javax.swing.JInternalFrame {
     ArrayList<Location> locaciones = new ArrayList<Location>();
     ArrayList<Equipment> equipos = new ArrayList<Equipment>();
     User user = new User();
+    public String host;
+    //EquipmentView obj = new EquipmentView();
     
     public Equipments() {
         try {
@@ -61,6 +63,24 @@ public class Equipments extends javax.swing.JInternalFrame {
         user = usu;
     }
     
+    public Equipments(User usu, String hostname) {
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        tab_equipment.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tab_equipment.doLayout();
+        user = usu;
+        host=hostname;
+        
+        agregarDatos();
+    }
+    
     public int seleccionaritem() {
         int item = cbox.getSelectedIndex();
         return item;
@@ -74,7 +94,7 @@ public class Equipments extends javax.swing.JInternalFrame {
         String datos[] = new String[19];//ARRAY DE 16
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        EquipmentCRUD equiCRUD = new EquipmentCRUD();
+        EquipmentCRUD equiCRUD = new EquipmentCRUD(host);
 
         equipos = equiCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -107,7 +127,7 @@ public class Equipments extends javax.swing.JInternalFrame {
         String datos[] = new String[19];//ARRAY DE 16
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        EquipmentCRUD equiCRUD = new EquipmentCRUD();
+        EquipmentCRUD equiCRUD = new EquipmentCRUD(host);
         
         equipos = equiCRUD.visualizar(idEquipment); // devuelve todos los registros de la BD
 
@@ -137,7 +157,7 @@ public class Equipments extends javax.swing.JInternalFrame {
 
     private void llenarComboBoxResponsable() {
 
-        EmployeeCRUD empCRUD = new EmployeeCRUD();
+        EmployeeCRUD empCRUD = new EmployeeCRUD(host);
         empleados = empCRUD.visualizar(); // devuelve todos los registros de la BD
         EquipmentEdit.cbox_responsable.removeAllItems();
         //EquipmentView.cbox_responsable.removeAllItems();
@@ -150,7 +170,7 @@ public class Equipments extends javax.swing.JInternalFrame {
 
     private void llenarComboBoxEquiposPadres() {
 
-        EquipmentCRUD equipCRUD = new EquipmentCRUD();
+        EquipmentCRUD equipCRUD = new EquipmentCRUD(host);
         equipos = equipCRUD.visualizar(); // devuelve todos los registros de la BD
         EquipmentEdit.cbox_padreEQ.removeAllItems();
         //EquipmentView.cbox_padreEQ.removeAllItems();
@@ -164,7 +184,7 @@ public class Equipments extends javax.swing.JInternalFrame {
 
     private void llenarComboBoxLoc() {
 
-        LocationCRUD locCRUD = new LocationCRUD();
+        LocationCRUD locCRUD = new LocationCRUD(host);
         locaciones = locCRUD.visualizar(); // devuelve todos los registros de la BD
         EquipmentEdit.cbox_location.removeAllItems();
         //EquipmentView.cbox_location.removeAllItems();
@@ -429,7 +449,7 @@ public class Equipments extends javax.swing.JInternalFrame {
 
         DefaultTableModel model = (DefaultTableModel) tab_equipment.getModel();
         model.setRowCount(0);
-        EquipmentCRUD equi_query = new EquipmentCRUD();
+        EquipmentCRUD equi_query = new EquipmentCRUD(host);
         String datos[] = new String[19];//ARRAY DE 3
         if (txtInput.getText().isEmpty()) {
 
@@ -496,7 +516,7 @@ public class Equipments extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        EquipmentNew obj = new EquipmentNew();
+        EquipmentNew obj = new EquipmentNew(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -521,7 +541,7 @@ public class Equipments extends javax.swing.JInternalFrame {
             //cuenta = .getText();
             int n = JOptionPane.showConfirmDialog(null, "¿Esta seguro de borrar el registro? ", "Confirmar borrado", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
-                EquipmentCRUD obj = new EquipmentCRUD();
+                EquipmentCRUD obj = new EquipmentCRUD(host);
                 obj.eliminar(Integer.parseInt(tab_equipment.getValueAt(filasel, 0).toString()),user);
                 agregarDatos();
             }
@@ -538,7 +558,7 @@ public class Equipments extends javax.swing.JInternalFrame {
         if (filasel == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione primero la columna");
         } else {
-            EquipmentView obj = new EquipmentView();
+            EquipmentView obj = new EquipmentView(user,host);
             Home.escritorio.add(obj);
             obj.toFront();
             //centrar
@@ -570,6 +590,7 @@ public class Equipments extends javax.swing.JInternalFrame {
             EquipmentView.txt_EqPadre.setText(dat[16]);
             EquipmentView.txt_foto1.setText(dat[15]);
             EquipmentView.ruta=dat[15];
+            //System.out.println("Ruta desde equipo: "+dat[15]);
 //            llenarComboBoxEquiposPadres();
 //            llenarComboBoxLoc();
 //            llenarComboBoxResponsable();
@@ -595,7 +616,7 @@ public class Equipments extends javax.swing.JInternalFrame {
         if (filasel == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione primero la columna");
         } else {
-            EquipmentEdit obj = new EquipmentEdit();
+            EquipmentEdit obj = new EquipmentEdit(user,host);
             Home.escritorio.add(obj);
             obj.toFront();
             //centrar
@@ -632,7 +653,7 @@ public class Equipments extends javax.swing.JInternalFrame {
 
     private void btnArbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArbolActionPerformed
         // TODO add your handling code here:
-        EquipmentTree obj = new EquipmentTree();
+        EquipmentTree obj = new EquipmentTree(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -648,8 +669,8 @@ public class Equipments extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        ReportsExcel reporte = new ReportsExcel();
-        EquipmentCRUD eqCRUD = new EquipmentCRUD();
+        ReportsExcel reporte = new ReportsExcel(host);
+        EquipmentCRUD eqCRUD = new EquipmentCRUD(host);
         ArrayList<Equipment> equips = eqCRUD.visualizar();
         if (reporte.escribirExcelEquipos(equips)) {
             JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE EQUIPOS CREADO", "ARCHIVO GUARDADO EXITOSAMENTE", JOptionPane.INFORMATION_MESSAGE);

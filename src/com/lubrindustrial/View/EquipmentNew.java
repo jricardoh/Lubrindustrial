@@ -9,6 +9,7 @@ import com.lubrindustrial.Server.Department;
 import com.lubrindustrial.Server.DepartmentCRUD;
 import com.lubrindustrial.Server.Employee;
 import com.lubrindustrial.Server.EmployeeCRUD;
+import com.lubrindustrial.Server.User;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import com.lubrindustrial.Server.Equipment;
@@ -38,6 +39,8 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
     ArrayList<Employee> empleados = new ArrayList<Employee>();
     ArrayList<Location> locaciones = new ArrayList<Location>();
     ArrayList<Equipment> equipos = new ArrayList<Equipment>();
+    User user = new User();
+    String host="";
 
     public EquipmentNew() {
         try{
@@ -52,9 +55,26 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         llenarComboBoxEquiposPadres();
         llenarComboBoxResponsable();
     }
+    
+    public EquipmentNew(User us, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        user = us;
+        host = hostname;
+        
+        llenarComboBoxLoc();
+        llenarComboBoxEquiposPadres();
+        llenarComboBoxResponsable();
+    }
 
     private void Volver(){
-        Equipments obj = new Equipments();
+        Equipments obj = new Equipments(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -82,7 +102,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
     
     private void llenarComboBoxResponsable(){
         
-        EmployeeCRUD empCRUD = new EmployeeCRUD();
+        EmployeeCRUD empCRUD = new EmployeeCRUD(host);
         empleados = empCRUD.visualizar(); // devuelve todos los registros de la BD
         cbox_responsable.removeAllItems();
 
@@ -93,7 +113,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
    
     private void llenarComboBoxEquiposPadres(){
         
-        EquipmentCRUD equipCRUD = new EquipmentCRUD();
+        EquipmentCRUD equipCRUD = new EquipmentCRUD(host);
         equipos = equipCRUD.visualizar(); // devuelve todos los registros de la BD
         cbox_padreEQ.removeAllItems();
 
@@ -105,13 +125,26 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
      
     private void llenarComboBoxLoc() {
         
-        LocationCRUD locCRUD = new LocationCRUD();
+        LocationCRUD locCRUD = new LocationCRUD(host);
         locaciones = locCRUD.visualizar(); // devuelve todos los registros de la BD
         cbox_location1.removeAllItems();
         System.out.println("Tamaño locaciones: "+locaciones.size());
         for (Location l : locaciones) {
             cbox_location1.addItem(l.getIdLocation() + " " + l.getDescLocation());
         }
+    }
+    
+    private String agregaBarraInvertida(String r){
+        String aux="";
+        for(int i=0; i<r.length(); i++){
+            if(r.charAt(i)=='\\'){
+                aux+=(r.charAt(i)+"\\");
+            }else{
+                aux+=(r.charAt(i));
+            }
+            
+        }
+        return aux;
     }
 
     
@@ -443,6 +476,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
         jLabel37.setText("Foto");
         jPanel4.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 230, -1, 20));
 
+        txt_foto.setEditable(false);
         txt_foto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_fotoMouseClicked(evt);
@@ -594,7 +628,7 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
 
     private void btnSave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave1ActionPerformed
 
-        EquipmentCRUD equiCRUD = new EquipmentCRUD();
+        EquipmentCRUD equiCRUD = new EquipmentCRUD(host);
         Equipment e = new Equipment();
         String cadEquip="",cadLoc="",cadEmple="";
         
@@ -715,11 +749,10 @@ public class EquipmentNew extends javax.swing.JInternalFrame {
             explorador.showOpenDialog(explorador);
             
             path=explorador.getSelectedFile().getAbsolutePath();
-            String abs=explorador.getSelectedFile().getAbsolutePath();
-            String rel=explorador.getSelectedFile().getPath();
+            path=agregaBarraInvertida(path);
 //            System.out.println("abs: "+abs);
 //            System.out.println("rel: "+rel);
-//            System.out.println(path);
+            //System.out.println(path);
             txt_foto.setText(path);
             
         }catch(Exception ex){

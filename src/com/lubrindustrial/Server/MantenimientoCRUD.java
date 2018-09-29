@@ -27,7 +27,9 @@ public class MantenimientoCRUD {
     }
     
     public boolean insertar(Mantenimientos man, ArrayList<Integer> idEmp, ArrayList<Integer> idInst){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         int respuesta2=0;
@@ -73,7 +75,9 @@ public class MantenimientoCRUD {
     }
     
     public boolean modificar(Mantenimientos mAn, Mantenimientos mDes, ArrayList<Employee> codAnEmp, ArrayList<Instruction> codAnInst, ArrayList<Integer> codDesEmp, ArrayList<Integer> codDesInt, String fecha, User usu){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -98,7 +102,7 @@ public class MantenimientoCRUD {
 //                    + ", '"+mAn.getFrecuenciaMant()+"', "+mAn.getDiasMant()+", "+mAn.getDurTareaMant()+", '"+mAn.getFechIniMantenimiento()+"'"
 //                    + ", '"+mAn.getFechProgInicMant()+"', '"+mAn.getFechProgTermMant()+"', '"+mAn.getFechProximaMant()+"', '"+fecha+"')");
 //            }
-            
+//            
 //            for(int i=0;i<codAnEmp.size();i++)
 //            {
 //                //JOptionPane.showMessageDialog(null, "Se ingresa a emp_mant: "+idEmp.get(i));
@@ -147,6 +151,7 @@ public class MantenimientoCRUD {
                 + "',`HORASPROGRAMADAS_MANT`="+mDes.getHorasProgramadas()
                 +" WHERE ID_MANT="+mDes.getIdMantenimiento());
             }
+            ////////////////////HACEMOS LA AUDITORIA DESPUES DE ACTUALIZAR
 //            ////////////////////HACEMOS LA AUDITORIA DESPUES DE ACTUALIZAR
 //            if(mDes.getIdEquipo()!=0){
 //            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
@@ -279,7 +284,9 @@ public class MantenimientoCRUD {
     
     public ArrayList<Mantenimientos> visualizar(){
         ArrayList<Mantenimientos> listaMant = new ArrayList<Mantenimientos>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -320,7 +327,9 @@ public class MantenimientoCRUD {
     }
     public ArrayList<Integer> visualizarCodigo(){
         ArrayList<Integer> listaMant = new ArrayList<Integer>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -349,7 +358,9 @@ public class MantenimientoCRUD {
     {
         ArrayList<Integer> listaMant = new ArrayList<Integer>();
         Mantenimientos mant = new Mantenimientos();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -391,7 +402,9 @@ public class MantenimientoCRUD {
     {
         ArrayList<Employee> listEmp=new ArrayList<Employee>();
 
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try
@@ -422,7 +435,9 @@ public class MantenimientoCRUD {
     {
         ArrayList<Mantenimientos> listMant=new ArrayList<Mantenimientos>();
 
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try
@@ -466,7 +481,9 @@ public class MantenimientoCRUD {
         ArrayList<String> listaColab=new ArrayList<String>();
         String colaboradores="";
 
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try
@@ -502,7 +519,9 @@ public class MantenimientoCRUD {
         public ResultSet cumplePuntoReorden(){
         
         //ArrayList<Article> listaArts = new ArrayList<Article>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -540,7 +559,9 @@ public class MantenimientoCRUD {
     public ArrayList<Mantenimientos> enviarDatosTabla(ResultSet resultado){
         
         ArrayList<Mantenimientos> listaMant = new ArrayList<Mantenimientos>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         try{
            while (resultado.next()) {
@@ -574,7 +595,9 @@ public class MantenimientoCRUD {
     public ArrayList<Mantenimientos> visualizar(String texto, int item){
         
         ArrayList<Mantenimientos> listaMant = new ArrayList<Mantenimientos>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         String Filtro=""+texto+"_%";
@@ -637,7 +660,9 @@ public class MantenimientoCRUD {
     public Mantenimientos obtenerMant(int codigo){
         
 //        ArrayList<Mantenimientos> listaMant = new ArrayList<Mantenimientos>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
 //        String Filtro=""+texto+"_%";

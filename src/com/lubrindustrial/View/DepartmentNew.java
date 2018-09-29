@@ -7,6 +7,7 @@ package com.lubrindustrial.View;
 
 import com.lubrindustrial.Server.Department;
 import com.lubrindustrial.Server.DepartmentCRUD;
+import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
@@ -22,6 +23,9 @@ public class DepartmentNew extends javax.swing.JInternalFrame {
     /**
      * Creates new form DepartmentNew
      */
+    public String host;
+    User user = new User();
+    
     public DepartmentNew() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -33,8 +37,21 @@ public class DepartmentNew extends javax.swing.JInternalFrame {
         this.setClosable(true);
     }
     
+    public DepartmentNew(User us, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        user = us;
+        host=hostname;
+    }
+    
     private void Volver(){
-        Departments obj = new Departments();
+        Departments obj = new Departments(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -172,7 +189,7 @@ public class DepartmentNew extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_descriptionKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        DepartmentCRUD depCRUD = new DepartmentCRUD();
+        DepartmentCRUD depCRUD = new DepartmentCRUD(host);
         Department dep = new Department();
         try{
             dep.setNroDepartment(txt_Number.getText());

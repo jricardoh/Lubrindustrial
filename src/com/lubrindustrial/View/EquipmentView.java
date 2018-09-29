@@ -40,6 +40,7 @@ public class EquipmentView extends javax.swing.JInternalFrame {
     ArrayList<Location> locaciones = new ArrayList<Location>();
     ArrayList<Equipment> equipos = new ArrayList<Equipment>();
     User user = new User();
+    String host="";
     public static String ruta="";
 
     public EquipmentView() {
@@ -50,18 +51,19 @@ public class EquipmentView extends javax.swing.JInternalFrame {
         }
         initComponents();
                 //System.out.println("ruta txt: "+txt_foto1.getText());
-        //txt_foto.setVisible(false);
+        txt_foto1.setVisible(false);
         this.setIconifiable(true);
         this.setClosable(true);
         lblID.setVisible(false);
         lblID.setEnabled(false);
 //        this.setLocationRelativeTo(null);
 //        rsscalelabel.RSScaleLabel.setScaleLabel(lblImage, "carburador.jpg");
-        cargarFoto();
+        //cargarFoto();
 
     }
+    
 
-    public EquipmentView(User us) {
+    public EquipmentView(User us,String hostname) {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
         }catch(Exception e){
@@ -69,18 +71,19 @@ public class EquipmentView extends javax.swing.JInternalFrame {
         }
         initComponents();
         //System.out.println("ruta txt: "+txt_foto1.getText());
-        //txt_foto.setVisible(false);
+        txt_foto1.setVisible(false);
         this.setIconifiable(true);
         this.setClosable(true);
         lblID.setVisible(false);
         lblID.setEnabled(false);
         
         user = us;
-        cargarFoto();
+        host=hostname;
+        //cargarFoto();
     }
     
     private void Volver(){
-        Equipments obj = new Equipments();
+        Equipments obj = new Equipments(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -94,14 +97,16 @@ public class EquipmentView extends javax.swing.JInternalFrame {
     
     private void cargarFoto(){
 //        ruta="C:\\Users\\Marcelo\\Desktop\\LUBRINDUSTRIALES_TRABAJO\\FINAL_OCTUBRE\\Lubrindustrial-master\\FotosEquipos\\cald.jpg";
-        //ruta=txt_foto1.getText();
+        ruta=txt_foto1.getText();
         System.out.println("ruta: "+ruta);
         try{
             ImageIcon icon = new ImageIcon(ruta);
-            Icon icono = new ImageIcon(icon.getImage().getScaledInstance(110, 110, Image.SCALE_DEFAULT));
+            ImageIcon lbl = new ImageIcon(icon.getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_DEFAULT));
+            //Icon icono = new ImageIcon(icon.getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_DEFAULT));
             lblImage.setText(null);            
-            lblImage.setIcon( icono );
+            lblImage.setIcon( lbl );
         }catch(Exception ex){
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error abriendo la imagen "+ ex);       
         }
     }
@@ -167,6 +172,7 @@ public class EquipmentView extends javax.swing.JInternalFrame {
         txt_Locacion = new javax.swing.JTextField();
         txt_Responsable = new javax.swing.JTextField();
         txt_Piezas1 = new javax.swing.JTextField();
+        btnMostrar = new javax.swing.JButton();
         lblID = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -381,7 +387,7 @@ public class EquipmentView extends javax.swing.JInternalFrame {
                 btnCancelar1ActionPerformed(evt);
             }
         });
-        jPanel4.add(btnCancelar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, 150, -1));
+        jPanel4.add(btnCancelar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 150, -1));
 
         txt_FechaIniEquipment.setEditable(false);
         txt_FechaIniEquipment.addActionListener(new java.awt.event.ActionListener() {
@@ -422,7 +428,7 @@ public class EquipmentView extends javax.swing.JInternalFrame {
                 txt_foto1KeyTyped(evt);
             }
         });
-        jPanel4.add(txt_foto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 153, -1));
+        jPanel4.add(txt_foto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 40, -1));
 
         jLabel37.setText("Imagen");
         jPanel4.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 230, -1, 20));
@@ -501,6 +507,14 @@ public class EquipmentView extends javax.swing.JInternalFrame {
             }
         });
         jPanel4.add(txt_Piezas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, 153, -1));
+
+        btnMostrar.setText("Mostrar Foto");
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 140, 30));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 660, 360));
         getContentPane().add(lblID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 40, 10));
@@ -711,6 +725,11 @@ public class EquipmentView extends javax.swing.JInternalFrame {
         frmFotoMaximiza obj = new frmFotoMaximiza(ruta);
         obj.show();
     }//GEN-LAST:event_lblImageMouseClicked
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        // TODO add your handling code here:
+        cargarFoto();
+    }//GEN-LAST:event_btnMostrarActionPerformed
 public void validarletra(java.awt.event.KeyEvent evt)
 {
     char c=evt.getKeyChar();
@@ -723,6 +742,7 @@ public void validarletra(java.awt.event.KeyEvent evt)
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar1;
+    private javax.swing.JButton btnMostrar;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;

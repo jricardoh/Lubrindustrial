@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,9 +43,9 @@ public class Conexion {
         port = "3306";
         database = "lubrindustriales";
         url = "jdbc:mysql://localhost:3306/" + database;
-        userName = "root";
-        password = "";
-        Conectar();
+        userName = "administrador";
+        password = "admin.soft.18.jcrh.1000";
+        //Conectar();
     }
     
     public Conexion(int num) {
@@ -98,7 +99,9 @@ public class Conexion {
     }
 
     public void setHost(String host) {
+        
         this.host = host;
+        this.url = "jdbc:mysql://"+this.host+":3306/" + database;
     }
 
     public String getPort() {
@@ -156,7 +159,7 @@ public class Conexion {
               Class.forName("org.gjt.mm.mysql.Driver");
               con = DriverManager.getConnection(getConnectionUrl(),userName,password);
               stm=con.createStatement();
-              System.out.println("Conectado");
+              JOptionPane.showMessageDialog(null, "CONECTADO A: "+url,"HOST",JOptionPane.INFORMATION_MESSAGE);
          }catch(Exception e){
              errString= "Error de conexion con la Base de Datos";
              System.out.println(errString);

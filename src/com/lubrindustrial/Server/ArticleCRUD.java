@@ -29,7 +29,9 @@ public class ArticleCRUD {
     }
     
     public boolean insertar(Article art){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         
@@ -58,6 +60,8 @@ public class ArticleCRUD {
     
     public boolean actualizarStock(Article art){
         Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         
@@ -83,6 +87,8 @@ public class ArticleCRUD {
         
         ArrayList<Article> listaArts = new ArrayList<Article>();
         Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         // ** CAMBIO EN EL QUERY DE VISUALIZAR PARA OBTENER LOS NUEVOS CAMPOS AÑADIDOS
@@ -139,7 +145,9 @@ public class ArticleCRUD {
     
     
     public boolean modificar(Article art, User usu){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -188,7 +196,9 @@ public class ArticleCRUD {
     }
     
     public boolean eliminar(int codigo, User usu){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host); 
+        
         conexion.Conectar();
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -227,7 +237,9 @@ public class ArticleCRUD {
     public ArrayList<Article> visualizar(){
         
         ArrayList<Article> listaArts = new ArrayList<Article>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         // ** CAMBIO EN EL QUERY DE VISUALIZAR PARA OBTENER LOS NUEVOS CAMPOS AÑADIDOS
@@ -285,7 +297,9 @@ public class ArticleCRUD {
     public ArrayList<Article> visualizar(int idArt){
         
         ArrayList<Article> listaArts = new ArrayList<Article>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -344,7 +358,9 @@ public class ArticleCRUD {
     public Article obtenerArticulo(int idArt){
         
 //        ArrayList<Article> listaArts = new ArrayList<Article>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -395,7 +411,9 @@ public class ArticleCRUD {
     public ArrayList<Article> visualizar(String texto, int item){
         
         ArrayList<Article> listaArts = new ArrayList<Article>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         String Filtro=""+texto+"_%";
@@ -564,7 +582,9 @@ public class ArticleCRUD {
     public ResultSet cumplePuntoReorden(){
         
         //ArrayList<Article> listaArts = new ArrayList<Article>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -600,7 +620,9 @@ public class ArticleCRUD {
     public ArrayList<Article> enviarDatosTabla(ResultSet resultado){
         
         ArrayList<Article> listaArts = new ArrayList<Article>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         try{
             while (resultado.next()) {

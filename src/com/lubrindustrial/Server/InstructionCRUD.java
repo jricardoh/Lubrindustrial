@@ -27,7 +27,9 @@ public class InstructionCRUD {
     }
     
     public boolean insertar(Instruction inst){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         try {
@@ -49,7 +51,9 @@ public class InstructionCRUD {
     }
     
     public boolean modificar(Instruction inst, User usu){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -86,7 +90,9 @@ public class InstructionCRUD {
     }
     
     public boolean eliminar(int codigo, User usu){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -123,7 +129,9 @@ public class InstructionCRUD {
     
     public ArrayList<Instruction> visualizar(){
         ArrayList<Instruction> listaInstrucciones = new ArrayList<Instruction>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -153,7 +161,9 @@ public class InstructionCRUD {
     
     public ArrayList<Instruction> visualizar(int idInstruction){
         ArrayList<Instruction> listaInstrucciones = new ArrayList<Instruction>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -183,7 +193,9 @@ public class InstructionCRUD {
     
     public Instruction obtenerInst(int idInstruction){
 //        ArrayList<Instruction> listaInstrucciones = new ArrayList<Instruction>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -214,7 +226,9 @@ public class InstructionCRUD {
     public ArrayList<Instruction> mostrarPorCodigo(int codigo)
     {
         ArrayList<Instruction> listaIns=new ArrayList<Instruction>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -245,7 +259,9 @@ public class InstructionCRUD {
      public ArrayList<Instruction> visualizar(String texto, int item){
         
         ArrayList<Instruction> listaInstrucciones = new ArrayList<Instruction>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         String Filtro=""+texto+"_%";

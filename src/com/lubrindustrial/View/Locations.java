@@ -28,7 +28,7 @@ public class Locations extends javax.swing.JInternalFrame {
     ArrayList<Location> locs = new ArrayList<Location>();
     ArrayList<Department> departamentos = new ArrayList<Department>();
     User user = new User();
-    
+    String host = "";
 //ArrayList<Articulos> lista = new ArrayList<Articulos>();
     public Locations() {
         try {
@@ -58,6 +58,23 @@ public class Locations extends javax.swing.JInternalFrame {
 //        tab_locations.doLayout();
         user = usu;
     }
+     
+     public Locations(User usu, String hostname) {
+        try {
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+//        tab_locations.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//        tab_locations.doLayout();
+        user = usu;
+        host=hostname;
+        agregarDatos();
+    }
     
     public int seleccionaritem() {
         int item = cbox.getSelectedIndex();
@@ -72,7 +89,7 @@ public class Locations extends javax.swing.JInternalFrame {
         String datos[] = new String[4];//ARRAY DE 4
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        LocationCRUD loctCRUD = new LocationCRUD();
+        LocationCRUD loctCRUD = new LocationCRUD(host);
 
         locs = loctCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -91,7 +108,7 @@ public class Locations extends javax.swing.JInternalFrame {
         String datos[] = new String[4];//ARRAY DE 4
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        LocationCRUD loctCRUD = new LocationCRUD();
+        LocationCRUD loctCRUD = new LocationCRUD(host);
 
         locs = loctCRUD.visualizar(idLocation); // devuelve todos los registros de la BD
 
@@ -106,7 +123,7 @@ public class Locations extends javax.swing.JInternalFrame {
     }
 
     private void llenarComboBox() {
-        DepartmentCRUD deptCRUD = new DepartmentCRUD();
+        DepartmentCRUD deptCRUD = new DepartmentCRUD(host);
 
         departamentos = deptCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -348,7 +365,7 @@ public class Locations extends javax.swing.JInternalFrame {
 
         DefaultTableModel model = (DefaultTableModel) tab_locations.getModel();
         model.setRowCount(0);
-        LocationCRUD loc_query = new LocationCRUD();
+        LocationCRUD loc_query = new LocationCRUD(host);
         String datos[] = new String[5];//ARRAY DE 3
         if (txtInput.getText().isEmpty()) {
 
@@ -403,7 +420,7 @@ public class Locations extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        LocationsNew obj = new LocationsNew();
+        LocationsNew obj = new LocationsNew(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -428,7 +445,7 @@ public class Locations extends javax.swing.JInternalFrame {
             //cuenta = .getText();
             int n = JOptionPane.showConfirmDialog(null, "¿Esta seguro de borrar el registro? ", "Confirmar borrado", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
-                LocationCRUD obj = new LocationCRUD();
+                LocationCRUD obj = new LocationCRUD(host);
                 obj.eliminar(Integer.parseInt(tab_locations.getValueAt(filasel, 0).toString()),user);
                 agregarDatos();
             }
@@ -456,7 +473,7 @@ public class Locations extends javax.swing.JInternalFrame {
         if (filasel == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione primero la columna");
         } else {
-            LocationsEdit obj = new LocationsEdit();
+            LocationsEdit obj = new LocationsEdit(user,host);
             Home.escritorio.add(obj);
             obj.toFront();
             //centrar
@@ -485,8 +502,8 @@ public class Locations extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        ReportsExcel reporte = new ReportsExcel();
-        LocationCRUD eqCRUD = new LocationCRUD();
+        ReportsExcel reporte = new ReportsExcel(host);
+        LocationCRUD eqCRUD = new LocationCRUD(host);
         ArrayList<Location> locs = eqCRUD.visualizar();
         if(reporte.escribirExcelLocaciones(locs)){
             JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE LOCACIONES CREADO","ARCHIVO GUARDADO EXITOSAMENTE",JOptionPane.INFORMATION_MESSAGE);

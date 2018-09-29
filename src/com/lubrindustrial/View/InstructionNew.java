@@ -9,6 +9,7 @@ import com.lubrindustrial.Server.Department;
 import com.lubrindustrial.Server.DepartmentCRUD;
 import com.lubrindustrial.Server.Instruction;
 import com.lubrindustrial.Server.InstructionCRUD;
+import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
@@ -24,6 +25,8 @@ public class InstructionNew extends javax.swing.JInternalFrame {
     /**
      * Creates new form DepartmentNew
      */
+    User user = new User();
+    String host;
     public InstructionNew() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -35,8 +38,22 @@ public class InstructionNew extends javax.swing.JInternalFrame {
         this.setClosable(true);
     }
     
+    public InstructionNew(User us, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        user = us;
+        host=hostname;
+    }
+    
     private void Volver(){
-        Instructions obj = new Instructions();
+        Instructions obj = new Instructions(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -202,7 +219,7 @@ public class InstructionNew extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_descriptionKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        InstructionCRUD instCRUD = new InstructionCRUD();
+        InstructionCRUD instCRUD = new InstructionCRUD(host);
         Instruction inst = new Instruction();
         try{
             inst.setNroInst(txt_Number.getText());

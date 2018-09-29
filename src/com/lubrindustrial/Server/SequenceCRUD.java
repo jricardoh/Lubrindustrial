@@ -27,7 +27,9 @@ public class SequenceCRUD {
     }
     
     public boolean insertar(Sequence sec){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         try {
@@ -49,7 +51,9 @@ public class SequenceCRUD {
     }
     
     public boolean modificar(Sequence sec, User usu){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -85,7 +89,9 @@ public class SequenceCRUD {
     }
     
     public boolean eliminar(int codigo, User usu){
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
@@ -122,7 +128,9 @@ public class SequenceCRUD {
     
     public ArrayList<Sequence> visualizar(){
         ArrayList<Sequence> listaSecuencias = new ArrayList<Sequence>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -162,7 +170,9 @@ public class SequenceCRUD {
     
     public ArrayList<Sequence> visualizar(int idSequence){
         ArrayList<Sequence> listaSecuencias = new ArrayList<Sequence>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -202,7 +212,9 @@ public class SequenceCRUD {
     
     public Sequence obtenerSecuencia(int idSequence){
 //        ArrayList<Sequence> listaSecuencias = new ArrayList<Sequence>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         try{
@@ -238,7 +250,9 @@ public class SequenceCRUD {
     public ArrayList<Sequence> visualizar(String texto, int item){
         
         ArrayList<Sequence> listaSeq = new ArrayList<Sequence>();
-        Conexion conexion = new Conexion(this.host);
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         String Filtro=""+texto+"_%";

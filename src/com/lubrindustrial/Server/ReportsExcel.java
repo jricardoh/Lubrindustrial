@@ -224,5 +224,62 @@ public class ReportsExcel {
 	}	
     }
     
+    public boolean escribirExcelOperabilidad(ArrayList<OPERABILIDAD> ops)
+    {
+	path="src/Operabilidad.xls";
+	try {
+            FileWriter e = new FileWriter(path, false);
+            e.write("ID OPERABILIDAD\tID DESCRIPCION EQUIPO\tDESCRIPCION OPERABILIDAD\n");
+            for(OPERABILIDAD op: ops){
+                e.write(op.getIdOp()+"\t"+op.getDescEquipo()+"\t"+op.getDescripcion()+"\n");
+            }
+	    e.close();
+            return true;
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+	}	
+    }
+    
+    public boolean escribirExcelPeriodosOperabilidad(ArrayList<PERIODO> pers)
+    {
+	path="src/PeriodosOperabilidad.xls";
+	try {
+            FileWriter e = new FileWriter(path, false);
+            e.write("ID OPERABILIDAD\tFECHA INICIO\tFECHA FIN\tDIAS OPERABILIDAD\tDESCRIPCION PERIODO\tHORAS PERDIODO\tACTIVIDAD\n");
+            for(PERIODO p: pers){
+                e.write(p.getIdOp()+"\t"+p.getFechaInicio()+"\t"+p.getFechaFin()+"\t"+p.getDiasDiferencia()+"\t"+p.getDescipcionPeriodo()+"\t"+p.getHorasPeriodo()+"\n");
+            }
+	    e.close();
+            return true;
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+	}	
+    }
+    
+    
+    public boolean escribirExcelPedidoMateriales(ArrayList<PEDIDOMATERIAL> pedsM)
+    {
+	path="src/PedidosMateriales.xls";
+	try {
+            FileWriter e = new FileWriter(path, false);
+            e.write("ID PEDIDO\tARTICULO\tCANTIDAD\tUNIDAD MEDIDA\tPEDIPO POR\tENTREGADO A\tAUTORIZADO POR\tAPROBADO POR\tDESCRIPCION PEDIDO\tFECHA HORA SOLICITUD\tFECHA HORA ENTREGA\n");
+            for(PEDIDOMATERIAL ped: pedsM){
+                e.write(ped.getIdPedido()+"\t"+ped.getDescArt()+"\t"+ped.getCantidad()+"\t"+ped.getUnidadCantidad()+"\t"+ped.getDescEmpPedido()+"\t"+
+                        ped.getDescEmpEntregado()+"\t"+ped.getDescEmpAutorizado()+"\t"+ped.getDescEmpAprobado()+"\t"+ped.getDescripcion()+"\t"+
+                        ped.getFechaHoraSolicitud()+"\t"+ped.getFechaHoraEntrega()+"\n");
+            }
+	    e.close();
+            return true;
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+	}	
+    }
+    
 }
 

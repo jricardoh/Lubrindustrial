@@ -25,6 +25,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
@@ -37,6 +38,7 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
     ArrayList<Location> locaciones = new ArrayList<Location>();
     ArrayList<Equipment> equipos = new ArrayList<Equipment>();
     User user = new User();
+    String host="";
 
     public EquipmentEdit() {
         try{
@@ -57,7 +59,7 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
 
     }
 
-    public EquipmentEdit(User us) {
+    public EquipmentEdit(User us, String hostname) {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
         }catch(Exception e){
@@ -73,10 +75,11 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
         lblID.setEnabled(false);
         
         user = us;
+        host=hostname;
     }
     
     private void Volver(){
-        Equipments obj = new Equipments();
+        Equipments obj = new Equipments(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -102,9 +105,22 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
         return fechaDate;
     }
     
+     private String agregaBarraInvertida(String r){
+        String aux="";
+        for(int i=0; i<r.length(); i++){
+            if(r.charAt(i)=='\\'){
+                aux+=(r.charAt(i)+"\\");
+            }else{
+                aux+=(r.charAt(i));
+            }
+            
+        }
+        return aux;
+    }
+     
     private void llenarComboBoxResponsable(){
         
-        EmployeeCRUD empCRUD = new EmployeeCRUD();
+        EmployeeCRUD empCRUD = new EmployeeCRUD(host);
         empleados = empCRUD.visualizar(); // devuelve todos los registros de la BD
         cbox_responsable.removeAllItems();
 
@@ -115,7 +131,7 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
    
     private void llenarComboBoxEquiposPadres(){
         
-        EquipmentCRUD equipCRUD = new EquipmentCRUD();
+        EquipmentCRUD equipCRUD = new EquipmentCRUD(host);
         equipos = equipCRUD.visualizar(); // devuelve todos los registros de la BD
         cbox_padreEQ.removeAllItems();
 
@@ -127,7 +143,7 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
      
     private void llenarComboBoxLoc() {
         
-        LocationCRUD locCRUD = new LocationCRUD();
+        LocationCRUD locCRUD = new LocationCRUD(host);
         locaciones = locCRUD.visualizar(); // devuelve todos los registros de la BD
         cbox_location.removeAllItems();
 
@@ -183,7 +199,6 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
         txt_Piezas = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
         txt_foto = new javax.swing.JTextField();
-        lblImage = new javax.swing.JLabel();
         lblID = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -467,6 +482,12 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
         jLabel37.setText("Imagen");
         jPanel4.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 230, -1, 20));
 
+        txt_foto.setEditable(false);
+        txt_foto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt_fotoMouseClicked(evt);
+            }
+        });
         txt_foto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_fotoActionPerformed(evt);
@@ -481,12 +502,6 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
             }
         });
         jPanel4.add(txt_foto, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 230, 153, -1));
-
-        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblImage.setIcon(new javax.swing.ImageIcon("D:\\Software lubricantes\\AVANCE FINAL 28-09-2018\\Lubrindustrial_v30\\Lubrindustrial\\carb.jpg")); // NOI18N
-        lblImage.setText("Imagen");
-        lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel4.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 260, 60, 60));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 660, 340));
         getContentPane().add(lblID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 40, 10));
@@ -620,7 +635,7 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
 
     private void btnSave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave1ActionPerformed
 
-        EquipmentCRUD equiCRUD = new EquipmentCRUD();
+        EquipmentCRUD equiCRUD = new EquipmentCRUD(host);
         Equipment e = new Equipment();
         String cadEquip="",cadLoc="",cadEmple="";
         
@@ -730,6 +745,28 @@ public class EquipmentEdit extends javax.swing.JInternalFrame {
     private void txt_fotoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_fotoKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_fotoKeyTyped
+
+    private void txt_fotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_fotoMouseClicked
+        // TODO add your handling code here:
+        String path="";
+        try{
+ 
+            JFileChooser explorador = new JFileChooser();
+            explorador.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            explorador.showOpenDialog(explorador);
+            
+            path=explorador.getSelectedFile().getAbsolutePath();
+            path=agregaBarraInvertida(path);
+//            System.out.println("abs: "+abs);
+//            System.out.println("rel: "+rel);
+            System.out.println("En modificar; "+path);
+            txt_foto.setText(path);
+            
+        }catch(Exception ex){
+            System.out.println(""+ex.getMessage());
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_txt_fotoMouseClicked
 public void validarletra(java.awt.event.KeyEvent evt)
 {
     char c=evt.getKeyChar();
@@ -765,7 +802,6 @@ public void validarletra(java.awt.event.KeyEvent evt)
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel4;
     public static javax.swing.JLabel lblID;
-    private javax.swing.JLabel lblImage;
     public static javax.swing.JTextField txt_ContratistaEquipment;
     public static javax.swing.JTextField txt_DescEquipment;
     public static javax.swing.JTextField txt_EstadoEquipment;
