@@ -17,14 +17,20 @@ import com.lubrindustrial.Server.MantenimientoCRUD;
 import com.lubrindustrial.Server.Mantenimientos;
 import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Dimension;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import java.text.ParseException;
+
+
 
 /**
  *
@@ -147,6 +153,35 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
             comboLocacion.addItem(l.getIdLocation() + " " + l.getDescLocation());
         }
     }
+    
+    private String obtenerFecha(JDateChooser jdc){
+        
+        try {
+            String formato = "yyyy-MM-dd";
+            Date date = jdc.getDate();
+            SimpleDateFormat sdf = new SimpleDateFormat(formato);
+            String fecha = String.valueOf(sdf.format(date));
+            return fecha;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No es una fecha válida", "Error..!!", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
+    private Date textoAFecha(String dateInString){
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                
+        try {
+            Date fecha = formatter.parse(dateInString);
+            return fecha;
+            
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
     private void Volver(){
         Mantenimiento obj = new Mantenimiento(user,host);
         Home.escritorio.add(obj);
@@ -180,15 +215,11 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         desMantenimiento = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        fechProgIniMant = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        fechProgTermMant = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        proxFechMant = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        fechInicioMant = new javax.swing.JTextField();
         radioEquipo = new javax.swing.JRadioButton();
         radioLocacion = new javax.swing.JRadioButton();
         comboEquipo = new javax.swing.JComboBox<>();
@@ -215,6 +246,10 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
         btnQuitar = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         listaInstrucciones = new javax.swing.JList<>();
+        jdcFechaInicioMant = new com.toedter.calendar.JDateChooser();
+        jdcFechProgIniMant = new com.toedter.calendar.JDateChooser();
+        jdcFechProgTermMant = new com.toedter.calendar.JDateChooser();
+        jdcProxFechMant = new com.toedter.calendar.JDateChooser();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -243,20 +278,17 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
         jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, 20));
         jPanel3.add(desMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 153, 20));
 
-        jLabel18.setText("Fecha Incio Mantenimiento");
+        jLabel18.setText("Fecha Inicio Mantenimiento");
         jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 180, -1, 20));
-        jPanel3.add(fechProgIniMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 210, 153, 20));
 
         jLabel19.setText("Fecha Programada Inicio Mant.");
         jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 210, -1, 20));
 
         jLabel20.setText("Fecha Programada Término Mant.");
         jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, -1, 20));
-        jPanel3.add(fechProgTermMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 240, 153, 20));
 
         jLabel21.setText("Próxima Fecha Mantenimiento");
         jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, -1, 20));
-        jPanel3.add(proxFechMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 270, 153, 20));
 
         btnSave.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/guardar.png"))); // NOI18N
@@ -277,7 +309,6 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
             }
         });
         jPanel3.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 370, -1, 30));
-        jPanel3.add(fechInicioMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 180, 153, 20));
 
         buttonGroup1.add(radioEquipo);
         radioEquipo.setText("Equipo");
@@ -389,6 +420,10 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
         jScrollPane4.setViewportView(listaInstrucciones);
 
         jPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 80, 140, 90));
+        jPanel3.add(jdcFechaInicioMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 180, 150, -1));
+        jPanel3.add(jdcFechProgIniMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 210, 150, -1));
+        jPanel3.add(jdcFechProgTermMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 240, 150, -1));
+        jPanel3.add(jdcProxFechMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 270, 150, -1));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 870, 430));
 
@@ -406,12 +441,12 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
         diasMantenimiento.setText(m.getDiasMant()+"");
         desMantenimiento.setText(m.getDescMantenimiento()+"");
         durTareaMantenimiento.setText(m.getDurTareaMant()+"");
-        fechInicioMant.setText(m.getFechIniMantenimiento()+"");
-        fechProgIniMant.setText(m.getFechProgInicMant()+"");
-        fechProgTermMant.setText(m.getFechProgTermMant()+"");
+        jdcFechaInicioMant.setDate(textoAFecha(m.getFechIniMantenimiento()+""));
+        jdcFechProgIniMant.setDate(textoAFecha(m.getFechProgInicMant()+""));
+        jdcFechProgTermMant.setDate(textoAFecha(m.getFechProgTermMant()+""));
         frecMantenimiento.setText(m.getFrecuenciaMant()+"");
         oficioMant.setText(m.getOficioMantenimiento()+"");
-        proxFechMant.setText(m.getFechProximaMant()+"");
+        jdcProxFechMant.setDate(textoAFecha(m.getFechProximaMant()+""));
         txtNroTareaMant.setText(m.getNroTareaMant()+"");
         horasProgramadas.setText(m.getHorasProgramadas()+"");
         if(m.getIdEquipo()!=0){
@@ -519,10 +554,10 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
             mDes.setFrecuenciaMant(frecMantenimiento.getText());
             mDes.setDiasMant(Integer.parseInt(diasMantenimiento.getText()));
             mDes.setDurTareaMant(Integer.parseInt(durTareaMantenimiento.getText()));
-            mDes.setFechIniMantenimiento(fechInicioMant.getText());
-            mDes.setFechProgInicMant(fechProgIniMant.getText());
-            mDes.setFechProgTermMant(fechProgTermMant.getText());
-            mDes.setFechProximaMant(proxFechMant.getText());
+            mDes.setFechIniMantenimiento(obtenerFecha(jdcFechaInicioMant));
+            mDes.setFechProgInicMant(obtenerFecha(jdcFechProgIniMant));
+            mDes.setFechProgTermMant(obtenerFecha(jdcFechProgTermMant));
+            mDes.setFechProximaMant(obtenerFecha(jdcProxFechMant));
             mDes.setHorasProgramadas(Integer.parseInt(horasProgramadas.getText()));
 
             if(manCRUD.modificar(mAn, mDes, codAnEmpleados, codAnInstruc, codigoDesEmpleados, codigoDesInstrucciones, fecha, user)){
@@ -588,9 +623,6 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
     private javax.swing.JTextField desMantenimiento;
     private javax.swing.JTextField diasMantenimiento;
     private javax.swing.JTextField durTareaMantenimiento;
-    private javax.swing.JTextField fechInicioMant;
-    private javax.swing.JTextField fechProgIniMant;
-    private javax.swing.JTextField fechProgTermMant;
     private javax.swing.JTextField frecMantenimiento;
     private javax.swing.JTextField horasProgramadas;
     private javax.swing.JButton jButton11;
@@ -612,10 +644,13 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private com.toedter.calendar.JDateChooser jdcFechProgIniMant;
+    private com.toedter.calendar.JDateChooser jdcFechProgTermMant;
+    private com.toedter.calendar.JDateChooser jdcFechaInicioMant;
+    private com.toedter.calendar.JDateChooser jdcProxFechMant;
     private javax.swing.JList<String> listaEmpleados;
     private javax.swing.JList<String> listaInstrucciones;
     private javax.swing.JTextField oficioMant;
-    private javax.swing.JTextField proxFechMant;
     private javax.swing.JRadioButton radioEquipo;
     private javax.swing.JRadioButton radioLocacion;
     private javax.swing.JTextField txtBusqueda;

@@ -60,19 +60,19 @@ public class OrdenTrabajoCRUD {
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
         try{
-            ////SE INGRESA LO QUE ESTA AHORA EN ADITORIA (ANTES DE MODIFICAR)
-            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `ordentrabajo2`(`ID_ORDTR2`, `ID_USU2`, `ID_MANT2`, "
-            + "`NRO_ORDTR2`, `DESCRIPCION_ORDTR2`, `ESTADO_ORDTR2`, `TIPO_ORDTR2`, `PRIORIDAD_ORDTR2`, "
-                    + "`FECHAHORASOLICITUD_ORDTR2`, `FECHAHORAREQUERIDA_ORDTR2`, `RESPUESTA_ORDTR2`, `INICIO_ORDTR2`, "
-                    + "`TERMINO_ORDTR2`, `FECHAHORAENTREGA_ORDTR2`, `DURACIONDIAS_ORDTR2`, `ACEPTADOPOR_ORDTR2`, "
-                    + "`FALLA_ORDTR2`, `DESCRIPCIONCAUSA_ORDTR2`, `ACCIONREALIZADA_ORDTR2`, `PREVENCIONTOMADA_ORDTR2`, "
-                    + "`HORACAMBIO_ORDTR2`) VALUES ("+otAn.getIdOrdtr()+",1,"+otAn.getIdMant()+",'"+otAn.getNroOrdtr()+"','"
-                    + otAn.getDescOrdtr()+"','"+otAn.getEstOrdtr()+"','"+otAn.getTipoOrdtr()+"','"+otAn.getPriorOrdtr()+"'"
-                    + ",'"+otAn.getFechHorSolicitudOrdtr()+"','"+otAn.getFechHorReqOrdtr()+"','"+otAn.getRespOrdtr()+"'"
-                    + ",'"+otAn.getInicioOrdtr()+"','"+otAn.getTermOrdtr()+"','"+otAn.getFechHoraEntOrdtr()+"'"
-                    + ","+otAn.getDuracionDiasOrdtr()+",'"+otAn.getAceptPorOrdtr()+"','"+otAn.getFallaOrdtr()+"'"
-                    + ",'"+otAn.getDescCausaOrdtr()+"','"+otAn.getAccionRealizOrdtr()+"', '"+otAn.getPrevenTomadaOrdtr()+"'"
-                    + ",'"+fecha+"')");
+//            ////SE INGRESA LO QUE ESTA AHORA EN ADITORIA (ANTES DE MODIFICAR)
+//            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `ordentrabajo2`(`ID_ORDTR2`, `ID_USU2`, `ID_MANT2`, "
+//            + "`NRO_ORDTR2`, `DESCRIPCION_ORDTR2`, `ESTADO_ORDTR2`, `TIPO_ORDTR2`, `PRIORIDAD_ORDTR2`, "
+//                    + "`FECHAHORASOLICITUD_ORDTR2`, `FECHAHORAREQUERIDA_ORDTR2`, `RESPUESTA_ORDTR2`, `INICIO_ORDTR2`, "
+//                    + "`TERMINO_ORDTR2`, `FECHAHORAENTREGA_ORDTR2`, `DURACIONDIAS_ORDTR2`, `ACEPTADOPOR_ORDTR2`, "
+//                    + "`FALLA_ORDTR2`, `DESCRIPCIONCAUSA_ORDTR2`, `ACCIONREALIZADA_ORDTR2`, `PREVENCIONTOMADA_ORDTR2`, "
+//                    + "`HORACAMBIO_ORDTR2`) VALUES ("+otAn.getIdOrdtr()+",1,"+otAn.getIdMant()+",'"+otAn.getNroOrdtr()+"','"
+//                    + otAn.getDescOrdtr()+"','"+otAn.getEstOrdtr()+"','"+otAn.getTipoOrdtr()+"','"+otAn.getPriorOrdtr()+"'"
+//                    + ",'"+otAn.getFechHorSolicitudOrdtr()+"','"+otAn.getFechHorReqOrdtr()+"','"+otAn.getRespOrdtr()+"'"
+//                    + ",'"+otAn.getInicioOrdtr()+"','"+otAn.getTermOrdtr()+"','"+otAn.getFechHoraEntOrdtr()+"'"
+//                    + ","+otAn.getDuracionDiasOrdtr()+",'"+otAn.getAceptPorOrdtr()+"','"+otAn.getFallaOrdtr()+"'"
+//                    + ",'"+otAn.getDescCausaOrdtr()+"','"+otAn.getAccionRealizOrdtr()+"', '"+otAn.getPrevenTomadaOrdtr()+"'"
+//                    + ",'"+fecha+"')");
             ////MODIFICAMOS REGISTRO
 
             respuesta=conexion.getStmt().executeUpdate("UPDATE `ordentrabajo` SET `ID_MANT`="+otDes.getIdMant()+","
@@ -88,18 +88,18 @@ public class OrdenTrabajoCRUD {
                     + "`ACCIONREALIZADA_ORDTR`='"+otDes.getAccionRealizOrdtr()+"',"
                     + "`PREVENCIONTOMADA_ORDTR`='"+otDes.getPrevenTomadaOrdtr()+"' WHERE ID_ORDTR="+otDes.getIdOrdtr());
             ////INGRESAMO AUDITORIA DESPUES DE REALIZAR EL UPDATE
-            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `ordentrabajo2`(`ID_ORDTR2`, `ID_USU2`, `ID_MANT2`, "
-            + "`NRO_ORDTR2`, `DESCRIPCION_ORDTR2`, `ESTADO_ORDTR2`, `TIPO_ORDTR2`, `PRIORIDAD_ORDTR2`, "
-                    + "`FECHAHORASOLICITUD_ORDTR2`, `FECHAHORAREQUERIDA_ORDTR2`, `RESPUESTA_ORDTR2`, `INICIO_ORDTR2`, "
-                    + "`TERMINO_ORDTR2`, `FECHAHORAENTREGA_ORDTR2`, `DURACIONDIAS_ORDTR2`, `ACEPTADOPOR_ORDTR2`, "
-                    + "`FALLA_ORDTR2`, `DESCRIPCIONCAUSA_ORDTR2`, `ACCIONREALIZADA_ORDTR2`, `PREVENCIONTOMADA_ORDTR2`, "
-                    + "`HORACAMBIO_ORDTR2`) VALUES ("+otDes.getIdOrdtr()+",1,"+otDes.getIdMant()+",'"+otDes.getNroOrdtr()+"','"
-                    + otDes.getDescOrdtr()+"','"+otDes.getEstOrdtr()+"','"+otDes.getTipoOrdtr()+"','"+otDes.getPriorOrdtr()+"'"
-                    + ",'"+otDes.getFechHorSolicitudOrdtr()+"','"+otDes.getFechHorReqOrdtr()+"','"+otDes.getRespOrdtr()+"'"
-                    + ",'"+otDes.getInicioOrdtr()+"','"+otDes.getTermOrdtr()+"','"+otDes.getFechHoraEntOrdtr()+"'"
-                    + ","+otDes.getDuracionDiasOrdtr()+",'"+otDes.getAceptPorOrdtr()+"','"+otDes.getFallaOrdtr()+"'"
-                    + ",'"+otDes.getDescCausaOrdtr()+"','"+otDes.getAccionRealizOrdtr()+"', '"+otDes.getPrevenTomadaOrdtr()+"'"
-                    + ",'"+fecha+"')");
+//            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `ordentrabajo2`(`ID_ORDTR2`, `ID_USU2`, `ID_MANT2`, "
+//            + "`NRO_ORDTR2`, `DESCRIPCION_ORDTR2`, `ESTADO_ORDTR2`, `TIPO_ORDTR2`, `PRIORIDAD_ORDTR2`, "
+//                    + "`FECHAHORASOLICITUD_ORDTR2`, `FECHAHORAREQUERIDA_ORDTR2`, `RESPUESTA_ORDTR2`, `INICIO_ORDTR2`, "
+//                    + "`TERMINO_ORDTR2`, `FECHAHORAENTREGA_ORDTR2`, `DURACIONDIAS_ORDTR2`, `ACEPTADOPOR_ORDTR2`, "
+//                    + "`FALLA_ORDTR2`, `DESCRIPCIONCAUSA_ORDTR2`, `ACCIONREALIZADA_ORDTR2`, `PREVENCIONTOMADA_ORDTR2`, "
+//                    + "`HORACAMBIO_ORDTR2`) VALUES ("+otDes.getIdOrdtr()+",1,"+otDes.getIdMant()+",'"+otDes.getNroOrdtr()+"','"
+//                    + otDes.getDescOrdtr()+"','"+otDes.getEstOrdtr()+"','"+otDes.getTipoOrdtr()+"','"+otDes.getPriorOrdtr()+"'"
+//                    + ",'"+otDes.getFechHorSolicitudOrdtr()+"','"+otDes.getFechHorReqOrdtr()+"','"+otDes.getRespOrdtr()+"'"
+//                    + ",'"+otDes.getInicioOrdtr()+"','"+otDes.getTermOrdtr()+"','"+otDes.getFechHoraEntOrdtr()+"'"
+//                    + ","+otDes.getDuracionDiasOrdtr()+",'"+otDes.getAceptPorOrdtr()+"','"+otDes.getFallaOrdtr()+"'"
+//                    + ",'"+otDes.getDescCausaOrdtr()+"','"+otDes.getAccionRealizOrdtr()+"', '"+otDes.getPrevenTomadaOrdtr()+"'"
+//                    + ",'"+fecha+"')");
             if(respuesta>0){
                  conexion.Desconectar();
                  Auditoria a = new Auditoria();
@@ -132,21 +132,21 @@ public class OrdenTrabajoCRUD {
         int respuesta=0;
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
         try{
-            //GUARDO EN LA TABLA AUDITORIA
-            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `ordentrabajo2`(`ID_ORDTR2`, `ID_USU2`, "
-                    + "`ID_MANT2`, `NRO_ORDTR2`, `DESCRIPCION_ORDTR2`, `ESTADO_ORDTR2`, `TIPO_ORDTR2`, "
-                    + "`PRIORIDAD_ORDTR2`, `FECHAHORASOLICITUD_ORDTR2`, `FECHAHORAREQUERIDA_ORDTR2`, "
-                    + "`RESPUESTA_ORDTR2`, `INICIO_ORDTR2`, `TERMINO_ORDTR2`, `FECHAHORAENTREGA_ORDTR2`, "
-                    + "`DURACIONDIAS_ORDTR2`, `ACEPTADOPOR_ORDTR2`, `FALLA_ORDTR2`, `DESCRIPCIONCAUSA_ORDTR2`, "
-                    + "`ACCIONREALIZADA_ORDTR2`, `PREVENCIONTOMADA_ORDTR2`, "
-                    + "`HORACAMBIO_ORDTR2`) VALUES ("+ot.getIdOrdtr()+", 1, "+ot.getIdMant()+",'"+ot.getNroOrdtr()+"'"
-                    + ",'"+ot.getDescOrdtr()+"','"+ot.getEstOrdtr()+"','"+ot.getTipoOrdtr()+"','"+ot.getPriorOrdtr()+"'"
-                    + ",'"+ot.getFechHorSolicitudOrdtr()+"','"+ot.getFechHorReqOrdtr()+"','"+ot.getRespOrdtr()+"'"
-                    + ",'"+ot.getInicioOrdtr()+"','"+ot.getTermOrdtr()+"','"+ot.getFechHoraEntOrdtr()+"'"
-                    + ","+ot.getDuracionDiasOrdtr()+",'"+ot.getAceptPorOrdtr()+"','"+ot.getFallaOrdtr()+"'"
-                    + ",'"+ot.getDescCausaOrdtr()+"','"+ot.getAccionRealizOrdtr()+"','"+ot.getPrevenTomadaOrdtr()+"'"
-                    + ",'"+fecha+"')");
-            ///
+//            //GUARDO EN LA TABLA AUDITORIA
+//            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `ordentrabajo2`(`ID_ORDTR2`, `ID_USU2`, "
+//                    + "`ID_MANT2`, `NRO_ORDTR2`, `DESCRIPCION_ORDTR2`, `ESTADO_ORDTR2`, `TIPO_ORDTR2`, "
+//                    + "`PRIORIDAD_ORDTR2`, `FECHAHORASOLICITUD_ORDTR2`, `FECHAHORAREQUERIDA_ORDTR2`, "
+//                    + "`RESPUESTA_ORDTR2`, `INICIO_ORDTR2`, `TERMINO_ORDTR2`, `FECHAHORAENTREGA_ORDTR2`, "
+//                    + "`DURACIONDIAS_ORDTR2`, `ACEPTADOPOR_ORDTR2`, `FALLA_ORDTR2`, `DESCRIPCIONCAUSA_ORDTR2`, "
+//                    + "`ACCIONREALIZADA_ORDTR2`, `PREVENCIONTOMADA_ORDTR2`, "
+//                    + "`HORACAMBIO_ORDTR2`) VALUES ("+ot.getIdOrdtr()+", 1, "+ot.getIdMant()+",'"+ot.getNroOrdtr()+"'"
+//                    + ",'"+ot.getDescOrdtr()+"','"+ot.getEstOrdtr()+"','"+ot.getTipoOrdtr()+"','"+ot.getPriorOrdtr()+"'"
+//                    + ",'"+ot.getFechHorSolicitudOrdtr()+"','"+ot.getFechHorReqOrdtr()+"','"+ot.getRespOrdtr()+"'"
+//                    + ",'"+ot.getInicioOrdtr()+"','"+ot.getTermOrdtr()+"','"+ot.getFechHoraEntOrdtr()+"'"
+//                    + ","+ot.getDuracionDiasOrdtr()+",'"+ot.getAceptPorOrdtr()+"','"+ot.getFallaOrdtr()+"'"
+//                    + ",'"+ot.getDescCausaOrdtr()+"','"+ot.getAccionRealizOrdtr()+"','"+ot.getPrevenTomadaOrdtr()+"'"
+//                    + ",'"+fecha+"')");
+//            ///
             respuesta=conexion.getStmt().executeUpdate("UPDATE ORDENTRABAJO set ACTIVO=0 WHERE ID_ORDTR="+ot.getIdOrdtr());
             /*ELIMINADO LOGICO A NIVEL DE ACTUALIZCION DE UNA COLUMNA EN LA TABLA DE LA BD*/
             if(respuesta>0){

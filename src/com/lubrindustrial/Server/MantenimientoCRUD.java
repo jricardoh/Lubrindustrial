@@ -152,6 +152,7 @@ public class MantenimientoCRUD {
                 +" WHERE ID_MANT="+mDes.getIdMantenimiento());
             }
             ////////////////////HACEMOS LA AUDITORIA DESPUES DE ACTUALIZAR
+//            ////////////////////HACEMOS LA AUDITORIA DESPUES DE ACTUALIZAR
 //            if(mDes.getIdEquipo()!=0){
 //            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
 //                    + "`ID_LOCT2`, `NROTAREA_MANT2`, `DESCRIPCION_MANT2`, `OFICIO_MANT2`, `FRECUENCIA_MANT2`, `DIAS_MANT2`, "

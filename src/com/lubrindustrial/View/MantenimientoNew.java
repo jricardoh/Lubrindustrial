@@ -19,8 +19,11 @@ import com.lubrindustrial.Server.MantenimientoCRUD;
 import com.lubrindustrial.Server.Mantenimientos;
 import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Dimension;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -96,6 +99,20 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
         }
     }
     
+    private String obtenerFecha(JDateChooser jdc){
+        
+        try {
+            String formato = "yyyy-MM-dd";
+            Date date = jdc.getDate();
+            SimpleDateFormat sdf = new SimpleDateFormat(formato);
+            String fecha = String.valueOf(sdf.format(date));
+            return fecha;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No es una fecha válida", "Error..!!", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
     private void llenarComboBoxInstruc() {
         InstructionCRUD  instCRUD = new InstructionCRUD(host);
 
@@ -165,15 +182,11 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         desMantenimiento = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        fechProgIniMant = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        fechProgTermMant = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        proxFechMant = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        fechInicioMant = new javax.swing.JTextField();
         radioEquipo = new javax.swing.JRadioButton();
         radioLocacion = new javax.swing.JRadioButton();
         comboEquipo = new javax.swing.JComboBox<>();
@@ -197,6 +210,10 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
         jLabel22 = new javax.swing.JLabel();
         horasProgramadas = new javax.swing.JTextField();
         comboInst = new javax.swing.JComboBox<>();
+        jdcFechaInicioMant = new com.toedter.calendar.JDateChooser();
+        jdcFechProgIniMant = new com.toedter.calendar.JDateChooser();
+        jdcFechProgTermMant = new com.toedter.calendar.JDateChooser();
+        jdcProxFechMant = new com.toedter.calendar.JDateChooser();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -216,7 +233,7 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
                 jButton11ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 360, -1, 30));
+        jPanel3.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 360, -1, 30));
 
         jLabel11.setText("Oficio Mantenimiento");
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, 20));
@@ -272,23 +289,8 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
         });
         jPanel3.add(desMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 153, 20));
 
-        jLabel18.setText("Fecha Incio Mantenimiento");
+        jLabel18.setText("Fecha Inicio Mantenimiento");
         jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, -1, 20));
-
-        fechProgIniMant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechProgIniMantActionPerformed(evt);
-            }
-        });
-        fechProgIniMant.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                fechProgIniMantKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fechProgIniMantKeyTyped(evt);
-            }
-        });
-        jPanel3.add(fechProgIniMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 153, 20));
 
         jLabel19.setText("Fecha Programada Inicio Mant.");
         jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, -1, 20));
@@ -296,38 +298,8 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
         jLabel20.setText("Fecha Programada Término Mant.");
         jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, -1, 20));
 
-        fechProgTermMant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechProgTermMantActionPerformed(evt);
-            }
-        });
-        fechProgTermMant.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                fechProgTermMantKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fechProgTermMantKeyTyped(evt);
-            }
-        });
-        jPanel3.add(fechProgTermMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 153, 20));
-
         jLabel21.setText("Próxima Fecha Mantenimiento");
         jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 260, -1, 20));
-
-        proxFechMant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                proxFechMantActionPerformed(evt);
-            }
-        });
-        proxFechMant.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                proxFechMantKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                proxFechMantKeyTyped(evt);
-            }
-        });
-        jPanel3.add(proxFechMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 260, 153, 20));
 
         btnSave.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/guardar.png"))); // NOI18N
@@ -348,21 +320,6 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
             }
         });
         jPanel3.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 360, -1, 30));
-
-        fechInicioMant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechInicioMantActionPerformed(evt);
-            }
-        });
-        fechInicioMant.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                fechInicioMantKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fechInicioMantKeyTyped(evt);
-            }
-        });
-        jPanel3.add(fechInicioMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 170, 153, 20));
 
         grupoOpciones.add(radioEquipo);
         radioEquipo.setText("Equipo");
@@ -505,10 +462,14 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
                 horasProgramadasKeyTyped(evt);
             }
         });
-        jPanel3.add(horasProgramadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 290, 153, 20));
+        jPanel3.add(horasProgramadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 290, 150, 20));
 
         comboInst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(comboInst, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 120, -1));
+        jPanel3.add(jdcFechaInicioMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 170, 150, -1));
+        jPanel3.add(jdcFechProgIniMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 150, -1));
+        jPanel3.add(jdcFechProgTermMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 150, -1));
+        jPanel3.add(jdcProxFechMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 260, 150, -1));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 880, 410));
 
@@ -550,42 +511,6 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
     private void desMantenimientoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_desMantenimientoKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_desMantenimientoKeyTyped
-
-    private void fechProgIniMantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechProgIniMantActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechProgIniMantActionPerformed
-
-    private void fechProgIniMantKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechProgIniMantKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechProgIniMantKeyReleased
-
-    private void fechProgIniMantKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechProgIniMantKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechProgIniMantKeyTyped
-
-    private void fechProgTermMantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechProgTermMantActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechProgTermMantActionPerformed
-
-    private void fechProgTermMantKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechProgTermMantKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechProgTermMantKeyReleased
-
-    private void fechProgTermMantKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechProgTermMantKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechProgTermMantKeyTyped
-
-    private void proxFechMantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proxFechMantActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_proxFechMantActionPerformed
-
-    private void proxFechMantKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_proxFechMantKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_proxFechMantKeyReleased
-
-    private void proxFechMantKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_proxFechMantKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_proxFechMantKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         int codMant=0;
@@ -652,10 +577,10 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
             m.setFrecuenciaMant(frecMantenimiento.getText());
             m.setDiasMant(Integer.parseInt(diasMantenimiento.getText()));
             m.setDurTareaMant(Integer.parseInt(durTareaMantenimiento.getText()));
-            m.setFechIniMantenimiento(fechInicioMant.getText());
-            m.setFechProgInicMant(fechProgIniMant.getText());
-            m.setFechProgTermMant(fechProgTermMant.getText());
-            m.setFechProximaMant(proxFechMant.getText());
+            m.setFechIniMantenimiento(obtenerFecha(jdcFechaInicioMant));
+            m.setFechProgInicMant(obtenerFecha(jdcFechProgIniMant));
+            m.setFechProgTermMant(obtenerFecha(jdcFechProgTermMant));
+            m.setFechProximaMant(obtenerFecha(jdcProxFechMant));
             m.setHorasProgramadas(Integer.parseInt(horasProgramadas.getText()));
 
             if(manCRUD.insertar(m, codigoEmpleados, codigoInstrucciones)){
@@ -676,18 +601,6 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
 //        this.dispose();
         this.doDefaultCloseAction();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void fechInicioMantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechInicioMantActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechInicioMantActionPerformed
-
-    private void fechInicioMantKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechInicioMantKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechInicioMantKeyReleased
-
-    private void fechInicioMantKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechInicioMantKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechInicioMantKeyTyped
 
     private void radioLocacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioLocacionActionPerformed
         // TODO add your handling code here:
@@ -736,7 +649,12 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botonAniadoIActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+
+        System.out.println(obtenerFecha(jdcProxFechMant));
+        System.out.println(obtenerFecha(jdcFechProgIniMant));
+        System.out.println(obtenerFecha(jdcFechProgTermMant));
+        System.out.println(obtenerFecha(jdcProxFechMant));
+
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -775,9 +693,6 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
     private javax.swing.JTextField desMantenimiento;
     private javax.swing.JTextField diasMantenimiento;
     private javax.swing.JTextField durTareaMantenimiento;
-    private javax.swing.JTextField fechInicioMant;
-    private javax.swing.JTextField fechProgIniMant;
-    private javax.swing.JTextField fechProgTermMant;
     private javax.swing.JTextField frecMantenimiento;
     private javax.swing.ButtonGroup grupoOpciones;
     private javax.swing.JTextField horasProgramadas;
@@ -801,10 +716,13 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private com.toedter.calendar.JDateChooser jdcFechProgIniMant;
+    private com.toedter.calendar.JDateChooser jdcFechProgTermMant;
+    private com.toedter.calendar.JDateChooser jdcFechaInicioMant;
+    private com.toedter.calendar.JDateChooser jdcProxFechMant;
     private javax.swing.JList<String> listaEmpleados;
     private javax.swing.JList<String> listaInstrucciones;
     private javax.swing.JTextField oficioMant;
-    private javax.swing.JTextField proxFechMant;
     private javax.swing.JRadioButton radioEquipo;
     private javax.swing.JRadioButton radioLocacion;
     private javax.swing.JTextField txtNroTareaMant;

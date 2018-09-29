@@ -75,12 +75,11 @@ public class Sequences extends javax.swing.JInternalFrame {
         initComponents();
         this.setIconifiable(true);
         this.setClosable(true);
-        
+        agregarDatos();
 //        tab_sequences.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 //        tab_sequences.doLayout();
         user = usu;
-        host=hostname;
-        agregarDatos();
+        this.host=hostname;
     }
     
     public int seleccionaritem() {
