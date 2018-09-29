@@ -31,7 +31,7 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
     
     ArrayList<Supplier> proveedores = new ArrayList<Supplier>();
     User user = new User();
-    
+    String host;
     public ArticleEdit() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -62,8 +62,26 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
         user = us; // recupera el usuario que envia el login
     }
     
+    public ArticleEdit(User us,String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        
+        this.setIconifiable(true);
+        this.setClosable(true);
+        lblID.setVisible(false);
+        lblID.setEnabled(false);
+        
+        user = us; // recupera el usuario que envia el login
+        host = hostname;
+        llenarComboBox();
+    }
+    
     private void llenarComboBox(){
-        SupplierCRUD supCRUD = new SupplierCRUD();
+        SupplierCRUD supCRUD = new SupplierCRUD(host);
         
         proveedores = supCRUD.visualizar(); // devuelve todos los registros de la BD
         
@@ -79,7 +97,7 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
 //    }
     
     private void Volver(){
-        Articles obj = new Articles();
+        Articles obj = new Articles(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -377,7 +395,7 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_NumberKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        ArticleCRUD artCRUD = new ArticleCRUD();
+        ArticleCRUD artCRUD = new ArticleCRUD(host);
         Article art = new Article();
         String cad="";
         try{

@@ -14,10 +14,19 @@ import java.util.ArrayList;
  * @author Marcelo
  */
 public class PERIODOCRUD {
+
+    String host;
+    
+    public PERIODOCRUD() {
+    }
+
+    public PERIODOCRUD(String host) {
+        this.host = host;
+    }
     
     public boolean insertar(PERIODO per){
         Conexion conexion = new Conexion();
-        //conexion.setHost(ip);
+        conexion.setHost(host);
         
         conexion.Conectar();
         int respuesta=0;
@@ -44,6 +53,8 @@ public class PERIODOCRUD {
     public ArrayList<PERIODO> visualizar(){
         ArrayList<PERIODO> listaOperabilidades = new ArrayList<PERIODO>();
         Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         // ** CAMBIO EN EL QUERY DE VISUALIZAR PARA OBTENER LOS NUEVOS CAMPOS AÑADIDOS
@@ -77,6 +88,8 @@ public class PERIODOCRUD {
     public ArrayList<PERIODO> visualizarPorID(int idOpe){
         ArrayList<PERIODO> listaOperabilidades = new ArrayList<PERIODO>();
         Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         // ** CAMBIO EN EL QUERY DE VISUALIZAR PARA OBTENER LOS NUEVOS CAMPOS AÑADIDOS
@@ -110,6 +123,8 @@ public class PERIODOCRUD {
     public ArrayList<PERIODO> visualizarHorasDiferenciaPorID(int idOpe){
         ArrayList<PERIODO> listaOperabilidades = new ArrayList<PERIODO>();
         Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         // ** CAMBIO EN EL QUERY DE VISUALIZAR PARA OBTENER LOS NUEVOS CAMPOS AÑADIDOS

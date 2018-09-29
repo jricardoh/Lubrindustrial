@@ -104,13 +104,13 @@ public class Home extends javax.swing.JFrame {
 public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         this.empView = new Employees(this.user,this.host);
         this.equiView = new Equipments(this.user,this.host);
-//        this.deptView = new Departments(this.user,this.host);
-//        this.loctView = new Locations(this.user,this.host);
-//        this.artView = new Articles(this.user,this.host);
-//        this.suppView = new Suppliers(this.user,this.host);
-//        this.instView = new Instructions(this.user,this.host);
-//        this.mantView = new Mantenimiento(this.user,this.host);
-//        this.ordtrView = new OrdenTrabajo(this.user,this.host);
+        this.deptView = new Departments(this.user,this.host);
+        this.loctView = new Locations(this.user,this.host);
+        this.artView = new Articles(this.user,this.host);
+        this.suppView = new Suppliers(this.user,this.host);
+        this.instView = new Instructions(this.user,this.host);
+        this.mantView = new Mantenimiento(this.user,this.host);
+        this.ordtrView = new OrdenTrabajo(this.user,this.host);        
 //        this.repView = new Reports(this.user,this.host);
 //        this.pedView = new GestionPedidos(this.user,this.host);
 }

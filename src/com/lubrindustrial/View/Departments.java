@@ -70,11 +70,12 @@ public class Departments extends javax.swing.JInternalFrame {
         initComponents();
         this.setIconifiable(true);
         this.setClosable(true);
-        agregarDatos();
+        
 //        tab_departments.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 //        tab_departments.doLayout();
         user = usu;
         host=hostname;
+        agregarDatos();
     }
     
     public int seleccionaritem() {
@@ -95,7 +96,7 @@ public class Departments extends javax.swing.JInternalFrame {
         String datos[] = new String[3];//ARRAY DE 3
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        DepartmentCRUD deptCRUD = new DepartmentCRUD();
+        DepartmentCRUD deptCRUD = new DepartmentCRUD(host);
 
         departamentos = deptCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -114,7 +115,7 @@ public class Departments extends javax.swing.JInternalFrame {
         String datos[] = new String[3];//ARRAY DE 3
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        DepartmentCRUD deptCRUD = new DepartmentCRUD();
+        DepartmentCRUD deptCRUD = new DepartmentCRUD(host);
 
         departamentos = deptCRUD.visualizar(idDept); // devuelve todos los registros de la BD
 
@@ -363,7 +364,7 @@ public class Departments extends javax.swing.JInternalFrame {
 
         DefaultTableModel model = (DefaultTableModel) tab_departments.getModel();
         model.setRowCount(0);
-        DepartmentCRUD dept_query = new DepartmentCRUD();
+        DepartmentCRUD dept_query = new DepartmentCRUD(host);
         String datos[] = new String[14];//ARRAY DE 3
         if (txtInput.getText().isEmpty()) {
 
@@ -416,7 +417,7 @@ public class Departments extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        DepartmentNew obj = new DepartmentNew();
+        DepartmentNew obj = new DepartmentNew(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -441,7 +442,7 @@ public class Departments extends javax.swing.JInternalFrame {
             //cuenta = .getText();
             int n = JOptionPane.showConfirmDialog(null, "¿Esta seguro de borrar el registro? ", "Confirmar borrado", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
-                DepartmentCRUD obj = new DepartmentCRUD();
+                DepartmentCRUD obj = new DepartmentCRUD(host);
                 obj.eliminar(Integer.parseInt(tab_departments.getValueAt(filasel, 0).toString()),user);
                 agregarDatos();
             }
@@ -475,7 +476,7 @@ public class Departments extends javax.swing.JInternalFrame {
         if (filasel == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione primero la columna");
         } else {
-            DepartmentEdit obj = new DepartmentEdit();
+            DepartmentEdit obj = new DepartmentEdit(user,host);
             Home.escritorio.add(obj);
             obj.toFront();
             //centrar
@@ -501,8 +502,8 @@ public class Departments extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        ReportsExcel reporte = new ReportsExcel();
-        DepartmentCRUD depCRUD = new DepartmentCRUD();
+        ReportsExcel reporte = new ReportsExcel(host);
+        DepartmentCRUD depCRUD = new DepartmentCRUD(host);
         ArrayList<Department> deps = depCRUD.visualizar();
         if(reporte.escribirExcelDepartamentos(deps)){
             JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE DEPARTAMENTOS CREADO","ARCHIVO GUARDADO EXITOSAMENTE",JOptionPane.INFORMATION_MESSAGE);

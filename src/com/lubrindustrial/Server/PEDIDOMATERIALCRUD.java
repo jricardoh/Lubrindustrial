@@ -15,9 +15,22 @@ import java.util.ArrayList;
  */
 public class PEDIDOMATERIALCRUD {
     
+    public String host;
+
+    public PEDIDOMATERIALCRUD() {
+    }
+
+    public PEDIDOMATERIALCRUD(String host) {
+        this.host = host;
+    }
+    
+    
+    
     public boolean insertar(PEDIDOMATERIAL ped) {
         ArticleCRUD artC = new ArticleCRUD();
         Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         int respuesta = 0;
         boolean flag=false;
@@ -48,6 +61,8 @@ public class PEDIDOMATERIALCRUD {
     public ArrayList<PEDIDOMATERIAL> visualizar() {
         ArrayList<PEDIDOMATERIAL> listaPedidos = new ArrayList<PEDIDOMATERIAL>();
         Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado = null;
         try {

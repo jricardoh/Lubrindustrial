@@ -24,7 +24,7 @@ public class DepartmentEdit extends javax.swing.JInternalFrame {
      * Creates new form DepartmentNew
      */
     User user = new User();
-    
+    String host; 
     public DepartmentEdit() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -38,7 +38,7 @@ public class DepartmentEdit extends javax.swing.JInternalFrame {
         this.setClosable(true);
     }
     
-    public DepartmentEdit(User us) {
+    public DepartmentEdit(User us, String hostname) {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
         }catch(Exception e){
@@ -51,10 +51,11 @@ public class DepartmentEdit extends javax.swing.JInternalFrame {
         this.setClosable(true);
         
         user = us;
+        host=hostname;
     }
     
     private void Volver(){
-        Departments obj = new Departments();
+        Departments obj = new Departments(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -196,7 +197,7 @@ public class DepartmentEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_descriptionKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        DepartmentCRUD depCRUD = new DepartmentCRUD();
+        DepartmentCRUD depCRUD = new DepartmentCRUD(host);
         Department dep = new Department();
         try{
             dep.setIdDepartment(Integer.parseInt(lblID.getText()));

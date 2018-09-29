@@ -9,6 +9,7 @@ import com.lubrindustrial.Server.Department;
 import com.lubrindustrial.Server.DepartmentCRUD;
 import com.lubrindustrial.Server.Location;
 import com.lubrindustrial.Server.LocationCRUD;
+import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
 import java.sql.Connection;
@@ -27,6 +28,9 @@ public class LocationsNew extends javax.swing.JInternalFrame {
 
     ArrayList<Department> departamentos = new ArrayList<Department>();
 
+    User user = new User();
+    String host;
+    
     public LocationsNew() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -38,9 +42,24 @@ public class LocationsNew extends javax.swing.JInternalFrame {
         this.setClosable(true);
         llenarComboBox();
     }
+    
+    public LocationsNew(User us, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        user=us;
+        host=hostname;
+        llenarComboBox();
+    }
 
     private void Volver(){
-        Locations obj = new Locations();
+        Locations obj = new Locations(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -53,7 +72,7 @@ public class LocationsNew extends javax.swing.JInternalFrame {
     }
     
     private void llenarComboBox(){
-        DepartmentCRUD deptCRUD = new DepartmentCRUD();
+        DepartmentCRUD deptCRUD = new DepartmentCRUD(host);
         
         departamentos = deptCRUD.visualizar(); // devuelve todos los registros de la BD
         
@@ -172,7 +191,7 @@ public class LocationsNew extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        LocationCRUD loctCRUD = new LocationCRUD();
+        LocationCRUD loctCRUD = new LocationCRUD(host);
         Location l = new Location();
         String cad="";
         try{

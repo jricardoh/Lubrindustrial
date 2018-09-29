@@ -97,7 +97,7 @@ public class Instructions extends javax.swing.JInternalFrame {
         String datos[] = new String[5];//ARRAY DE 3
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        InstructionCRUD instCRUD = new InstructionCRUD();
+        InstructionCRUD instCRUD = new InstructionCRUD(host);
 
         instrucciones = instCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -117,7 +117,7 @@ public class Instructions extends javax.swing.JInternalFrame {
         String datos[] = new String[5];//ARRAY DE 3
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        InstructionCRUD instCRUD = new InstructionCRUD();
+        InstructionCRUD instCRUD = new InstructionCRUD(host);
 
         instrucciones = instCRUD.visualizar(idInst); // devuelve todos los registros de la BD
 
@@ -377,7 +377,7 @@ public class Instructions extends javax.swing.JInternalFrame {
 
         DefaultTableModel model = (DefaultTableModel) tab_instructions.getModel();
         model.setRowCount(0);
-        InstructionCRUD inst_query = new InstructionCRUD();
+        InstructionCRUD inst_query = new InstructionCRUD(host);
         String datos[] = new String[5];//ARRAY DE 3
         if (txtInput.getText().isEmpty()) {
 
@@ -432,7 +432,7 @@ public class Instructions extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        InstructionNew obj = new InstructionNew();
+        InstructionNew obj = new InstructionNew(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -457,7 +457,7 @@ public class Instructions extends javax.swing.JInternalFrame {
             //cuenta = .getText();
             int n = JOptionPane.showConfirmDialog(null, "¿Esta seguro de borrar el registro? ", "Confirmar borrado", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
-                InstructionCRUD obj = new InstructionCRUD();
+                InstructionCRUD obj = new InstructionCRUD(host);
                 obj.eliminar(Integer.parseInt(tab_instructions.getValueAt(filasel, 0).toString()),user);
                 agregarDatos();
             }
@@ -486,7 +486,7 @@ public class Instructions extends javax.swing.JInternalFrame {
 
     private void btnSecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSecActionPerformed
         // TODO add your handling code here:
-        Sequences obj = new Sequences();
+        Sequences obj = new Sequences(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -504,7 +504,7 @@ public class Instructions extends javax.swing.JInternalFrame {
         if (filasel == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione primero la columna");
         } else {
-            InstructionEdit obj = new InstructionEdit();
+            InstructionEdit obj = new InstructionEdit(user,host);
             Home.escritorio.add(obj);
             obj.toFront();
             //centrar
@@ -530,8 +530,8 @@ public class Instructions extends javax.swing.JInternalFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-        ReportsExcel reporte = new ReportsExcel();
-        InstructionCRUD eqCRUD = new InstructionCRUD();
+        ReportsExcel reporte = new ReportsExcel(host);
+        InstructionCRUD eqCRUD = new InstructionCRUD(host);
         ArrayList<Instruction> inst = eqCRUD.visualizar();
         if(reporte.escribirExcelInstrucciones(inst)){
             JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE INSTRUCCIONES CREADO","ARCHIVO GUARDADO EXITOSAMENTE",JOptionPane.INFORMATION_MESSAGE);

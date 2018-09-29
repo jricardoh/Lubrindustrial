@@ -15,10 +15,11 @@ import java.util.ArrayList;
  */
 public class OPERABILIDADCRUD {
 
+    public String host;
     public boolean insertar(OPERABILIDAD ope, PERIODO per){
         Conexion conexion = new Conexion();
-        //conexion.setHost(ip);
-        PERIODOCRUD perCRUD = new PERIODOCRUD();
+        conexion.setHost(host);
+        PERIODOCRUD perCRUD = new PERIODOCRUD(host);
         conexion.Conectar();
         int respuesta=0;
         boolean flag=false;
@@ -54,6 +55,8 @@ public class OPERABILIDADCRUD {
     public ArrayList<OPERABILIDAD> visualizar(){
         ArrayList<OPERABILIDAD> listaOperabilidades = new ArrayList<OPERABILIDAD>();
         Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         // ** CAMBIO EN EL QUERY DE VISUALIZAR PARA OBTENER LOS NUEVOS CAMPOS AÑADIDOS
@@ -87,6 +90,8 @@ public class OPERABILIDADCRUD {
     public int obtenerIdOperabilidad(){
         int idOpe=0;
         Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
         conexion.Conectar();
         ResultSet resultado=null;
         // ** CAMBIO EN EL QUERY DE VISUALIZAR PARA OBTENER LOS NUEVOS CAMPOS AÑADIDOS

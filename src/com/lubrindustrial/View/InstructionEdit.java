@@ -27,6 +27,7 @@ public class InstructionEdit extends javax.swing.JInternalFrame {
      */
     
     User user = new User();
+    String host;
     
     public InstructionEdit() {
         try{
@@ -55,9 +56,25 @@ public class InstructionEdit extends javax.swing.JInternalFrame {
         
         user = us;
     }
+
+    public InstructionEdit(User us,String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        lblID.setVisible(false);
+        lblID.setEnabled(false);
+        
+        user = us;
+        host=hostname;
+    }
     
     private void Volver(){
-        Instructions obj = new Instructions();
+        Instructions obj = new Instructions(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -227,7 +244,7 @@ public class InstructionEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_descriptionKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        InstructionCRUD instCRUD = new InstructionCRUD();
+        InstructionCRUD instCRUD = new InstructionCRUD(host);
         Instruction inst = new Instruction();
         try{
             inst.setIdInst(Integer.parseInt(lblID.getText()));

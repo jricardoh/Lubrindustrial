@@ -26,7 +26,7 @@ public class SupplierEdit extends javax.swing.JInternalFrame {
      * Creates new form DepartmentNew
      */
     User user = new User();
-    
+    String host;
     public SupplierEdit() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -55,8 +55,24 @@ public class SupplierEdit extends javax.swing.JInternalFrame {
         user = us;
     }
     
+    public SupplierEdit(User us,String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        lblID.setVisible(false);
+        lblID.setEnabled(false);
+        
+        user = us;
+        host=hostname;
+    }
+    
     private void Volver(){
-        Suppliers obj = new Suppliers();
+        Suppliers obj = new Suppliers(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -271,7 +287,7 @@ public class SupplierEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_nameKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        SupplierCRUD supCRUD = new SupplierCRUD();
+        SupplierCRUD supCRUD = new SupplierCRUD(host);
         Supplier sup = new Supplier();
         
         try{
