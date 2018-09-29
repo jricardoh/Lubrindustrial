@@ -50,7 +50,7 @@ public class DepartmentEdit extends javax.swing.JInternalFrame {
         this.setIconifiable(true);
         this.setClosable(true);
         
-        user = us;
+        this.user = us;
     }
     
     private void Volver(){

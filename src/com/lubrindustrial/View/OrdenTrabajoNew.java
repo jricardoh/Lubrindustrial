@@ -12,8 +12,15 @@ import com.lubrindustrial.Server.Mantenimientos;
 import com.lubrindustrial.Server.OrdenTrabajoCRUD;
 import com.lubrindustrial.Server.OrdenTrabajos;
 import static com.lubrindustrial.View.Home.escritorio;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JSpinnerDateEditor;
 import java.awt.Dimension;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
@@ -39,7 +46,62 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
         this.setIconifiable(true);
         this.setClosable(true);
         llenarComboBoxOrdenTrab();
+        
+        
     }
+    
+     private String obtenerFecha(JDateChooser jdc){
+        
+        try {
+            String formato = /*"yyyy-MM-dd HH:mm:ss"*/"yyyy-MM-dd";
+            Date date = jdc.getDate();
+            SimpleDateFormat sdf = new SimpleDateFormat(formato);
+            String fecha = String.valueOf(sdf.format(date));
+            return fecha;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No es una fecha válida", "Error..!!", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
+    private Date textoAFecha(String dateInString){
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                
+        try {
+            Date fecha = formatter.parse(dateInString);
+            return fecha;
+
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public String getHoraActual() {
+
+//Instanciamos el objeto Calendar
+//en fecha obtenemos la fecha y hora del sistema
+        Calendar fecha = new GregorianCalendar();
+//Obtenemos el valor del año, mes, día,
+//hora, minuto y segundo del sistema
+//usando el método get y el parámetro correspondiente
+//        int anio = fecha.get(Calendar.YEAR);
+//        int mes = fecha.get(Calendar.MONTH);
+//        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        int hora = fecha.get(Calendar.HOUR_OF_DAY);
+        int minuto = fecha.get(Calendar.MINUTE);
+        int segundo = fecha.get(Calendar.SECOND);
+//        String ff = "" + dia + "/" + (mes + 1) + "/" + anio;
+        String ff;
+//                = System.out.println("Fecha Actual: "
+//                        + dia + "/" + (mes + 1) + "/" + año);
+//        System.out.printf("Hora Actual: %02d:%02d:%02d %n",
+//                hora, minuto, segundo);
+        ff = hora + ":" + minuto + ":" + segundo + ".0";
+        return ff;
+    }
+
     private void Volver(){
         OrdenTrabajo obj = new OrdenTrabajo();
         Home.escritorio.add(obj);
@@ -86,21 +148,16 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
         respOrdtr = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        iniOrdtr = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        terOrdtr = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        fechHorReqOrdtr = new javax.swing.JTextField();
         tipOrdtr = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        fechHorSolOrdtr = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         estOrdtr = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         comboMant = new javax.swing.JComboBox<>();
         jLabel22 = new javax.swing.JLabel();
-        fechHorEntOrdtr = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         duraDiasOrdtr = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
@@ -113,6 +170,11 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
         accRealOrdtr = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         prevTomdaOrdtr = new javax.swing.JTextField();
+        jdcIniOrdtr = new com.toedter.calendar.JDateChooser();
+        jdcFechHorSolOrdtr = new com.toedter.calendar.JDateChooser();
+        jdcTerOrdtr = new com.toedter.calendar.JDateChooser();
+        jdcFechHorEntOrdtr = new com.toedter.calendar.JDateChooser();
+        jdcFechHorReqOrdtr = new com.toedter.calendar.JDateChooser();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -124,6 +186,11 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
 
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/eraser.png"))); // NOI18N
         jButton11.setText("Limpiar campos");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 340, -1, 30));
 
         jLabel11.setText("Estado ");
@@ -204,38 +271,8 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
         jLabel20.setText("Inicio");
         jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, 20));
 
-        iniOrdtr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                iniOrdtrActionPerformed(evt);
-            }
-        });
-        iniOrdtr.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                iniOrdtrKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                iniOrdtrKeyTyped(evt);
-            }
-        });
-        jPanel3.add(iniOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, 153, 20));
-
         jLabel21.setText("Termino ");
         jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, 20));
-
-        terOrdtr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                terOrdtrActionPerformed(evt);
-            }
-        });
-        terOrdtr.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                terOrdtrKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                terOrdtrKeyTyped(evt);
-            }
-        });
-        jPanel3.add(terOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 153, 20));
 
         btnSave.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/guardar.png"))); // NOI18N
@@ -257,21 +294,6 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
         });
         jPanel3.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, -1, 30));
 
-        fechHorReqOrdtr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechHorReqOrdtrActionPerformed(evt);
-            }
-        });
-        fechHorReqOrdtr.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                fechHorReqOrdtrKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fechHorReqOrdtrKeyTyped(evt);
-            }
-        });
-        jPanel3.add(fechHorReqOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 153, 20));
-
         tipOrdtr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tipOrdtrActionPerformed(evt);
@@ -290,21 +312,6 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
         jLabel14.setText("Prioridad ");
         jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, 20));
 
-        fechHorSolOrdtr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechHorSolOrdtrActionPerformed(evt);
-            }
-        });
-        fechHorSolOrdtr.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                fechHorSolOrdtrKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fechHorSolOrdtrKeyTyped(evt);
-            }
-        });
-        jPanel3.add(fechHorSolOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 153, 20));
-
         jLabel15.setText("Descripción ");
         jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 20));
         jPanel3.add(estOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 150, 20));
@@ -317,21 +324,6 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
 
         jLabel22.setText("Fecha Hora Entrega ");
         jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, -1, 20));
-
-        fechHorEntOrdtr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechHorEntOrdtrActionPerformed(evt);
-            }
-        });
-        fechHorEntOrdtr.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                fechHorEntOrdtrKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fechHorEntOrdtrKeyTyped(evt);
-            }
-        });
-        jPanel3.add(fechHorEntOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 153, 20));
 
         jLabel23.setText("Duración Días ");
         jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, -1, 20));
@@ -440,6 +432,11 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
             }
         });
         jPanel3.add(prevTomdaOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 300, 153, 20));
+        jPanel3.add(jdcIniOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, 150, -1));
+        jPanel3.add(jdcFechHorSolOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 150, -1));
+        jPanel3.add(jdcTerOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 150, -1));
+        jPanel3.add(jdcFechHorEntOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, 150, -1));
+        jPanel3.add(jdcFechHorReqOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 150, -1));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 760, 390));
 
@@ -494,30 +491,6 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_respOrdtrKeyTyped
 
-    private void iniOrdtrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniOrdtrActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_iniOrdtrActionPerformed
-
-    private void iniOrdtrKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_iniOrdtrKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_iniOrdtrKeyReleased
-
-    private void iniOrdtrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_iniOrdtrKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_iniOrdtrKeyTyped
-
-    private void terOrdtrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_terOrdtrActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_terOrdtrActionPerformed
-
-    private void terOrdtrKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_terOrdtrKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_terOrdtrKeyReleased
-
-    private void terOrdtrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_terOrdtrKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_terOrdtrKeyTyped
-
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
         OrdenTrabajoCRUD ordtrCRUD = new OrdenTrabajoCRUD();
@@ -542,12 +515,12 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
             ot.setEstOrdtr(estOrdtr.getText());
             ot.setTipoOrdtr(tipOrdtr.getText());
             ot.setPriorOrdtr(priorOrdtr.getText());
-            ot.setFechHorSolicitudOrdtr(fechHorSolOrdtr.getText());
-            ot.setFechHorReqOrdtr(fechHorReqOrdtr.getText());
+            ot.setFechHorSolicitudOrdtr(obtenerFecha(jdcFechHorSolOrdtr)+" "+getHoraActual());
+            ot.setFechHorReqOrdtr(obtenerFecha(jdcFechHorReqOrdtr)+" "+getHoraActual());
             ot.setRespOrdtr(respOrdtr.getText());
-            ot.setInicioOrdtr(iniOrdtr.getText());
-            ot.setTermOrdtr(terOrdtr.getText());
-            ot.setFechHoraEntOrdtr(fechHorEntOrdtr.getText());
+            ot.setInicioOrdtr(obtenerFecha(jdcIniOrdtr)+" "+getHoraActual());
+            ot.setTermOrdtr(obtenerFecha(jdcTerOrdtr)+" "+getHoraActual());
+            ot.setFechHoraEntOrdtr(obtenerFecha(jdcFechHorEntOrdtr)+" "+getHoraActual());
             ot.setDuracionDiasOrdtr(Float.parseFloat(duraDiasOrdtr.getText()));
             ot.setAceptPorOrdtr(aceptPorOrdtr.getText());
             ot.setFallaOrdtr(fallaOrdtr.getText());
@@ -573,18 +546,6 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void fechHorReqOrdtrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechHorReqOrdtrActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechHorReqOrdtrActionPerformed
-
-    private void fechHorReqOrdtrKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechHorReqOrdtrKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechHorReqOrdtrKeyReleased
-
-    private void fechHorReqOrdtrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechHorReqOrdtrKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechHorReqOrdtrKeyTyped
-
     private void tipOrdtrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipOrdtrActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tipOrdtrActionPerformed
@@ -596,30 +557,6 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
     private void tipOrdtrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tipOrdtrKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_tipOrdtrKeyTyped
-
-    private void fechHorSolOrdtrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechHorSolOrdtrActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechHorSolOrdtrActionPerformed
-
-    private void fechHorSolOrdtrKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechHorSolOrdtrKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechHorSolOrdtrKeyReleased
-
-    private void fechHorSolOrdtrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechHorSolOrdtrKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechHorSolOrdtrKeyTyped
-
-    private void fechHorEntOrdtrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechHorEntOrdtrActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechHorEntOrdtrActionPerformed
-
-    private void fechHorEntOrdtrKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechHorEntOrdtrKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechHorEntOrdtrKeyReleased
-
-    private void fechHorEntOrdtrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechHorEntOrdtrKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechHorEntOrdtrKeyTyped
 
     private void duraDiasOrdtrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duraDiasOrdtrActionPerformed
         // TODO add your handling code here:
@@ -693,6 +630,14 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_prevTomdaOrdtrKeyTyped
 
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+
+        System.out.println(getHoraActual());
+        
+        
+        
+    }//GEN-LAST:event_jButton11ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField NroOrdtr;
@@ -706,10 +651,6 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
     private javax.swing.JTextField duraDiasOrdtr;
     private javax.swing.JTextField estOrdtr;
     private javax.swing.JTextField fallaOrdtr;
-    private javax.swing.JTextField fechHorEntOrdtr;
-    private javax.swing.JTextField fechHorReqOrdtr;
-    private javax.swing.JTextField fechHorSolOrdtr;
-    private javax.swing.JTextField iniOrdtr;
     private javax.swing.JButton jButton11;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -730,10 +671,14 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
+    private com.toedter.calendar.JDateChooser jdcFechHorEntOrdtr;
+    private com.toedter.calendar.JDateChooser jdcFechHorReqOrdtr;
+    private com.toedter.calendar.JDateChooser jdcFechHorSolOrdtr;
+    private com.toedter.calendar.JDateChooser jdcIniOrdtr;
+    private com.toedter.calendar.JDateChooser jdcTerOrdtr;
     private javax.swing.JTextField prevTomdaOrdtr;
     private javax.swing.JTextField priorOrdtr;
     private javax.swing.JTextField respOrdtr;
-    private javax.swing.JTextField terOrdtr;
     private javax.swing.JTextField tipOrdtr;
     // End of variables declaration//GEN-END:variables
 }

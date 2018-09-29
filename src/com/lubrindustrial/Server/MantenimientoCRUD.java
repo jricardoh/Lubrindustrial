@@ -79,36 +79,36 @@ public class MantenimientoCRUD {
         AuditoriaCRUD audCRUD = new AuditoriaCRUD();
         try{
             ////INGRESO LA AUDITORIA ANTES DEL CAMBIO
-            if(mAn.getIdEquipo()!=0){
-            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
-                    + "`ID_LOCT2`, `NROTAREA_MANT2`, `DESCRIPCION_MANT2`, `OFICIO_MANT2`, `FRECUENCIA_MANT2`, `DIAS_MANT2`, "
-                    + "`DURACIONTAREA_MANT2`, `FECHAINICIO_MANT2`, `FECHAPROGRAMADAINICIO_MANT2`, `FECHAPROGRAMADATERMINI_MANT2`,"
-                    + " `PROXIMAFECHA_MANT2`, `HORACAMBIO_MANT2`) VALUES ("+mAn.getIdMantenimiento()+", 1, "+mAn.getIdEquipo()+","
-                    + " null, '"+mAn.getNroTareaMant()+"', '"+mAn.getDescMantenimiento()+"', '"+mAn.getOficioMantenimiento()+"'"
-                    + ", '"+mAn.getFrecuenciaMant()+"', "+mAn.getDiasMant()+", "+mAn.getDurTareaMant()+", '"+mAn.getFechIniMantenimiento()+"'"
-                    + ", '"+mAn.getFechProgInicMant()+"', '"+mAn.getFechProgTermMant()+"', '"+mAn.getFechProximaMant()+"', '"+fecha+"')");
-            }
-            else
-            {
-                respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
-                    + "`ID_LOCT2`, `NROTAREA_MANT2`, `DESCRIPCION_MANT2`, `OFICIO_MANT2`, `FRECUENCIA_MANT2`, `DIAS_MANT2`, "
-                    + "`DURACIONTAREA_MANT2`, `FECHAINICIO_MANT2`, `FECHAPROGRAMADAINICIO_MANT2`, `FECHAPROGRAMADATERMINI_MANT2`,"
-                    + " `PROXIMAFECHA_MANT2`, `HORACAMBIO_MANT2`) VALUES ("+mAn.getIdMantenimiento()+", 1, null"
-                    + ", "+mAn.getIdLocacion()+", '"+mAn.getNroTareaMant()+"', '"+mAn.getDescMantenimiento()+"', '"+mAn.getOficioMantenimiento()+"'"
-                    + ", '"+mAn.getFrecuenciaMant()+"', "+mAn.getDiasMant()+", "+mAn.getDurTareaMant()+", '"+mAn.getFechIniMantenimiento()+"'"
-                    + ", '"+mAn.getFechProgInicMant()+"', '"+mAn.getFechProgTermMant()+"', '"+mAn.getFechProximaMant()+"', '"+fecha+"')");
-            }
+//            if(mAn.getIdEquipo()!=0){
+//            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
+//                    + "`ID_LOCT2`, `NROTAREA_MANT2`, `DESCRIPCION_MANT2`, `OFICIO_MANT2`, `FRECUENCIA_MANT2`, `DIAS_MANT2`, "
+//                    + "`DURACIONTAREA_MANT2`, `FECHAINICIO_MANT2`, `FECHAPROGRAMADAINICIO_MANT2`, `FECHAPROGRAMADATERMINI_MANT2`,"
+//                    + " `PROXIMAFECHA_MANT2`, `HORACAMBIO_MANT2`) VALUES ("+mAn.getIdMantenimiento()+", 1, "+mAn.getIdEquipo()+","
+//                    + " null, '"+mAn.getNroTareaMant()+"', '"+mAn.getDescMantenimiento()+"', '"+mAn.getOficioMantenimiento()+"'"
+//                    + ", '"+mAn.getFrecuenciaMant()+"', "+mAn.getDiasMant()+", "+mAn.getDurTareaMant()+", '"+mAn.getFechIniMantenimiento()+"'"
+//                    + ", '"+mAn.getFechProgInicMant()+"', '"+mAn.getFechProgTermMant()+"', '"+mAn.getFechProximaMant()+"', '"+fecha+"')");
+//            }
+//            else
+//            {
+//                respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
+//                    + "`ID_LOCT2`, `NROTAREA_MANT2`, `DESCRIPCION_MANT2`, `OFICIO_MANT2`, `FRECUENCIA_MANT2`, `DIAS_MANT2`, "
+//                    + "`DURACIONTAREA_MANT2`, `FECHAINICIO_MANT2`, `FECHAPROGRAMADAINICIO_MANT2`, `FECHAPROGRAMADATERMINI_MANT2`,"
+//                    + " `PROXIMAFECHA_MANT2`, `HORACAMBIO_MANT2`) VALUES ("+mAn.getIdMantenimiento()+", 1, null"
+//                    + ", "+mAn.getIdLocacion()+", '"+mAn.getNroTareaMant()+"', '"+mAn.getDescMantenimiento()+"', '"+mAn.getOficioMantenimiento()+"'"
+//                    + ", '"+mAn.getFrecuenciaMant()+"', "+mAn.getDiasMant()+", "+mAn.getDurTareaMant()+", '"+mAn.getFechIniMantenimiento()+"'"
+//                    + ", '"+mAn.getFechProgInicMant()+"', '"+mAn.getFechProgTermMant()+"', '"+mAn.getFechProximaMant()+"', '"+fecha+"')");
+//            }
             
-            for(int i=0;i<codAnEmp.size();i++)
-            {
-                //JOptionPane.showMessageDialog(null, "Se ingresa a emp_mant: "+idEmp.get(i));
-                respuesta=conexion.getStmt().executeUpdate("INSERT INTO EMP_MANT2(ID_MANT2, ID_EMP2, CAMBIO) values ("+mAn.getIdMantenimiento()+", "+codAnEmp.get(i).getIdEmployee()+", 0);");
-            }
-            for(int j=0;j<codAnInst.size();j++)
-            {
-                //JOptionPane.showMessageDialog(null, "Se ingresa a instr_mant");
-                respuesta=conexion.getStmt().executeUpdate("INSERT INTO INSTR_MANT2(ID_MANT2, ID_INST2, CAMBIO) values ("+mAn.getIdMantenimiento()+", "+codAnInst.get(j).getIdInst()+", 0);");
-            }
+//            for(int i=0;i<codAnEmp.size();i++)
+//            {
+//                //JOptionPane.showMessageDialog(null, "Se ingresa a emp_mant: "+idEmp.get(i));
+//                respuesta=conexion.getStmt().executeUpdate("INSERT INTO EMP_MANT2(ID_MANT2, ID_EMP2, CAMBIO) values ("+mAn.getIdMantenimiento()+", "+codAnEmp.get(i).getIdEmployee()+", 0);");
+//            }
+//            for(int j=0;j<codAnInst.size();j++)
+//            {
+//                //JOptionPane.showMessageDialog(null, "Se ingresa a instr_mant");
+//                respuesta=conexion.getStmt().executeUpdate("INSERT INTO INSTR_MANT2(ID_MANT2, ID_INST2, CAMBIO) values ("+mAn.getIdMantenimiento()+", "+codAnInst.get(j).getIdInst()+", 0);");
+//            }
             ////////SE ELIMINA LOS ANTERIORES EN TABLAS INTERMEDIAS
                 respuesta=conexion.getStmt().executeUpdate("DELETE FROM EMP_MANT WHERE ID_MANT="+mAn.getIdMantenimiento());
                 respuesta=conexion.getStmt().executeUpdate("DELETE FROM INSTR_MANT WHERE ID_MANT="+mAn.getIdMantenimiento());
@@ -147,40 +147,40 @@ public class MantenimientoCRUD {
                 + "',`HORASPROGRAMADAS_MANT`="+mDes.getHorasProgramadas()
                 +" WHERE ID_MANT="+mDes.getIdMantenimiento());
             }
-            ////////////////////HACEMOS LA AUDITORIA DESPUES DE ACTUALIZAR
-            if(mDes.getIdEquipo()!=0){
-            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
-                    + "`ID_LOCT2`, `NROTAREA_MANT2`, `DESCRIPCION_MANT2`, `OFICIO_MANT2`, `FRECUENCIA_MANT2`, `DIAS_MANT2`, "
-                    + "`DURACIONTAREA_MANT2`, `FECHAINICIO_MANT2`, `FECHAPROGRAMADAINICIO_MANT2`, `FECHAPROGRAMADATERMINI_MANT2`,"
-                    + " `PROXIMAFECHA_MANT2`, `HORACAMBIO_MANT2`) VALUES ("+mDes.getIdMantenimiento()+", 1, "+mDes.getIdEquipo()+""
-                    + ", null, '"+mDes.getNroTareaMant()+"', '"+mDes.getDescMantenimiento()+"', '"+mDes.getOficioMantenimiento()+"'"
-                    + ", '"+mDes.getFrecuenciaMant()+"', "+mDes.getDiasMant()+", "+mDes.getDurTareaMant()+", '"+mDes.getFechIniMantenimiento()+"'"
-                    + ", '"+mDes.getFechProgInicMant()+"', '"+mDes.getFechProgTermMant()+"', '"+mDes.getFechProximaMant()+"', '"+fecha+"')");
-
-            }
-            else
-            {
-                respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
-                    + "`ID_LOCT2`, `NROTAREA_MANT2`, `DESCRIPCION_MANT2`, `OFICIO_MANT2`, `FRECUENCIA_MANT2`, `DIAS_MANT2`, "
-                    + "`DURACIONTAREA_MANT2`, `FECHAINICIO_MANT2`, `FECHAPROGRAMADAINICIO_MANT2`, `FECHAPROGRAMADATERMINI_MANT2`,"
-                    + " `PROXIMAFECHA_MANT2`, `HORACAMBIO_MANT2`) VALUES ("+mDes.getIdMantenimiento()+", 1, null"
-                    + ", "+mDes.getIdLocacion()+", '"+mDes.getNroTareaMant()+"', '"+mDes.getDescMantenimiento()+"', '"+mDes.getOficioMantenimiento()+"'"
-                    + ", '"+mDes.getFrecuenciaMant()+"', "+mDes.getDiasMant()+", "+mDes.getDurTareaMant()+", '"+mDes.getFechIniMantenimiento()+"'"
-                    + ", '"+mDes.getFechProgInicMant()+"', '"+mDes.getFechProgTermMant()+"', '"+mDes.getFechProximaMant()+"', '"+fecha+"')");
-
-            }
-            for(int i=0;i<codDesEmp.size();i++)
-            {
-                //JOptionPane.showMessageDialog(null, "Se ingresa a emp_mant: "+idEmp.get(i));
-                respuesta=conexion.getStmt().executeUpdate("INSERT INTO EMP_MANT2(ID_MANT2, ID_EMP2, CAMBIO) values ("+mAn.getIdMantenimiento()+", "+codDesEmp.get(i)+", 1);");
-
-            }
-            for(int j=0;j<codDesInt.size();j++)
-            {
-                //JOptionPane.showMessageDialog(null, "Se ingresa a instr_mant");
-                respuesta=conexion.getStmt().executeUpdate("INSERT INTO INSTR_MANT2(ID_MANT2, ID_INST2, CAMBIO) values ("+mAn.getIdMantenimiento()+", "+codDesInt.get(j)+", 1);");
-
-            }
+//            ////////////////////HACEMOS LA AUDITORIA DESPUES DE ACTUALIZAR
+//            if(mDes.getIdEquipo()!=0){
+//            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
+//                    + "`ID_LOCT2`, `NROTAREA_MANT2`, `DESCRIPCION_MANT2`, `OFICIO_MANT2`, `FRECUENCIA_MANT2`, `DIAS_MANT2`, "
+//                    + "`DURACIONTAREA_MANT2`, `FECHAINICIO_MANT2`, `FECHAPROGRAMADAINICIO_MANT2`, `FECHAPROGRAMADATERMINI_MANT2`,"
+//                    + " `PROXIMAFECHA_MANT2`, `HORACAMBIO_MANT2`) VALUES ("+mDes.getIdMantenimiento()+", 1, "+mDes.getIdEquipo()+""
+//                    + ", null, '"+mDes.getNroTareaMant()+"', '"+mDes.getDescMantenimiento()+"', '"+mDes.getOficioMantenimiento()+"'"
+//                    + ", '"+mDes.getFrecuenciaMant()+"', "+mDes.getDiasMant()+", "+mDes.getDurTareaMant()+", '"+mDes.getFechIniMantenimiento()+"'"
+//                    + ", '"+mDes.getFechProgInicMant()+"', '"+mDes.getFechProgTermMant()+"', '"+mDes.getFechProximaMant()+"', '"+fecha+"')");
+//
+//            }
+//            else
+//            {
+//                respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
+//                    + "`ID_LOCT2`, `NROTAREA_MANT2`, `DESCRIPCION_MANT2`, `OFICIO_MANT2`, `FRECUENCIA_MANT2`, `DIAS_MANT2`, "
+//                    + "`DURACIONTAREA_MANT2`, `FECHAINICIO_MANT2`, `FECHAPROGRAMADAINICIO_MANT2`, `FECHAPROGRAMADATERMINI_MANT2`,"
+//                    + " `PROXIMAFECHA_MANT2`, `HORACAMBIO_MANT2`) VALUES ("+mDes.getIdMantenimiento()+", 1, null"
+//                    + ", "+mDes.getIdLocacion()+", '"+mDes.getNroTareaMant()+"', '"+mDes.getDescMantenimiento()+"', '"+mDes.getOficioMantenimiento()+"'"
+//                    + ", '"+mDes.getFrecuenciaMant()+"', "+mDes.getDiasMant()+", "+mDes.getDurTareaMant()+", '"+mDes.getFechIniMantenimiento()+"'"
+//                    + ", '"+mDes.getFechProgInicMant()+"', '"+mDes.getFechProgTermMant()+"', '"+mDes.getFechProximaMant()+"', '"+fecha+"')");
+//
+//            }
+//            for(int i=0;i<codDesEmp.size();i++)
+//            {
+//                //JOptionPane.showMessageDialog(null, "Se ingresa a emp_mant: "+idEmp.get(i));
+//                respuesta=conexion.getStmt().executeUpdate("INSERT INTO EMP_MANT2(ID_MANT2, ID_EMP2, CAMBIO) values ("+mAn.getIdMantenimiento()+", "+codDesEmp.get(i)+", 1);");
+//
+//            }
+//            for(int j=0;j<codDesInt.size();j++)
+//            {
+//                //JOptionPane.showMessageDialog(null, "Se ingresa a instr_mant");
+//                respuesta=conexion.getStmt().executeUpdate("INSERT INTO INSTR_MANT2(ID_MANT2, ID_INST2, CAMBIO) values ("+mAn.getIdMantenimiento()+", "+codDesInt.get(j)+", 1);");
+//
+//            }
             if(respuesta>0){
                  conexion.Desconectar();
                  Auditoria a = new Auditoria();
@@ -215,39 +215,39 @@ public class MantenimientoCRUD {
         
         try{
             
-            if(man.getIdEquipo()!=0){
-            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
-                    + "`ID_LOCT2`, `NROTAREA_MANT2`, `DESCRIPCION_MANT2`, `OFICIO_MANT2`, `FRECUENCIA_MANT2`, `DIAS_MANT2`, "
-                    + "`DURACIONTAREA_MANT2`, `FECHAINICIO_MANT2`, `FECHAPROGRAMADAINICIO_MANT2`, `FECHAPROGRAMADATERMINI_MANT2`,"
-                    + " `PROXIMAFECHA_MANT2`, `HORACAMBIO_MANT2`) VALUES ("+man.getIdMantenimiento()+", 1, "+man.getIdEquipo()+""
-                    + ", null, '"+man.getNroTareaMant()+"', '"+man.getDescMantenimiento()+"', '"+man.getOficioMantenimiento()+"'"
-                    + ", '"+man.getFrecuenciaMant()+"', "+man.getDiasMant()+", "+man.getDurTareaMant()+", '"+man.getFechIniMantenimiento()+"'"
-                    + ", '"+man.getFechProgInicMant()+"', '"+man.getFechProgTermMant()+"', '"+man.getFechProximaMant()+"', '"+fecha+"')");
-
-            }
-            else
-            {
-                respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
-                    + "`ID_LOCT2`, `NROTAREA_MANT2`, `DESCRIPCION_MANT2`, `OFICIO_MANT2`, `FRECUENCIA_MANT2`, `DIAS_MANT2`, "
-                    + "`DURACIONTAREA_MANT2`, `FECHAINICIO_MANT2`, `FECHAPROGRAMADAINICIO_MANT2`, `FECHAPROGRAMADATERMINI_MANT2`,"
-                    + " `PROXIMAFECHA_MANT2`, `HORACAMBIO_MANT2`) VALUES ("+man.getIdMantenimiento()+", 1, null"
-                    + ", "+man.getIdLocacion()+", '"+man.getNroTareaMant()+"', '"+man.getDescMantenimiento()+"', '"+man.getOficioMantenimiento()+"'"
-                    + ", '"+man.getFrecuenciaMant()+"', "+man.getDiasMant()+", "+man.getDurTareaMant()+", '"+man.getFechIniMantenimiento()+"'"
-                    + ", '"+man.getFechProgInicMant()+"', '"+man.getFechProgTermMant()+"', '"+man.getFechProximaMant()+"', '"+fecha+"')");
-
-            }
-            for(int i=0;i<codEmpleados.size();i++)
-            {
-                //JOptionPane.showMessageDialog(null, "Se ingresa a emp_mant: "+idEmp.get(i));
-                respuesta=conexion.getStmt().executeUpdate("INSERT INTO EMP_MANT2(ID_MANT2, ID_EMP2, CAMBIO) values ("+man.getIdMantenimiento()+", "+codEmpleados.get(i).getIdEmployee()+", 2);");
-
-            }
-            for(int j=0;j<codInst.size();j++)
-            {
-                //JOptionPane.showMessageDialog(null, "Se ingresa a instr_mant");
-                respuesta=conexion.getStmt().executeUpdate("INSERT INTO INSTR_MANT2(ID_MANT2, ID_INST2, CAMBIO) values ("+man.getIdMantenimiento()+", "+codInst.get(j).getIdInst()+", 2);");
-
-            }
+//            if(man.getIdEquipo()!=0){
+//            respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
+//                    + "`ID_LOCT2`, `NROTAREA_MANT2`, `DESCRIPCION_MANT2`, `OFICIO_MANT2`, `FRECUENCIA_MANT2`, `DIAS_MANT2`, "
+//                    + "`DURACIONTAREA_MANT2`, `FECHAINICIO_MANT2`, `FECHAPROGRAMADAINICIO_MANT2`, `FECHAPROGRAMADATERMINI_MANT2`,"
+//                    + " `PROXIMAFECHA_MANT2`, `HORACAMBIO_MANT2`) VALUES ("+man.getIdMantenimiento()+", 1, "+man.getIdEquipo()+""
+//                    + ", null, '"+man.getNroTareaMant()+"', '"+man.getDescMantenimiento()+"', '"+man.getOficioMantenimiento()+"'"
+//                    + ", '"+man.getFrecuenciaMant()+"', "+man.getDiasMant()+", "+man.getDurTareaMant()+", '"+man.getFechIniMantenimiento()+"'"
+//                    + ", '"+man.getFechProgInicMant()+"', '"+man.getFechProgTermMant()+"', '"+man.getFechProximaMant()+"', '"+fecha+"')");
+//
+//            }
+//            else
+//            {
+//                respuesta=conexion.getStmt().executeUpdate("INSERT INTO `mantenimiento2`(`ID_MANT2`, `ID_USU`, `ID_EQ2`, "
+//                    + "`ID_LOCT2`, `NROTAREA_MANT2`, `DESCRIPCION_MANT2`, `OFICIO_MANT2`, `FRECUENCIA_MANT2`, `DIAS_MANT2`, "
+//                    + "`DURACIONTAREA_MANT2`, `FECHAINICIO_MANT2`, `FECHAPROGRAMADAINICIO_MANT2`, `FECHAPROGRAMADATERMINI_MANT2`,"
+//                    + " `PROXIMAFECHA_MANT2`, `HORACAMBIO_MANT2`) VALUES ("+man.getIdMantenimiento()+", 1, null"
+//                    + ", "+man.getIdLocacion()+", '"+man.getNroTareaMant()+"', '"+man.getDescMantenimiento()+"', '"+man.getOficioMantenimiento()+"'"
+//                    + ", '"+man.getFrecuenciaMant()+"', "+man.getDiasMant()+", "+man.getDurTareaMant()+", '"+man.getFechIniMantenimiento()+"'"
+//                    + ", '"+man.getFechProgInicMant()+"', '"+man.getFechProgTermMant()+"', '"+man.getFechProximaMant()+"', '"+fecha+"')");
+//
+//            }
+//            for(int i=0;i<codEmpleados.size();i++)
+//            {
+//                //JOptionPane.showMessageDialog(null, "Se ingresa a emp_mant: "+idEmp.get(i));
+//                respuesta=conexion.getStmt().executeUpdate("INSERT INTO EMP_MANT2(ID_MANT2, ID_EMP2, CAMBIO) values ("+man.getIdMantenimiento()+", "+codEmpleados.get(i).getIdEmployee()+", 2);");
+//
+//            }
+//            for(int j=0;j<codInst.size();j++)
+//            {
+//                //JOptionPane.showMessageDialog(null, "Se ingresa a instr_mant");
+//                respuesta=conexion.getStmt().executeUpdate("INSERT INTO INSTR_MANT2(ID_MANT2, ID_INST2, CAMBIO) values ("+man.getIdMantenimiento()+", "+codInst.get(j).getIdInst()+", 2);");
+//
+//            }
             /*ELIMINADO LOGICO A NIVEL DE ACTUALIZCION DE UNA COLUMNA EN LA TABLA DE LA BD*/
             respuesta=conexion.getStmt().executeUpdate("UPDATE MANTENIMIENTO SET ACTIVO=0 WHERE ID_MANT="+man.getIdMantenimiento());
             if(respuesta>0){
