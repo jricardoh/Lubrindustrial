@@ -25,6 +25,7 @@ public class ReportOperabilidad extends javax.swing.JInternalFrame {
      */
     
     ArrayList<OPERABILIDAD> operabilidades = new ArrayList<OPERABILIDAD>();
+    String host;
     
     public ReportOperabilidad() {
         try{
@@ -38,6 +39,19 @@ public class ReportOperabilidad extends javax.swing.JInternalFrame {
         agregarDatos();
     }
     
+    public ReportOperabilidad(String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        host=hostname;
+        agregarDatos();
+    }
+    
     private void agregarDatos() {
         // ********** CAMBIO PARA MOSTRAR LAS 2 NUEVAS COLUMNAS DE LA BD
 
@@ -47,7 +61,7 @@ public class ReportOperabilidad extends javax.swing.JInternalFrame {
         String datos[] = new String[3];//ARRAY DE 3
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        OPERABILIDADCRUD opeCRUD = new OPERABILIDADCRUD();
+        OPERABILIDADCRUD opeCRUD = new OPERABILIDADCRUD(host);
 
         operabilidades = opeCRUD.visualizar(); // devuelve todos los registros de la BD
 

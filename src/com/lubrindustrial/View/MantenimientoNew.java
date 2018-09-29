@@ -17,6 +17,7 @@ import com.lubrindustrial.Server.Location;
 import com.lubrindustrial.Server.LocationCRUD;
 import com.lubrindustrial.Server.MantenimientoCRUD;
 import com.lubrindustrial.Server.Mantenimientos;
+import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -37,6 +38,8 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
     ArrayList<Location> locacion = new ArrayList<Location>();
     ArrayList<Employee> empleados = new ArrayList<Employee>();
     ArrayList<Instruction> instrucciones = new ArrayList<Instruction>();
+    User user = new User();
+    String host;
     /**
      * Creates new form MantenimientoNew
      */
@@ -59,8 +62,30 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
         llenarComboBoxInstruc();
     }
     
+    public MantenimientoNew(User us, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        comboEquipo.setVisible(false);
+        comboLocacion.setVisible(false);
+        listaEmpleados.setModel(modeloLista);
+        listaInstrucciones.setModel(modeloLista1);
+        user = us;
+        host=hostname;
+        
+        llenarComboBoxEqui();
+        llenarComboBoxLocacion();
+        llenarComboBoxEmp();
+        llenarComboBoxInstruc();
+    }
+    
     private void llenarComboBoxEmp() {
-        EmployeeCRUD  empCRUD = new EmployeeCRUD();
+        EmployeeCRUD  empCRUD = new EmployeeCRUD(host);
 
         empleados = empCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -72,7 +97,7 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
     }
     
     private void llenarComboBoxInstruc() {
-        InstructionCRUD  instCRUD = new InstructionCRUD();
+        InstructionCRUD  instCRUD = new InstructionCRUD(host);
 
         instrucciones = instCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -84,7 +109,7 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
     }
     
     private void llenarComboBoxEqui() {
-        EquipmentCRUD  equCRUD = new EquipmentCRUD();
+        EquipmentCRUD  equCRUD = new EquipmentCRUD(host);
 
         equipos = equCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -95,7 +120,7 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
         }
     }
     private void llenarComboBoxLocacion() {
-        LocationCRUD  locCRUD = new LocationCRUD();
+        LocationCRUD  locCRUD = new LocationCRUD(host);
 
         locacion = locCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -106,7 +131,7 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
         }
     }
     private void Volver(){
-        Mantenimiento obj = new Mantenimiento();
+        Mantenimiento obj = new Mantenimiento(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -565,7 +590,7 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         int codMant=0;
         ArrayList<Integer> mant=new ArrayList<Integer>(); 
-        MantenimientoCRUD manCRUD = new MantenimientoCRUD();
+        MantenimientoCRUD manCRUD = new MantenimientoCRUD(host);
         Mantenimientos m = new Mantenimientos();
         mant=manCRUD.visualizarCodigo();
         //Para tener el codigo de mantenimiento

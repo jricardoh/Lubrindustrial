@@ -139,6 +139,86 @@ public class EquipmentCRUD {
         }
     }
 
+    public ArrayList<Equipment> visualizarArbol() {
+        ArrayList<Equipment> listaEqui = new ArrayList<Equipment>();
+
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
+        conexion.Conectar();
+
+        Conexion conexion2 = new Conexion();
+        conexion2.setHost(host);
+        
+        conexion2.Conectar();
+
+        ResultSet resultado = null;
+        ResultSet resultado2 = null;
+
+        try {
+            conexion.getStmt();
+            //resultado= conexion.getStmt().executeQuery("SELECT * FROM EQUIPO WHERE ACTIVO <> 0");
+            // ojo con el where activo <>0
+            resultado = conexion.getStmt().executeQuery("SELECT eq.ID_EMP,eq.ID_LOCT,lo.DESCRIPCION_LOCT,eq.ID_EQ,eq.DESCRIPCION_EQ, eq.IDPADRE_EQ,eq.DESCRIPCION_EQ,eq.ID_EQ,eq.DESCRIPCION_EQ,eq.NRO_EQ,"
+                    + "eq.NROMODELO_EQ,eq.NROSERIE_EQ,eq.TIPO_EQ,eq.ESTADO_EQ,eq.FABRICANTE_EQ,eq.FECHACOMPRA_EQ,eq.FECHAINI_EQ,eq.FECHAVEN_EQ,eq.CONTRATISTA_EQ,"
+                    + "eq.ACTIVO,de.ID_DEPT,de.DESCRIPCION_DEPT,em.NOMBRE_EMP,EM.APELLIDO_EMP,eq.PIEZAS_EQ,eq.FOTO_EQ "
+                    + "FROM EQUIPO eq JOIN EMPLEADO em JOIN LOCACION lo JOIN DEPARTAMENTO de "
+                    + "ON(em.ID_EMP=eq.ID_EMP and eq.ID_LOCT=lo.ID_LOCT and lo.ID_DEPT=de.ID_DEPT) "
+                    + "WHERE eq.ID_EQ > 0");
+
+            /*
+            SELECT eq.ID_LOCT,lo.DESCRIPCION_LOCT,eq.ID_EQ,eq.DESCRIPCION_EQ, eq.IDPADRE_EQ,eq.DESCRIPCION_EQ,eq.ID_EQ,eq.DESCRIPCION_EQ,eq.NRO_EQ,
+                   eq.NROMODELO_EQ,eq.NROSERIE_EQ,eq.TIPO_EQ,eq.ESTADO_EQ,eq.FABRICANTE_EQ,eq.FECHACOMPRA_EQ,eq.FECHAINI_EQ,eq.FECHAVEN_EQ,eq.CONTRATISTA_EQ,
+                   eq.ACTIVO,de.ID_DEPT,de.DESCRIPCION_DEPT
+            FROM EQUIPO eq JOIN EMPLEADO em JOIN LOCACION lo JOIN DEPARTAMENTO de
+            ON(em.ID_EMP=eq.ID_EMP and eq.ID_LOCT=lo.ID_LOCT and lo.ID_DEPT=de.ID_DEPT)
+            WHERE eq.ACTIVO <> 0
+             */
+            while (resultado.next()) {
+                Equipment equi = new Equipment();
+                equi.setIdLocation(resultado.getInt("ID_LOCT"));
+                equi.setIdEquipment(resultado.getInt("ID_EQ"));
+                equi.setIdEmployee(resultado.getInt("ID_EMP"));
+                equi.setIdPadreEq(resultado.getInt("IDPADRE_EQ"));
+                equi.setNroEquipment(resultado.getString("NRO_EQ"));
+                equi.setDescEquipment(resultado.getString("DESCRIPCION_EQ"));
+                equi.setNroModEquipment(resultado.getString("NROMODELO_EQ"));
+                equi.setNroSerieEquipment(resultado.getString("NROSERIE_EQ"));
+                equi.setTipoEquipment(resultado.getString("TIPO_EQ"));
+                equi.setEstadoEquipment(resultado.getString("ESTADO_EQ"));
+                equi.setFabricEquipment(resultado.getString("FABRICANTE_EQ"));
+                equi.setFechaCompEquipment(resultado.getString("FECHACOMPRA_EQ"));
+                equi.setFechaIniEquipment(resultado.getString("FECHAINI_EQ"));
+                equi.setFechaVentEquipment(resultado.getString("FECHAVEN_EQ"));
+                equi.setContratistaEquipment(resultado.getString("CONTRATISTA_EQ"));
+                equi.setActivoEquipment(resultado.getInt("ACTIVO"));
+                equi.setDescLoc(resultado.getString("DESCRIPCION_LOCT"));
+                equi.setDescEmple(resultado.getString("NOMBRE_EMP") + " " + resultado.getString("APELLIDO_EMP"));
+                equi.setPiezas(resultado.getString("PIEZAS_EQ"));
+                equi.setFoto(resultado.getString("FOTO_EQ"));
+                listaEqui.add(equi);
+                if (equi.getIdPadreEq() != 0) {
+                    resultado2 = conexion2.getStmt().executeQuery("SELECT NRO_EQ,DESCRIPCION_EQ FROM EQUIPO WHERE ID_EQ=" + equi.getIdPadreEq() + " and ACTIVO <> 0");
+                    while (resultado2.next()) {
+                        equi.setDescEquipPadre(resultado2.getString("NRO_EQ") + " " + resultado2.getString("DESCRIPCION_EQ"));
+                    }
+                } else {
+                    equi.setDescEquipPadre("");
+                }
+
+            }
+
+            return listaEqui;
+
+        } catch (SQLException ex) {
+            System.err.println("Error en devolver registros EQUIPOS: " + ex.getMessage());
+            ex.printStackTrace();
+
+            return new ArrayList<Equipment>();
+        }
+    }
+
+    
     public ArrayList<Equipment> visualizar() {
         ArrayList<Equipment> listaEqui = new ArrayList<Equipment>();
 
@@ -218,6 +298,7 @@ public class EquipmentCRUD {
         }
     }
 
+    
     public ArrayList<Equipment> visualizar(int idEquipment) {
         ArrayList<Equipment> listaEqui = new ArrayList<Equipment>();
 

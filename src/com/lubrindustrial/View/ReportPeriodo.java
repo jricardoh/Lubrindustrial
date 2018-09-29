@@ -25,6 +25,7 @@ public class ReportPeriodo extends javax.swing.JInternalFrame {
      */
     
     ArrayList<OPERABILIDAD> operabilidades = new ArrayList<OPERABILIDAD>();
+    String host;
     
     public ReportPeriodo() {
         try{
@@ -38,8 +39,22 @@ public class ReportPeriodo extends javax.swing.JInternalFrame {
         llenarComboBoxOperabilidades();
     }
     
+    
+    public ReportPeriodo(String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        host=hostname;
+        llenarComboBoxOperabilidades();
+    }
+    
     private void llenarComboBoxOperabilidades() {
-        OPERABILIDADCRUD  opCRUD = new OPERABILIDADCRUD();
+        OPERABILIDADCRUD  opCRUD = new OPERABILIDADCRUD(host);
 
         operabilidades = opCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -112,7 +127,7 @@ public class ReportPeriodo extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        PERIODOCRUD perCRUD = new PERIODOCRUD();
+        PERIODOCRUD perCRUD = new PERIODOCRUD(host);
         ArrayList<PERIODO> periodos = new ArrayList<PERIODO>();
         //int ultimo=0;
         float totalHoras=0.0f;

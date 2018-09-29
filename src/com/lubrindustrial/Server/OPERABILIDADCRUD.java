@@ -16,6 +16,12 @@ import java.util.ArrayList;
 public class OPERABILIDADCRUD {
 
     public String host;
+
+    public OPERABILIDADCRUD(String hostname) {
+        host=hostname;
+    }
+    
+    
     public boolean insertar(OPERABILIDAD ope, PERIODO per){
         Conexion conexion = new Conexion();
         conexion.setHost(host);

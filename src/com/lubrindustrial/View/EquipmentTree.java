@@ -64,7 +64,7 @@ public class EquipmentTree extends javax.swing.JInternalFrame {
     private void cargarArbolEquipos(){
         int indexPadre=0, distRaiz=0;
         EquipmentCRUD eqCRUD = new EquipmentCRUD(host);
-        equipos = eqCRUD.visualizar(); // CARGO TODOS LOS EQUIPOS DE LA BD
+        equipos = eqCRUD.visualizarArbol(); // CARGO TODOS LOS EQUIPOS DE LA BD
         DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Árbol de Equipos"); // SE CARGA LA RAIZ DEL ARBOL
         
         // CARGO LOS EQUIPOS PADRES, ES DECIR LOS QUE TENGAN IDPADRE_EQ=0

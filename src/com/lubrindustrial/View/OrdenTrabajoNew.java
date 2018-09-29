@@ -11,6 +11,7 @@ import com.lubrindustrial.Server.MantenimientoCRUD;
 import com.lubrindustrial.Server.Mantenimientos;
 import com.lubrindustrial.Server.OrdenTrabajoCRUD;
 import com.lubrindustrial.Server.OrdenTrabajos;
+import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
     
     ArrayList<Mantenimientos> mantenimientos = new ArrayList<Mantenimientos>();
+    User user = new User();
+    String host;
     
     /**
      * Creates new form OrdenTrabajoNew
@@ -40,8 +43,25 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
         this.setClosable(true);
         llenarComboBoxOrdenTrab();
     }
+    
+    public OrdenTrabajoNew(User us, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        user = us;
+        host= hostname;
+        llenarComboBoxOrdenTrab();
+    }
+    
+    
     private void Volver(){
-        OrdenTrabajo obj = new OrdenTrabajo();
+        OrdenTrabajo obj = new OrdenTrabajo(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -53,7 +73,7 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
         obj.show();
     }
     private void llenarComboBoxOrdenTrab() {
-        MantenimientoCRUD mantCRUD = new MantenimientoCRUD();
+        MantenimientoCRUD mantCRUD = new MantenimientoCRUD(host);
 
         mantenimientos = mantCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -520,7 +540,7 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        OrdenTrabajoCRUD ordtrCRUD = new OrdenTrabajoCRUD();
+        OrdenTrabajoCRUD ordtrCRUD = new OrdenTrabajoCRUD(host);
         OrdenTrabajos ot = new OrdenTrabajos();
         //Para tener el codigo de mantenimiento
         

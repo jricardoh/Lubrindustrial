@@ -94,7 +94,7 @@ public class OrdenTrabajo extends javax.swing.JInternalFrame {
         String datos[] = new String[19];//ARRAY DE 13
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        OrdenTrabajoCRUD otCRUD = new OrdenTrabajoCRUD();
+        OrdenTrabajoCRUD otCRUD = new OrdenTrabajoCRUD(host);
 
         ot = otCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -288,7 +288,7 @@ public class OrdenTrabajo extends javax.swing.JInternalFrame {
         DefaultTableModel dtm = (DefaultTableModel) tab_ordentrabajo.getModel();
         int codOrden = Integer.parseInt(tab_ordentrabajo.getValueAt(tab_ordentrabajo.getSelectedRow(), 0).toString());
         ///OBTENGO LA FILA CON EL CODIGO RESPECTIVO
-        OrdenTrabajoCRUD otCRUD = new OrdenTrabajoCRUD();
+        OrdenTrabajoCRUD otCRUD = new OrdenTrabajoCRUD(host);
         OrdenTrabajos ot = new OrdenTrabajos();
         ot = otCRUD.mostrarPorCodigo(codOrden);
         //LA QUITO DE LA IMAGEN DE LA TABLA
@@ -300,7 +300,7 @@ public class OrdenTrabajo extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        OrdenTrabajoNew obj = new OrdenTrabajoNew();
+        OrdenTrabajoNew obj = new OrdenTrabajoNew(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -332,7 +332,7 @@ public class OrdenTrabajo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tab_ordentrabajoMouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        OrdenTrabajoUpdate obj = new OrdenTrabajoUpdate();
+        OrdenTrabajoUpdate obj = new OrdenTrabajoUpdate(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -358,7 +358,7 @@ public class OrdenTrabajo extends javax.swing.JInternalFrame {
 
         DefaultTableModel model = (DefaultTableModel) tab_ordentrabajo.getModel();
         model.setRowCount(0);
-        OrdenTrabajoCRUD ot_query = new OrdenTrabajoCRUD();
+        OrdenTrabajoCRUD ot_query = new OrdenTrabajoCRUD(host);
         String datos[] = new String[20];//ARRAY DE 3
         if (txtInput.getText().isEmpty()) {
 
@@ -424,8 +424,8 @@ public class OrdenTrabajo extends javax.swing.JInternalFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
-        ReportsExcel reporte = new ReportsExcel();
-        OrdenTrabajoCRUD eqCRUD = new OrdenTrabajoCRUD();
+        ReportsExcel reporte = new ReportsExcel(host);
+        OrdenTrabajoCRUD eqCRUD = new OrdenTrabajoCRUD(host);
         ArrayList<OrdenTrabajos> ordsTra = eqCRUD.visualizar();
         if(reporte.escribirExcelOrdenesTrabajo(ordsTra)){
             JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE ORDENES TRABAJO CREADO","ARCHIVO GUARDADO EXITOSAMENTE",JOptionPane.INFORMATION_MESSAGE);

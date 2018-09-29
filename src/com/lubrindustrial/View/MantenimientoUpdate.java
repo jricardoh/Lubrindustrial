@@ -39,6 +39,7 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
     ArrayList<Employee> empleados = new ArrayList<Employee>();
     ArrayList<Instruction> instrucciones = new ArrayList<Instruction>();
     User user = new User();
+    String host;
     /**
      * Creates new form MantenimientoUpdate
      */
@@ -80,8 +81,28 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
         user = us;
     }
     
+    public MantenimientoUpdate(User us,String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        listaEmpleados.setModel(modeloLista);
+        listaInstrucciones.setModel(modeloLista1);
+        
+        user = us;
+        host=hostname;
+        llenarComboBoxEqui();
+        llenarComboBoxLocacion();
+        llenarComboBoxEmp();
+        llenarComboBoxInstruc();
+    }
+    
     private void llenarComboBoxEmp() {
-        EmployeeCRUD  empCRUD = new EmployeeCRUD();
+        EmployeeCRUD  empCRUD = new EmployeeCRUD(host);
 
         empleados = empCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -93,7 +114,7 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
     }
     
     private void llenarComboBoxInstruc() {
-        InstructionCRUD  instCRUD = new InstructionCRUD();
+        InstructionCRUD  instCRUD = new InstructionCRUD(host);
 
         instrucciones = instCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -105,7 +126,7 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
     }
     
     private void llenarComboBoxEqui() {
-        EquipmentCRUD  equCRUD = new EquipmentCRUD();
+        EquipmentCRUD  equCRUD = new EquipmentCRUD(host);
 
         equipos = equCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -116,7 +137,7 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
         }
     }
     private void llenarComboBoxLocacion() {
-        LocationCRUD  locCRUD = new LocationCRUD();
+        LocationCRUD  locCRUD = new LocationCRUD(host);
 
         locacion = locCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -127,7 +148,7 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
         }
     }
     private void Volver(){
-        Mantenimiento obj = new Mantenimiento();
+        Mantenimiento obj = new Mantenimiento(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -377,7 +398,7 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
     private void botonBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBusquedaActionPerformed
         modeloLista.clear();
         modeloLista1.clear();
-        MantenimientoCRUD mantCRUD=new MantenimientoCRUD();
+        MantenimientoCRUD mantCRUD=new MantenimientoCRUD(host);
         ArrayList<Mantenimientos> Mant=new ArrayList<Mantenimientos>();
         Mantenimientos m=new Mantenimientos();
         m=mantCRUD.mostrarPorCodigo(Integer.parseInt(txtBusqueda.getText()));
@@ -402,7 +423,7 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
             comboEquipo.setVisible(false);
         }
         //Datos empleado
-        EmployeeCRUD empCRUD=new EmployeeCRUD();
+        EmployeeCRUD empCRUD=new EmployeeCRUD(host);
         ArrayList<Employee> listaEmp=new ArrayList<Employee>();
         listaEmp=empCRUD.mostrarPorCodigo(Integer.parseInt(txtBusqueda.getText()));
         for(int i=0;i<listaEmp.size();i++)
@@ -411,7 +432,7 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
         }
         
         //Datos instrucciones
-        InstructionCRUD instCRUD=new InstructionCRUD();
+        InstructionCRUD instCRUD=new InstructionCRUD(host);
         ArrayList<Instruction> listaInst=new ArrayList<Instruction>();
         listaInst=instCRUD.mostrarPorCodigo(Integer.parseInt(txtBusqueda.getText()));
         for(int i=0;i<listaInst.size();i++)
@@ -426,18 +447,18 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
         //codigo de mantenimiento
         int codMant=Integer.parseInt(txtBusqueda.getText());
         //codigos antes
-        EmployeeCRUD empCRUD=new EmployeeCRUD();
+        EmployeeCRUD empCRUD=new EmployeeCRUD(host);
         ArrayList<Employee> codAnEmpleados=new ArrayList<>();
         ArrayList<Instruction> codAnInstruc=new ArrayList<>();
         codAnEmpleados=empCRUD.mostrarPorCodigo(codMant);
-        InstructionCRUD instCRUD=new InstructionCRUD();
+        InstructionCRUD instCRUD=new InstructionCRUD(host);
         codAnInstruc=instCRUD.mostrarPorCodigo(codMant);
         //mantenimiento antes
-        MantenimientoCRUD mantCRUD=new MantenimientoCRUD();
+        MantenimientoCRUD mantCRUD=new MantenimientoCRUD(host);
         Mantenimientos mAn=new Mantenimientos();
         mAn=mantCRUD.mostrarPorCodigo(codMant);
         //mantenimiento despues
-        MantenimientoCRUD manCRUD = new MantenimientoCRUD();
+        MantenimientoCRUD manCRUD = new MantenimientoCRUD(host);
         Mantenimientos mDes = new Mantenimientos();
         //tiempo que aplasto
         Calendar calendario = new GregorianCalendar();

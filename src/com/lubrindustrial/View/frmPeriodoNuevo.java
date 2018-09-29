@@ -27,7 +27,7 @@ public class frmPeriodoNuevo extends javax.swing.JInternalFrame {
      */
     
     ArrayList<OPERABILIDAD> operabilidades = new ArrayList<OPERABILIDAD>();
-    
+    String host;
     public frmPeriodoNuevo() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -41,6 +41,21 @@ public class frmPeriodoNuevo extends javax.swing.JInternalFrame {
         llenarComboBoxActividad();
     }
     
+    public frmPeriodoNuevo(String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        host=hostname;
+        llenarComboBoxOperabilidades();
+        llenarComboBoxActividad();
+    }
+    
     private void llenarComboBoxActividad(){
         comboEstado.removeAllItems();
         comboEstado.addItem("ACTIVO");
@@ -48,7 +63,7 @@ public class frmPeriodoNuevo extends javax.swing.JInternalFrame {
     }
     
     private void llenarComboBoxOperabilidades() {
-        OPERABILIDADCRUD  opCRUD = new OPERABILIDADCRUD();
+        OPERABILIDADCRUD  opCRUD = new OPERABILIDADCRUD(host);
 
         operabilidades = opCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -250,7 +265,7 @@ public class frmPeriodoNuevo extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        PERIODOCRUD perCRUD = new PERIODOCRUD();
+        PERIODOCRUD perCRUD = new PERIODOCRUD(host);
         PERIODO per = new PERIODO();
         String cad="";
         
@@ -285,7 +300,7 @@ public class frmPeriodoNuevo extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        PERIODOCRUD perCRUD = new PERIODOCRUD();
+        PERIODOCRUD perCRUD = new PERIODOCRUD(host);
         ArrayList<PERIODO> periodos = new ArrayList<PERIODO>();
         int ultimo=0;
         String cad="";

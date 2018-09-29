@@ -31,6 +31,7 @@ public class frmPedidoMateriales extends javax.swing.JInternalFrame {
 //    ArrayList<Department> departamentos = new ArrayList<Department>();
     ArrayList<Employee> empleados = new ArrayList<Employee>();
     ArrayList<Article> articulos = new ArrayList<Article>();
+    String host;
     
     public frmPedidoMateriales() {
         try{
@@ -41,6 +42,21 @@ public class frmPedidoMateriales extends javax.swing.JInternalFrame {
         initComponents();
         this.setIconifiable(true);
         this.setClosable(true);
+        //llenarComboBoxDepartamentos();
+        llenarComboBoxEmpleados();
+        llenarComboBoxArticulos();
+    }
+    
+    public frmPedidoMateriales(String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        host=hostname;
         //llenarComboBoxDepartamentos();
         llenarComboBoxEmpleados();
         llenarComboBoxArticulos();
@@ -59,7 +75,7 @@ public class frmPedidoMateriales extends javax.swing.JInternalFrame {
 //    }
     
     private void llenarComboBoxEmpleados(){
-        EmployeeCRUD empsCRUD = new EmployeeCRUD();
+        EmployeeCRUD empsCRUD = new EmployeeCRUD(host);
 //        int idDep=0;
 //        
 //        String dep = cmbox_departamentos.getSelectedItem().toString();
@@ -82,7 +98,7 @@ public class frmPedidoMateriales extends javax.swing.JInternalFrame {
     }
     
     private void llenarComboBoxArticulos(){
-        ArticleCRUD artsCRUD = new ArticleCRUD();
+        ArticleCRUD artsCRUD = new ArticleCRUD(host);
         
         articulos = artsCRUD.visualizarSTOCK(); // devuelve todos los registros de la BD
         
@@ -309,7 +325,7 @@ public class frmPedidoMateriales extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        PEDIDOMATERIALCRUD pedCRUD = new PEDIDOMATERIALCRUD();
+        PEDIDOMATERIALCRUD pedCRUD = new PEDIDOMATERIALCRUD(host);
         PEDIDOMATERIAL ped = new PEDIDOMATERIAL();
         String cad="";
         int idAux=0;

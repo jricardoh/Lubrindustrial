@@ -30,6 +30,7 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
     
     ArrayList<Mantenimientos> mante = new ArrayList<Mantenimientos>();
     User user = new User();
+    String host;
     /**
      * Creates new form OrdenTrabajoUpdate
      */
@@ -59,8 +60,24 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
         user = us;
     }
     
+    public OrdenTrabajoUpdate(User us,String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        
+        user = us;
+        host=hostname;
+        llenarComboBoxMant();
+        
+    }
+    
     private void Volver(){
-        OrdenTrabajo obj = new OrdenTrabajo();
+        OrdenTrabajo obj = new OrdenTrabajo(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -73,7 +90,7 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
     }
     
     private void llenarComboBoxMant() {
-        MantenimientoCRUD  mantCRUD = new MantenimientoCRUD();
+        MantenimientoCRUD  mantCRUD = new MantenimientoCRUD(host);
 
         mante = mantCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -569,11 +586,11 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         //OBTENGO ANTERIOR REGISTRO
-        OrdenTrabajoCRUD otCRUD=new OrdenTrabajoCRUD();
+        OrdenTrabajoCRUD otCRUD=new OrdenTrabajoCRUD(host);
         OrdenTrabajos otAn=new OrdenTrabajos();
         otAn=otCRUD.mostrarPorCodigo(Integer.parseInt(txtBusqueda.getText()));
         ////Obtengo los nuevos
-        OrdenTrabajoCRUD ordtrCRUD = new OrdenTrabajoCRUD();
+        OrdenTrabajoCRUD ordtrCRUD = new OrdenTrabajoCRUD(host);
         OrdenTrabajos otDes = new OrdenTrabajos();
         //Para tener el codigo de mantenimiento
         
@@ -755,7 +772,7 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
 
     private void botonBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBusquedaActionPerformed
         
-        OrdenTrabajoCRUD otCRUD=new OrdenTrabajoCRUD();
+        OrdenTrabajoCRUD otCRUD=new OrdenTrabajoCRUD(host);
         OrdenTrabajos ot=new OrdenTrabajos();
         ot=otCRUD.mostrarPorCodigo(Integer.parseInt(txtBusqueda.getText()));
         txtMant.setEnabled(false);

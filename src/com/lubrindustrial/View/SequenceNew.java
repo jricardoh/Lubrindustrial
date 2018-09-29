@@ -13,6 +13,7 @@ import com.lubrindustrial.Server.Location;
 import com.lubrindustrial.Server.LocationCRUD;
 import com.lubrindustrial.Server.Sequence;
 import com.lubrindustrial.Server.SequenceCRUD;
+import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
 import java.sql.Connection;
@@ -30,7 +31,8 @@ import javax.swing.table.DefaultTableModel;
 public class SequenceNew extends javax.swing.JInternalFrame {
 
     ArrayList<Instruction> instrucciones = new ArrayList<Instruction>();
-
+    User user = new User();
+    String host;
     public SequenceNew() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -42,9 +44,23 @@ public class SequenceNew extends javax.swing.JInternalFrame {
         this.setClosable(true);
         llenarComboBox();
     }
+    
+    public SequenceNew(User us, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        user = us;
+        host = hostname;
+        llenarComboBox();
+    }
 
     private void Volver(){
-        Sequences obj = new Sequences();
+        Sequences obj = new Sequences(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -57,7 +73,7 @@ public class SequenceNew extends javax.swing.JInternalFrame {
     }
     
     private void llenarComboBox(){
-        InstructionCRUD instCRUD = new InstructionCRUD();
+        InstructionCRUD instCRUD = new InstructionCRUD(host);
         
         instrucciones = instCRUD.visualizar(); // devuelve todos los registros de la BD
         
@@ -177,7 +193,7 @@ public class SequenceNew extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        SequenceCRUD secCRUD = new SequenceCRUD();
+        SequenceCRUD secCRUD = new SequenceCRUD(host);
         Sequence s = new Sequence();
         String cad="";
         try{

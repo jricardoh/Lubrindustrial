@@ -26,6 +26,7 @@ public class frmOperabilidad extends javax.swing.JInternalFrame {
      */
     
     ArrayList<Equipment> equipos = new ArrayList<Equipment>();
+    String host;
     
     public frmOperabilidad() {
         try{
@@ -39,8 +40,21 @@ public class frmOperabilidad extends javax.swing.JInternalFrame {
         llenarComboBoxEqui();
     }
     
+    public frmOperabilidad(String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        host=hostname;
+        llenarComboBoxEqui();
+    }
+    
     private void llenarComboBoxEqui() {
-        EquipmentCRUD  equCRUD = new EquipmentCRUD();
+        EquipmentCRUD  equCRUD = new EquipmentCRUD(host);
 
         equipos = equCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -182,7 +196,7 @@ public class frmOperabilidad extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        OPERABILIDADCRUD opCRUD = new OPERABILIDADCRUD();
+        OPERABILIDADCRUD opCRUD = new OPERABILIDADCRUD(host);
         OPERABILIDAD oper = new OPERABILIDAD();
         PERIODO per = new PERIODO();
         String cad="";
