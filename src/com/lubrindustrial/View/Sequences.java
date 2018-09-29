@@ -29,6 +29,7 @@ public class Sequences extends javax.swing.JInternalFrame {
     ArrayList<Sequence> secuencias = new ArrayList<Sequence>();
     ArrayList<Instruction> instrucciones = new ArrayList<Instruction>();
     User user = new User();
+    String host="";
     
     public int getvalorencontrado() {
         int valorencontrado = valor_encontrado;
@@ -63,6 +64,22 @@ public class Sequences extends javax.swing.JInternalFrame {
 //        tab_sequences.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 //        tab_sequences.doLayout();
         user = usu;
+    }
+    
+    public Sequences(User usu, String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        agregarDatos();
+//        tab_sequences.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//        tab_sequences.doLayout();
+        user = usu;
+        this.host=hostname;
     }
     
     public int seleccionaritem() {
