@@ -20,8 +20,8 @@ public class PERIODOCRUD {
     public PERIODOCRUD() {
     }
 
-    public PERIODOCRUD(String host) {
-        this.host = host;
+    public PERIODOCRUD(String hostname) {
+        this.host = hostname;
     }
     
     public boolean insertar(PERIODO per){

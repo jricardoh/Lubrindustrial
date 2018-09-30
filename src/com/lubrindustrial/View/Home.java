@@ -39,6 +39,18 @@ public class Home extends javax.swing.JFrame {
     private static String nivel;
     public String host;
     User user = new User();
+    Employees empView;
+    Equipments equiView;
+    Departments deptView;
+    Locations loctView;
+    Articles artView;
+    Suppliers suppView;
+    Instructions instView;
+    Mantenimiento mantView;
+    OrdenTrabajo ordtrView;
+    Reports repView;
+    Pedidos pedView;
+    Operabilidad opeView;
 
     public Home() throws UnknownHostException {
         try {
@@ -52,11 +64,15 @@ public class Home extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         lblCuenta.setVisible(false);
         lblNivel.setVisible(false);
-        alertaMantenimiento();
+//        alertaMantenimiento();
         mostrarIP();
-        
+        host = "";
+        compararHost();
 //        host="192.168.0.1";
 //        inicializarFrames();
+        Dimension dim = escritorio.getSize();
+        Dimension lblSize = lblLogo.getSize();
+        lblLogo.setLocation((dim.width - lblSize.width) / 2, (dim.height - lblSize.height) / 2);
     }
 
     public Home(User us, String hostname) throws UnknownHostException { // utilizo para jalar el User y Host
@@ -75,22 +91,19 @@ public class Home extends javax.swing.JFrame {
         mostrarIP();
         this.user = us;
         this.host = hostname;
-        inicializarFrames();
+        compararHost();
+        Dimension dim = escritorio.getSize();
+        Dimension lblSize = lblLogo.getSize();
+        lblLogo.setLocation((dim.width - lblSize.width) / 2, (dim.height - lblSize.height) / 2);
+//        System.out.println("sadasdsa");
+//        inicializarFrames();
+
         //System.out.println("sa:" + user.getNomUser());
         
         //System.out.println("Me conecto a la IP: "+host);
     }
-        Employees empView; 
-        Equipments equiView;
-        Departments deptView;
-        Locations loctView; 
-        Articles artView; 
-        Suppliers suppView; 
-        Instructions instView; 
-        Mantenimiento mantView;
-        OrdenTrabajo ordtrView; 
-        Reports repView;
-        GestionPedidos pedView;
+    
+        
 //    Employees empView = new Employees(this.user);
 //    Equipments equiView = new Equipments(this.user);
 //    Departments deptView = new Departments(this.user);
@@ -102,6 +115,7 @@ public class Home extends javax.swing.JFrame {
 //    OrdenTrabajo ordtrView = new OrdenTrabajo(this.user);
 //    Reports repView = new Reports(this.user);
 public void inicializarFrames(){ // hay que enviar tambien la direccion IP
+    
         this.empView = new Employees(this.user,this.host);
         this.equiView = new Equipments(this.user,this.host);
         this.deptView = new Departments(this.user,this.host);
@@ -111,26 +125,42 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         this.instView = new Instructions(this.user,this.host);
         this.mantView = new Mantenimiento(this.user,this.host);
         this.ordtrView = new OrdenTrabajo(this.user,this.host);        
-//        this.repView = new Reports(this.user,this.host);
-//        this.pedView = new GestionPedidos(this.user,this.host);
+        this.repView = new Reports(this.user,this.host);
+        this.pedView = new Pedidos(/*this.user,*/this.host);
+        this.opeView = new Operabilidad(/*this.user,*/this.host);
 }
       
     
-    public Home(String aux) {
-        initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
-        lblNivel.setText(aux);
-//        habilitar();
-        lblCuenta.setVisible(false);
-        lblNivel.setVisible(false);
-//        alertaMantenimiento();        
-    }
+//    public Home(String aux) {
+//        initComponents();
+//        this.setExtendedState(MAXIMIZED_BOTH);
+//        lblNivel.setText(aux);
+////        habilitar();
+//        lblCuenta.setVisible(false);
+//        lblNivel.setVisible(false);
+////        alertaMantenimiento();        
+//    }
 
     public void mostrarIP() throws UnknownHostException {
         lblIP.setText("Dirección IP: " + InetAddress.getLocalHost().getHostAddress());
         lblHostName.setText("Nombre de Red: " + InetAddress.getLocalHost().getHostName());
     }
 
+    public void compararHost() throws UnknownHostException{
+         
+        if (this.host.equals(InetAddress.getLocalHost().getHostAddress()) || this.host.equals(InetAddress.getLocalHost().getHostName())){
+            
+            btnCopiaSeg.setVisible(true);
+            btnCopiaSeg.setEnabled(true);
+            
+        }else
+        {
+            btnCopiaSeg.setVisible(false);
+            btnCopiaSeg.setEnabled(false);
+        }
+        
+    }
+    
     public static boolean estacerrado(Object obj) {
         JInternalFrame[] activos = escritorio.getAllFrames();
         boolean cerrado = true;
@@ -225,7 +255,9 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         lblNomApe = new javax.swing.JLabel();
         lblIP = new javax.swing.JLabel();
         lblHostName = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
+        lblNomApe1 = new javax.swing.JLabel();
+        lblNomApe2 = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -238,7 +270,8 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         jButton10 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        btnCopiaSeg = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -269,8 +302,14 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         lblHostName.setForeground(new java.awt.Color(255, 255, 255));
         lblHostName.setText("Nombre Red equipo servidor");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/lubrindustrial.png"))); // NOI18N
-        jLabel1.setText(" ");
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/lubrindustrial_logo (2).png"))); // NOI18N
+        lblLogo.setText(" ");
+
+        lblNomApe1.setForeground(new java.awt.Color(255, 255, 255));
+        lblNomApe1.setText("Lubrinsdustrial v1.0");
+
+        lblNomApe2.setForeground(new java.awt.Color(255, 255, 255));
+        lblNomApe2.setText("Jhonny Cajamarca / Ricardo Herrera");
 
         escritorio.setLayer(jDesktopPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(lblCuenta, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -278,7 +317,9 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         escritorio.setLayer(lblNomApe, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(lblIP, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(lblHostName, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(lblLogo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(lblNomApe1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(lblNomApe2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
@@ -287,42 +328,52 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(217, 217, 217)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119)
-                .addComponent(lblNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCuenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addComponent(lblNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(lblNomApe, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNomApe, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addComponent(lblNomApe1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblNomApe2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblIP, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblHostName, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(223, 223, 223))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
-                .addComponent(lblCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(escritorioLayout.createSequentialGroup()
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(escritorioLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(lblNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 316, Short.MAX_VALUE)
-                        .addComponent(lblIP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblHostName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNomApe, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37))
+                        .addComponent(lblNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNomApe, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(lblIP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHostName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNomApe2)
+                    .addComponent(lblNomApe1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37))
         );
 
         jToolBar1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -390,7 +441,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         });
         jToolBar1.add(jButton6);
 
-        jButton7.setIcon(new javax.swing.ImageIcon("D:\\Software lubricantes\\AVANCE FINAL 24-09-2018\\Lubrindustrial_v25\\Lubrindustrial\\src\\com\\lubrindustrial\\Icons\\engr-.png")); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/engr-.png"))); // NOI18N
         jButton7.setText("Proveedores");
         jButton7.setFocusable(false);
         jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -402,7 +453,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         });
         jToolBar1.add(jButton7);
 
-        jButton8.setIcon(new javax.swing.ImageIcon("D:\\Software lubricantes\\AVANCE FINAL 24-09-2018\\Lubrindustrial_v25\\Lubrindustrial\\src\\com\\lubrindustrial\\Icons\\Fondo-.png")); // NOI18N
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/puzzle.png"))); // NOI18N
         jButton8.setText("Instrucciones");
         jButton8.setFocusable(false);
         jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -462,17 +513,29 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         });
         jToolBar1.add(jButton11);
 
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/candado.png"))); // NOI18N
-        jButton13.setText("Copia de Seguridad");
-        jButton13.setFocusable(false);
-        jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/operabilidad.png"))); // NOI18N
+        jButton12.setText("Operabilidad");
+        jButton12.setFocusable(false);
+        jButton12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton12.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                jButton12ActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton13);
+        jToolBar1.add(jButton12);
+
+        btnCopiaSeg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/candado.png"))); // NOI18N
+        btnCopiaSeg.setText("Copia de Seguridad");
+        btnCopiaSeg.setFocusable(false);
+        btnCopiaSeg.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCopiaSeg.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCopiaSeg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCopiaSegActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnCopiaSeg);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/logout2.png"))); // NOI18N
         jButton1.setText("Cerrar Sesión");
@@ -531,7 +594,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
 //        }
 //    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        this.empView = new Employees(this.user,this.host);
 //        empView.dispose();
         Home.escritorio.add(empView);
         empView.toFront();
@@ -554,7 +617,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
+        this.equiView = new Equipments(this.user,this.host);
         equiView.dispose();
         Home.escritorio.add(equiView);
         equiView.toFront();
@@ -569,7 +632,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
+        this.deptView = new Departments(this.user,this.host);
         deptView.dispose();
         Home.escritorio.add(deptView);
         deptView.toFront();
@@ -585,7 +648,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
+        this.loctView = new Locations(this.user,this.host);
         loctView.dispose();
         Home.escritorio.add(loctView);
         loctView.toFront();
@@ -599,7 +662,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
+        this.artView = new Articles(this.user,this.host);
         artView.dispose();
         Home.escritorio.add(artView);
         artView.toFront();
@@ -613,7 +676,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-
+        this.suppView = new Suppliers(this.user,this.host);
         suppView.dispose();
         Home.escritorio.add(suppView);
         suppView.toFront();
@@ -628,7 +691,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-
+        this.instView = new Instructions(this.user,this.host);
         instView.dispose();
         Home.escritorio.add(instView);
         instView.toFront();
@@ -643,7 +706,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-
+        this.mantView = new Mantenimiento(this.user,this.host);
         mantView.dispose();
         Home.escritorio.add(mantView);
         mantView.toFront();
@@ -657,7 +720,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-
+        this.ordtrView = new OrdenTrabajo(this.user,this.host);
         ordtrView.dispose();
         Home.escritorio.add(ordtrView);
         ordtrView.toFront();
@@ -670,7 +733,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         ordtrView.show();
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    private void btnCopiaSegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopiaSegActionPerformed
 
         String path="";
         try{
@@ -723,10 +786,10 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
 //        }
 
 
-    }//GEN-LAST:event_jButton13ActionPerformed
+    }//GEN-LAST:event_btnCopiaSegActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-
+        this.repView = new Reports(this.user,this.host);
         repView.dispose();
         Home.escritorio.add(repView);
         repView.toFront();
@@ -741,7 +804,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-
+        this.pedView = new Pedidos(/*this.user,*/this.host);
         pedView.dispose();
         Home.escritorio.add(pedView);
         pedView.toFront();
@@ -754,6 +817,22 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         pedView.show();
         
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        
+        this.opeView = new Operabilidad(/*this.user,*/this.host);
+        opeView.dispose();
+        Home.escritorio.add(opeView);
+        opeView.toFront();
+        //centrar
+        //Para centrar la ventana abierta
+        Dimension dimension = escritorio.getSize();
+        Dimension FrameSize = opeView.getSize();
+        opeView.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
+        //
+        opeView.show();
+        
+    }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -796,11 +875,12 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCopiaSeg;
     public static javax.swing.JDesktopPane escritorio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -811,13 +891,15 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JToolBar jToolBar1;
     public static javax.swing.JLabel lblCuenta;
     public javax.swing.JLabel lblHostName;
     public javax.swing.JLabel lblIP;
+    private javax.swing.JLabel lblLogo;
     public javax.swing.JLabel lblNivel;
     public javax.swing.JLabel lblNomApe;
+    public javax.swing.JLabel lblNomApe1;
+    public javax.swing.JLabel lblNomApe2;
     // End of variables declaration//GEN-END:variables
 
     /**

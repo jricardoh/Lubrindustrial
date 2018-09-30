@@ -152,10 +152,10 @@ public class ReportOrdenCod extends javax.swing.JInternalFrame {
         jLabel19.setText("Respuesta");
         jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, -1, 20));
 
-        jLabel20.setText("Inicio");
+        jLabel20.setText("Fecha Inicio");
         jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, -1, 20));
 
-        jLabel21.setText("Termino ");
+        jLabel21.setText("Fecha Término ");
         jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, 20));
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N

@@ -277,7 +277,15 @@ public class InstructionEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_horasKeyReleased
 
     private void txt_horasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_horasKeyTyped
-        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '.')) {
+            evt.consume();
+        }
+        if (c == '.' && txt_horas.getText().contains(".")) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txt_horasKeyTyped
 
     private void txt_notasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_notasKeyReleased

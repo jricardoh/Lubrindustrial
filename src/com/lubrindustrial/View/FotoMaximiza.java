@@ -14,12 +14,12 @@ import javax.swing.JOptionPane;
  *
  * @author Marcelo
  */
-public class frmFotoMaximiza extends javax.swing.JFrame {
+public class FotoMaximiza extends javax.swing.JFrame {
 
     /**
      * Creates new form frmFotoMaximiza
      */
-    public frmFotoMaximiza(String ruta) {
+    public FotoMaximiza(String ruta) {
         initComponents();
         cargarFoto(ruta);
     }

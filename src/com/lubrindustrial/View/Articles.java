@@ -102,7 +102,7 @@ public class Articles extends javax.swing.JInternalFrame {
         String datos[] = new String[16];//ARRAY DE 3
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        ArticleCRUD artCRUD = new ArticleCRUD();
+        ArticleCRUD artCRUD = new ArticleCRUD(host);
 
         articulos = artCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -317,7 +317,7 @@ public class Articles extends javax.swing.JInternalFrame {
         });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/door_exit.png"))); // NOI18N
-        jButton3.setText("Cerrar");
+        jButton3.setText("Detalles");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -342,7 +342,6 @@ public class Articles extends javax.swing.JInternalFrame {
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/excel_logo.png"))); // NOI18N
         jButton4.setToolTipText("Generar hoja de cálculo de Excel");
-        jButton4.setPreferredSize(new java.awt.Dimension(53, 29));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -368,7 +367,7 @@ public class Articles extends javax.swing.JInternalFrame {
                                 .addComponent(btnEdit)
                                 .addGap(15, 15, 15)
                                 .addComponent(btnDelete)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton3)))

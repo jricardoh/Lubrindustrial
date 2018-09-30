@@ -271,7 +271,7 @@ public class Departments extends javax.swing.JInternalFrame {
         });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/door_exit.png"))); // NOI18N
-        jButton3.setText("Cerrar");
+        jButton3.setText("Detalles");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);

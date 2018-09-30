@@ -19,15 +19,16 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
  *
  * @author Marcelo
  */
-public class frmOperabilidad extends javax.swing.JInternalFrame {
+public class OperabilidadNew extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form frmOperabilidad
+     * Creates new form OperabilidadNew
      */
     
     ArrayList<Equipment> equipos = new ArrayList<Equipment>();
+    String host;
     
-    public frmOperabilidad() {
+    public OperabilidadNew() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
         }catch(Exception e){
@@ -39,8 +40,21 @@ public class frmOperabilidad extends javax.swing.JInternalFrame {
         llenarComboBoxEqui();
     }
     
+    public OperabilidadNew(String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        this.host = hostname;
+        llenarComboBoxEqui();
+    }
+    
     private void llenarComboBoxEqui() {
-        EquipmentCRUD  equCRUD = new EquipmentCRUD();
+        EquipmentCRUD  equCRUD = new EquipmentCRUD(host);
 
         equipos = equCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -74,8 +88,6 @@ public class frmOperabilidad extends javax.swing.JInternalFrame {
         txt_cantidadHoras = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Seleccione el equipo");
 
@@ -160,7 +172,6 @@ public class frmOperabilidad extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_fechaIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -182,7 +193,7 @@ public class frmOperabilidad extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        OPERABILIDADCRUD opCRUD = new OPERABILIDADCRUD();
+        OPERABILIDADCRUD opCRUD = new OPERABILIDADCRUD(host);
         OPERABILIDAD oper = new OPERABILIDAD();
         PERIODO per = new PERIODO();
         String cad="";
@@ -228,20 +239,20 @@ public class frmOperabilidad extends javax.swing.JInternalFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(frmOperabilidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(OperabilidadNew.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(frmOperabilidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(OperabilidadNew.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(frmOperabilidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(OperabilidadNew.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(frmOperabilidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(OperabilidadNew.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new frmOperabilidad().setVisible(true);
+//                new OperabilidadNew().setVisible(true);
 //            }
 //        });
 //    }

@@ -94,7 +94,7 @@ public class OrdenTrabajo extends javax.swing.JInternalFrame {
         String datos[] = new String[19];//ARRAY DE 13
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        OrdenTrabajoCRUD otCRUD = new OrdenTrabajoCRUD();
+        OrdenTrabajoCRUD otCRUD = new OrdenTrabajoCRUD(host);
 
         ot = otCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -188,13 +188,13 @@ public class OrdenTrabajo extends javax.swing.JInternalFrame {
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, -1, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/door_exit.png"))); // NOI18N
-        jButton3.setText("Cerrar");
+        jButton3.setText("Detalles");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, -1, -1));
 
         tab_ordentrabajo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

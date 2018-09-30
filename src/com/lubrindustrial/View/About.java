@@ -59,7 +59,7 @@ public class About extends javax.swing.JInternalFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
         jTextArea1.setRows(5);
-        jTextArea1.setText("Lubrindustrial v1.0\n\nOctubre 2018\n\nAutores:\nJhonny Cajamarca\nRicardo Herrera\n\nQuito / Ecuador");
+        jTextArea1.setText("Lubrindustrial v1.0\n\nOctubre 2018\n\nCréditos:\nJhonny Cajamarca\nRicardo Herrera\n\nQuito / Ecuador");
         jScrollPane1.setViewportView(jTextArea1);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 310, 160));

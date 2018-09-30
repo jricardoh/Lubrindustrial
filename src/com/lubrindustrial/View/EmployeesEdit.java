@@ -317,7 +317,7 @@ public class EmployeesEdit extends javax.swing.JInternalFrame {
         });
         jPanel3.add(txt_LocOficEmployee, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, 153, -1));
 
-        jLabel19.setText("Locación Oficina");
+        jLabel19.setText("Dirección Oficina");
         jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, -1, 20));
 
         jLabel20.setText("Salario");
@@ -496,7 +496,15 @@ public class EmployeesEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_nomEmployeeActionPerformed
 
     private void txt_sobretiempo1EmployeeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_sobretiempo1EmployeeKeyTyped
-        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '.')) {
+            evt.consume();
+        }
+        if (c == '.' && txt_sobretiempo1Employee.getText().contains(".")) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txt_sobretiempo1EmployeeKeyTyped
 
     private void txt_sobretiempo1EmployeeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_sobretiempo1EmployeeKeyReleased
@@ -504,11 +512,20 @@ public class EmployeesEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_sobretiempo1EmployeeKeyReleased
 
     private void txt_sobretiempo1EmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_sobretiempo1EmployeeActionPerformed
-        // TODO add your handling code here:
+
+        
     }//GEN-LAST:event_txt_sobretiempo1EmployeeActionPerformed
 
     private void txt_salarioHoraEmployeeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_salarioHoraEmployeeKeyTyped
-        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '.')) {
+            evt.consume();
+        }
+        if (c == '.' && txt_salarioHoraEmployee.getText().contains(".")) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txt_salarioHoraEmployeeKeyTyped
 
     private void txt_salarioHoraEmployeeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_salarioHoraEmployeeKeyReleased
@@ -544,7 +561,12 @@ public class EmployeesEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_emailEmployeeActionPerformed
 
     private void txt_TelfcasaEmployeeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_TelfcasaEmployeeKeyTyped
-        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '-')) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txt_TelfcasaEmployeeKeyTyped
 
     private void txt_TelfcasaEmployeeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_TelfcasaEmployeeKeyReleased
@@ -556,7 +578,12 @@ public class EmployeesEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_TelfcasaEmployeeActionPerformed
 
     private void txt_TelfpersEmployeeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_TelfpersEmployeeKeyTyped
-        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '-')) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txt_TelfpersEmployeeKeyTyped
 
     private void txt_TelfpersEmployeeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_TelfpersEmployeeKeyReleased
@@ -568,7 +595,13 @@ public class EmployeesEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_TelfpersEmployeeActionPerformed
 
     private void txt_TelftrabEmployeeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_TelftrabEmployeeKeyTyped
-        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '-')) {
+            evt.consume();
+        }
+        
     }//GEN-LAST:event_txt_TelftrabEmployeeKeyTyped
 
     private void txt_TelftrabEmployeeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_TelftrabEmployeeKeyReleased
@@ -580,7 +613,13 @@ public class EmployeesEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_TelftrabEmployeeActionPerformed
 
     private void txt_extEmployeeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_extEmployeeKeyTyped
-        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '-')) {
+            evt.consume();
+        }
+        
     }//GEN-LAST:event_txt_extEmployeeKeyTyped
 
     private void txt_extEmployeeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_extEmployeeKeyReleased

@@ -177,6 +177,8 @@ public class Instructions extends javax.swing.JInternalFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         tab_instructions.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -207,6 +209,8 @@ public class Instructions extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane2.setViewportView(tab_instructions);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 690, 160));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
 
@@ -242,7 +246,7 @@ public class Instructions extends javax.swing.JInternalFrame {
                 .addComponent(cbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtInput, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -260,6 +264,8 @@ public class Instructions extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 217, 700, -1));
+
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/nuevo.png"))); // NOI18N
         jButton1.setText("Nuevo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -267,6 +273,7 @@ public class Instructions extends javax.swing.JInternalFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 181, -1, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/show_all.png"))); // NOI18N
         jButton2.setText("Mostrar todo");
@@ -275,14 +282,16 @@ public class Instructions extends javax.swing.JInternalFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 181, -1, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/door_exit.png"))); // NOI18N
-        jButton3.setText("Cerrar");
+        jButton3.setText("Detalles");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(605, 181, -1, -1));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/edit.png"))); // NOI18N
         jButton4.setText("Modificar");
@@ -291,6 +300,7 @@ public class Instructions extends javax.swing.JInternalFrame {
                 jButton4ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 181, -1, -1));
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/eliminar.png"))); // NOI18N
         btnDelete.setText("Eliminar");
@@ -299,6 +309,7 @@ public class Instructions extends javax.swing.JInternalFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
+        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 181, -1, -1));
 
         btnSec.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/nuevo.png"))); // NOI18N
         btnSec.setText("Secuencias");
@@ -307,6 +318,7 @@ public class Instructions extends javax.swing.JInternalFrame {
                 btnSecActionPerformed(evt);
             }
         });
+        jPanel1.add(btnSec, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 181, -1, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/excel_logo.png"))); // NOI18N
         jButton5.setToolTipText("Generar hoja de cálculo de Excel");
@@ -315,50 +327,7 @@ public class Instructions extends javax.swing.JInternalFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jButton2)
-                .addGap(6, 6, 6)
-                .addComponent(btnSec)
-                .addGap(6, 6, 6)
-                .addComponent(jButton1)
-                .addGap(6, 6, 6)
-                .addComponent(jButton4)
-                .addGap(6, 6, 6)
-                .addComponent(btnDelete)
-                .addGap(18, 18, 18)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jButton3))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5)
-                    .addComponent(jButton2)
-                    .addComponent(btnSec)
-                    .addComponent(jButton1)
-                    .addComponent(jButton4)
-                    .addComponent(btnDelete)
-                    .addComponent(jButton3))
-                .addGap(7, 7, 7)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 181, 40, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 710, 310));
 

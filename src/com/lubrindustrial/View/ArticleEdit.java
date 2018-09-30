@@ -502,7 +502,16 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_costoEstandarKeyReleased
 
     private void txt_costoEstandarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_costoEstandarKeyTyped
-        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '.')) {
+            evt.consume();
+        }
+        if (c == '.' && txt_costoEstandar.getText().contains(".")) {
+            evt.consume();
+        }
+        
     }//GEN-LAST:event_txt_costoEstandarKeyTyped
 
     private void txt_minimoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_minimoKeyReleased
@@ -534,7 +543,16 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_stockKeyReleased
 
     private void txt_stockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_stockKeyTyped
-        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '.')) {
+            evt.consume();
+        }
+        if (c == '.' && txt_stock.getText().contains(".")) {
+            evt.consume();
+        }
+        
     }//GEN-LAST:event_txt_stockKeyTyped
 
     private void txt_unidadStockKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_unidadStockKeyReleased

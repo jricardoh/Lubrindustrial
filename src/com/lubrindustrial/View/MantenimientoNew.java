@@ -472,7 +472,15 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_diasMantenimientoKeyReleased
 
     private void diasMantenimientoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_diasMantenimientoKeyTyped
-        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '.')) {
+            evt.consume();
+        }
+        if (c == '.' && diasMantenimiento.getText().contains(".")) {
+            evt.consume();
+        }
     }//GEN-LAST:event_diasMantenimientoKeyTyped
 
     private void desMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desMantenimientoActionPerformed
@@ -651,7 +659,15 @@ public class MantenimientoNew extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_horasProgramadasKeyReleased
 
     private void horasProgramadasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_horasProgramadasKeyTyped
-        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '.')) {
+            evt.consume();
+        }
+        if (c == '.' && horasProgramadas.getText().contains(".")) {
+            evt.consume();
+        }
     }//GEN-LAST:event_horasProgramadasKeyTyped
 
 

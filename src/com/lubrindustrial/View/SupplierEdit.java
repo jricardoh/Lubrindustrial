@@ -341,7 +341,13 @@ public class SupplierEdit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_telfKeyReleased
 
     private void txt_telfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telfKeyTyped
-        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '-')) {
+            evt.consume();
+        }
+        
     }//GEN-LAST:event_txt_telfKeyTyped
 
     private void txt_email1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_email1KeyReleased

@@ -97,7 +97,7 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
         String datos[] = new String[14];//ARRAY DE 13
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        MantenimientoCRUD mantCRUD = new MantenimientoCRUD();
+        MantenimientoCRUD mantCRUD = new MantenimientoCRUD(host);
         
         mant = mantCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -159,13 +159,13 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/door_exit.png"))); // NOI18N
-        jButton3.setText("Cerrar");
+        jButton3.setText("Detalles");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 210, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 210, -1, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/eliminar.png"))); // NOI18N
         jButton5.setText("Eliminar");
@@ -201,7 +201,7 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 41, -1));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, 41, -1));
 
         tab_mantenimiento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -72,7 +72,7 @@ public class ReportOrdenEmployee extends javax.swing.JInternalFrame {
     }
     
     private void llenarComboBoxEmpOrden() {
-        OrdenTrabajoCRUD  otCRUD = new OrdenTrabajoCRUD();
+        OrdenTrabajoCRUD  otCRUD = new OrdenTrabajoCRUD(host);
 
         emp = otCRUD.llenarComboEmpOrden(); // devuelve todos los registros de la BD
         comboEmp.removeAllItems();
@@ -91,7 +91,7 @@ public class ReportOrdenEmployee extends javax.swing.JInternalFrame {
         String datos[] = new String[20];
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        OrdenTrabajoCRUD mantCRUD = new OrdenTrabajoCRUD();
+        OrdenTrabajoCRUD mantCRUD = new OrdenTrabajoCRUD(host);
         String codEmp;
         codEmp=comboEmp.getSelectedItem().toString();
         String []splitD = codEmp.split(" ");

@@ -178,7 +178,8 @@ public class OrdenTrabajoCRUD {
     public ArrayList<OrdenTrabajos> visualizar(){
         ArrayList<OrdenTrabajos> listaOrdenes = new ArrayList<OrdenTrabajos>();
         Conexion conexion = new Conexion(this.host);
-        conexion.Conectar();
+        conexion.setHost(this.host);
+//conexion.Conectar();
         ResultSet resultado=null;
         try{
             conexion.getStmt();
@@ -270,7 +271,8 @@ public class OrdenTrabajoCRUD {
         ArrayList<Employee> listEmp=new ArrayList<Employee>();
 
         Conexion conexion = new Conexion(this.host);
-        conexion.Conectar();
+        conexion.setHost(host);
+        //conexion.Conectar();
         ResultSet resultado=null;
         try
         {

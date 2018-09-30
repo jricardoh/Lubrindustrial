@@ -177,12 +177,22 @@ public class RegisterNew extends javax.swing.JFrame {
                 txtNombreActionPerformed(evt);
             }
         });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 196, -1));
 
         txtApellido.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         txtApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtApellidoActionPerformed(evt);
+            }
+        });
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
             }
         });
         jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 196, -1));
@@ -287,6 +297,37 @@ int contador = 0;
     private void txtHostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHostActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtHostActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+
+        //Permite ingreso de solo texto sin símbolos
+        char caracter = evt.getKeyChar();
+            if (Character.isDigit(caracter) || (((caracter >= '!')&&(caracter < 'A')) || 
+                    ((caracter > 'Z')&&(caracter < 'a')) || 
+                    (caracter > 'z')) &&
+                    (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+                
+                evt.consume();
+                txtNombre.setCursor(null);
+                
+            }
+            
+           
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        //Permite ingreso de solo texto sin símbolos
+        char caracter = evt.getKeyChar();
+        if (Character.isDigit(caracter) || (((caracter >= '!') && (caracter < 'A'))
+                || ((caracter > 'Z') && (caracter < 'a'))
+                || (caracter > 'z'))
+                && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+
+            evt.consume();
+            txtNombre.setCursor(null);
+
+        }
+    }//GEN-LAST:event_txtApellidoKeyTyped
 
     /**
      * @param args the command line arguments

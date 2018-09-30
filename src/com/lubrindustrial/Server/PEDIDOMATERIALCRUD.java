@@ -20,8 +20,8 @@ public class PEDIDOMATERIALCRUD {
     public PEDIDOMATERIALCRUD() {
     }
 
-    public PEDIDOMATERIALCRUD(String host) {
-        this.host = host;
+    public PEDIDOMATERIALCRUD(String hostname) {
+        this.host = hostname;
     }
     
     

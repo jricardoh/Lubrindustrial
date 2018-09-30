@@ -251,6 +251,12 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Duración Tareas Mantenimiento");
         jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, 20));
+
+        diasMantenimiento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                diasMantenimientoKeyTyped(evt);
+            }
+        });
         jPanel3.add(diasMantenimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 153, 20));
 
         jLabel13.setText("Frecuencia Mantenimiento");
@@ -336,6 +342,12 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
 
         jLabel22.setText("Horas Programadas");
         jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, 120, 20));
+
+        horasProgramadas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                horasProgramadasKeyTyped(evt);
+            }
+        });
         jPanel3.add(horasProgramadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 300, 153, 20));
 
         jLabel6.setText("Empleados:");
@@ -584,6 +596,30 @@ public class MantenimientoUpdate extends javax.swing.JInternalFrame {
         int index = listaInstrucciones.getSelectedIndex();
         modeloLista1.remove(index);
     }//GEN-LAST:event_btnQuitarActionPerformed
+
+    private void diasMantenimientoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_diasMantenimientoKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '.')) {
+            evt.consume();
+        }
+        if (c == '.' && diasMantenimiento.getText().contains(".")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_diasMantenimientoKeyTyped
+
+    private void horasProgramadasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_horasProgramadasKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '.')) {
+            evt.consume();
+        }
+        if (c == '.' && horasProgramadas.getText().contains(".")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_horasProgramadasKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

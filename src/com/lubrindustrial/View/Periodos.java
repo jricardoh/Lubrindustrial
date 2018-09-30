@@ -18,15 +18,16 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
  *
  * @author Marcelo
  */
-public class ReportPeriodo extends javax.swing.JInternalFrame {
+public class Periodos extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form ReportPeriodo
+     * Creates new form Periodos
      */
     
     ArrayList<OPERABILIDAD> operabilidades = new ArrayList<OPERABILIDAD>();
+    String host;
     
-    public ReportPeriodo() {
+    public Periodos() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
         }catch(Exception e){
@@ -35,11 +36,27 @@ public class ReportPeriodo extends javax.swing.JInternalFrame {
         initComponents();
         this.setIconifiable(true);
         this.setClosable(true);
+        this.host = "";
         llenarComboBoxOperabilidades();
+        
+    }
+    
+    public Periodos(String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        this.host = hostname;
+        llenarComboBoxOperabilidades();
+        
     }
     
     private void llenarComboBoxOperabilidades() {
-        OPERABILIDADCRUD  opCRUD = new OPERABILIDADCRUD();
+        OPERABILIDADCRUD  opCRUD = new OPERABILIDADCRUD(host);
 
         operabilidades = opCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -64,7 +81,7 @@ public class ReportPeriodo extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         txAreaDatos = new java.awt.TextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Períodos");
 
         jLabel1.setText("Seleccione la operabilidad del equipo ");
 
@@ -103,8 +120,8 @@ public class ReportPeriodo extends javax.swing.JInternalFrame {
                     .addComponent(comboOperabilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txAreaDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(txAreaDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,7 +129,7 @@ public class ReportPeriodo extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        PERIODOCRUD perCRUD = new PERIODOCRUD();
+        PERIODOCRUD perCRUD = new PERIODOCRUD(host);
         ArrayList<PERIODO> periodos = new ArrayList<PERIODO>();
         //int ultimo=0;
         float totalHoras=0.0f;
@@ -178,20 +195,20 @@ public class ReportPeriodo extends javax.swing.JInternalFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ReportPeriodo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(Periodos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ReportPeriodo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(Periodos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ReportPeriodo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(Periodos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ReportPeriodo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(Periodos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new ReportPeriodo().setVisible(true);
+//                new Periodos().setVisible(true);
 //            }
 //        });
 //    }

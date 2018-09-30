@@ -268,10 +268,10 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
         jLabel19.setText("Respuesta");
         jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, 20));
 
-        jLabel20.setText("Inicio");
+        jLabel20.setText("Fecha Inicio");
         jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, 20));
 
-        jLabel21.setText("Termino ");
+        jLabel21.setText("Fecha Término ");
         jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, 20));
 
         btnSave.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -567,7 +567,15 @@ public class OrdenTrabajoNew extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_duraDiasOrdtrKeyReleased
 
     private void duraDiasOrdtrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_duraDiasOrdtrKeyTyped
-        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+
+        if (((c < '0') || (c > '9')) && (c != '.')) {
+            evt.consume();
+        }
+        if (c == '.' && duraDiasOrdtr.getText().contains(".")) {
+            evt.consume();
+        }
     }//GEN-LAST:event_duraDiasOrdtrKeyTyped
 
     private void aceptPorOrdtrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptPorOrdtrActionPerformed

@@ -722,7 +722,7 @@ public class EquipmentView extends javax.swing.JInternalFrame {
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
         // TODO add your handling code here:
-        frmFotoMaximiza obj = new frmFotoMaximiza(ruta);
+        FotoMaximiza obj = new FotoMaximiza(ruta);
         obj.show();
     }//GEN-LAST:event_lblImageMouseClicked
 

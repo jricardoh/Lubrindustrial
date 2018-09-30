@@ -9,7 +9,10 @@ import com.lubrindustrial.Server.Article;
 import com.lubrindustrial.Server.ArticleCRUD;
 import com.lubrindustrial.Server.PEDIDOMATERIAL;
 import com.lubrindustrial.Server.PEDIDOMATERIALCRUD;
+import static com.lubrindustrial.View.Home.escritorio;
+import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
@@ -18,18 +21,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Marcelo
  */
-public class ReportPedidos extends javax.swing.JInternalFrame {
+public class Pedidos extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form ReportPedidos
+     * Creates new form Pedidos
      */
     
     
     DefaultTableModel modelo = new DefaultTableModel();
     
     ArrayList<PEDIDOMATERIAL> pedidos = new ArrayList<PEDIDOMATERIAL>();
+    String host;
     
-    public ReportPedidos() {
+    public Pedidos() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
         }catch(Exception e){
@@ -38,9 +42,27 @@ public class ReportPedidos extends javax.swing.JInternalFrame {
         initComponents();
         this.setIconifiable(true);
         this.setClosable(true);
+        this.host = "";
         agregarDatos();
+        tab_pedidos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tab_pedidos.doLayout();
+        
     }
     
+    public Pedidos(String hostname) {
+        try{
+            UIManager.setLookAndFeel(new NimbusLookAndFeel());
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        initComponents();
+        this.setIconifiable(true);
+        this.setClosable(true);
+        this.host = hostname;
+        agregarDatos();
+        tab_pedidos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tab_pedidos.doLayout();
+    }
     private void agregarDatos() {
         // ********** CAMBIO PARA MOSTRAR LAS 2 NUEVAS COLUMNAS DE LA BD
 
@@ -50,7 +72,7 @@ public class ReportPedidos extends javax.swing.JInternalFrame {
         String datos[] = new String[11];//ARRAY DE 3
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        PEDIDOMATERIALCRUD pedCRUD = new PEDIDOMATERIALCRUD();
+        PEDIDOMATERIALCRUD pedCRUD = new PEDIDOMATERIALCRUD(host);
 
         pedidos = pedCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -82,10 +104,16 @@ public class ReportPedidos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tab_pedidos = new javax.swing.JTable();
+        btnShowAll = new javax.swing.JButton();
+        btnNewPer = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Pedidos");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tab_pedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -118,22 +146,27 @@ public class ReportPedidos extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tab_pedidos);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
-        );
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 634, 160));
+
+        btnShowAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/show_all.png"))); // NOI18N
+        btnShowAll.setText("Mostrar todo");
+        btnShowAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowAllActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnShowAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+
+        btnNewPer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/nuevo.png"))); // NOI18N
+        btnNewPer.setText("Registrar Pedido");
+        btnNewPer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewPerActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnNewPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 660, 240));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -141,6 +174,25 @@ public class ReportPedidos extends javax.swing.JInternalFrame {
     private void tab_pedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab_pedidosMouseClicked
 
     }//GEN-LAST:event_tab_pedidosMouseClicked
+
+    private void btnShowAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowAllActionPerformed
+        // TODO add your handling code here:
+        agregarDatos();
+    }//GEN-LAST:event_btnShowAllActionPerformed
+
+    private void btnNewPerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewPerActionPerformed
+        // TODO add your handling code here:
+        PedidoMateriales obj = new PedidoMateriales(host);
+        Home.escritorio.add(obj);
+        obj.toFront();
+        //centrar
+        //Para centrar la ventana abierta
+        Dimension dimension = escritorio.getSize();
+        Dimension FrameSize = obj.getSize();
+        obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
+        //
+        obj.show();
+    }//GEN-LAST:event_btnNewPerActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -159,25 +211,28 @@ public class ReportPedidos extends javax.swing.JInternalFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ReportPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ReportPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ReportPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ReportPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new ReportPedidos().setVisible(true);
+//                new Pedidos().setVisible(true);
 //            }
 //        });
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNewPer;
+    private javax.swing.JButton btnShowAll;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tab_pedidos;
     // End of variables declaration//GEN-END:variables
