@@ -29,7 +29,7 @@ public class Sequences extends javax.swing.JInternalFrame {
     ArrayList<Sequence> secuencias = new ArrayList<Sequence>();
     ArrayList<Instruction> instrucciones = new ArrayList<Instruction>();
     User user = new User();
-    String host="";
+    String host;
     
     public int getvalorencontrado() {
         int valorencontrado = valor_encontrado;
@@ -100,7 +100,7 @@ public class Sequences extends javax.swing.JInternalFrame {
         String datos[] = new String[4];//ARRAY DE 3
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        SequenceCRUD secCRUD = new SequenceCRUD();
+        SequenceCRUD secCRUD = new SequenceCRUD(host);
 
         secuencias = secCRUD.visualizar(); // devuelve todos los registros de la BD
 
@@ -119,7 +119,7 @@ public class Sequences extends javax.swing.JInternalFrame {
         String datos[] = new String[4];//ARRAY DE 3
 
         //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
-        SequenceCRUD secCRUD = new SequenceCRUD();
+        SequenceCRUD secCRUD = new SequenceCRUD(host);
 
         secuencias = secCRUD.visualizar(idSequence); // devuelve todos los registros de la BD
 
@@ -134,7 +134,7 @@ public class Sequences extends javax.swing.JInternalFrame {
     }
 
     private void llenarComboBox(){
-        InstructionCRUD instCRUD = new InstructionCRUD();
+        InstructionCRUD instCRUD = new InstructionCRUD(host);
         
         instrucciones = instCRUD.visualizar(); // devuelve todos los registros de la BD
         
@@ -327,7 +327,7 @@ public class Sequences extends javax.swing.JInternalFrame {
        
         DefaultTableModel model = (DefaultTableModel) tab_sequences.getModel();
         model.setRowCount(0);
-        SequenceCRUD seq_query = new SequenceCRUD();
+        SequenceCRUD seq_query = new SequenceCRUD(host);
         String datos[] = new String[4];//ARRAY DE 3
         if (txtInput.getText().isEmpty()) {
 
@@ -382,7 +382,7 @@ public class Sequences extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        SequenceNew obj = new SequenceNew();
+        SequenceNew obj = new SequenceNew(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -407,7 +407,7 @@ public class Sequences extends javax.swing.JInternalFrame {
             //cuenta = .getText();
             int n = JOptionPane.showConfirmDialog(null, "¿Esta seguro de borrar el registro? ", "Confirmar borrado", JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
-                SequenceCRUD obj = new SequenceCRUD();
+                SequenceCRUD obj = new SequenceCRUD(host);
                 obj.eliminar(Integer.parseInt(tab_sequences.getValueAt(filasel, 0).toString()), user);
                 agregarDatos();
             }
@@ -441,7 +441,7 @@ public class Sequences extends javax.swing.JInternalFrame {
         if (filasel == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione primero la columna");
         } else {
-            SequenceEdit obj = new SequenceEdit();
+            SequenceEdit obj = new SequenceEdit(user,host);
             Home.escritorio.add(obj);
             obj.toFront();
             //centrar
@@ -466,9 +466,9 @@ public class Sequences extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        ReportsExcel reporte = new ReportsExcel();
-        SequenceCRUD eqCRUD = new SequenceCRUD();
-        ArrayList<Sequence> secs = eqCRUD.visualizar();
+        ReportsExcel reporte = new ReportsExcel(host);
+        SequenceCRUD secCRUD = new SequenceCRUD(host);
+        ArrayList<Sequence> secs = secCRUD.visualizar();
         if(reporte.escribirExcelSecuencias(secs)){
             JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE SECUENCIAS CREADO","ARCHIVO GUARDADO EXITOSAMENTE",JOptionPane.INFORMATION_MESSAGE);
         }else{

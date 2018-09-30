@@ -307,17 +307,17 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
         DefaultTableModel dtm = (DefaultTableModel)tab_mantenimiento.getModel(); 
         int codMant=Integer.parseInt(tab_mantenimiento.getValueAt(tab_mantenimiento.getSelectedRow(),0).toString());
         ///OBTENGO LA FILA CON EL CODIGO RESPECTIVO
-        MantenimientoCRUD mantCRUD=new MantenimientoCRUD();
+        MantenimientoCRUD mantCRUD=new MantenimientoCRUD(host);
         Mantenimientos mant=new Mantenimientos();
         mant=mantCRUD.mostrarPorCodigo(codMant);
         //LA QUITO DE LA IMAGEN DE LA TABLA
         dtm.removeRow(tab_mantenimiento.getSelectedRow());
         //codigo empleados y codigo instrucciones
-        EmployeeCRUD empCRUD=new EmployeeCRUD();
+        EmployeeCRUD empCRUD=new EmployeeCRUD(host);
         ArrayList<Employee> codEmpleados=new ArrayList<>();
         ArrayList<Instruction> codInstruc=new ArrayList<>();
         codEmpleados=empCRUD.mostrarPorCodigo(codMant);
-        InstructionCRUD instCRUD=new InstructionCRUD();
+        InstructionCRUD instCRUD=new InstructionCRUD(host);
         codInstruc=instCRUD.mostrarPorCodigo(codMant);
         ///realizo el elimado (logico)
 
@@ -328,7 +328,7 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        MantenimientoNew obj = new MantenimientoNew();
+        MantenimientoNew obj = new MantenimientoNew(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -344,7 +344,7 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        MantenimientoUpdate obj = new MantenimientoUpdate();
+        MantenimientoUpdate obj = new MantenimientoUpdate(user,host);
         Home.escritorio.add(obj);
         obj.toFront();
         //centrar
@@ -370,7 +370,7 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
 
         DefaultTableModel model = (DefaultTableModel) tab_mantenimiento.getModel();
         model.setRowCount(0);
-        MantenimientoCRUD mant_query = new MantenimientoCRUD();
+        MantenimientoCRUD mant_query = new MantenimientoCRUD(host);
         String datos[] = new String[14];//ARRAY DE 3
         if (txtInput.getText().isEmpty()) {
 
@@ -431,8 +431,8 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
-        ReportsExcel reporte = new ReportsExcel();
-        MantenimientoCRUD eqCRUD = new MantenimientoCRUD();
+        ReportsExcel reporte = new ReportsExcel(host);
+        MantenimientoCRUD eqCRUD = new MantenimientoCRUD(host);
         ArrayList<Mantenimientos> mants = eqCRUD.visualizar();
         if(reporte.escribirExcelMantenimientos(mants)){
             JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE MANTENIMIENTOS CREADO","ARCHIVO GUARDADO EXITOSAMENTE",JOptionPane.INFORMATION_MESSAGE);
