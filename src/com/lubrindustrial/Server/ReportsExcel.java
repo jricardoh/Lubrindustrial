@@ -8,6 +8,7 @@ package com.lubrindustrial.Server;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -21,13 +22,25 @@ public class ReportsExcel {
         
     }
     
+    public String obtenerRuta(){
+        String ruta="";
+        JFileChooser explorador = new JFileChooser();
+        explorador.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        explorador.showOpenDialog(explorador);
+            
+        ruta=explorador.getSelectedFile().getAbsolutePath();
+            
+        return ruta;
+    }
+    
     public ReportsExcel(String hostname){
         this.host = hostname;
     }
     
     public boolean escribirExcelArticulos(ArrayList<Article> arts)
     {
-	path="src/Articulos.xls";
+        
+	path=obtenerRuta()+"\\Materiales.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
             e.write("ID ARTICULO\tPROVEEDOR\tNUMERO\tDESCRIPCION\tESPECIFICACIONES\tFABRICANTE\tUNIDAD MEDIDA\tCOSTO ESTANDAR\tMAXIMO\t"
@@ -48,7 +61,7 @@ public class ReportsExcel {
     
     public boolean escribirExcelDepartamentos(ArrayList<Department> deps)
     {
-	path="src/Departamentos.xls";
+	path=obtenerRuta()+"\\Departamentos.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
             e.write("ID DEPARTAMENTO\tNUMERO\tDESCRIPCION\n");
@@ -66,7 +79,7 @@ public class ReportsExcel {
     
     public boolean escribirExcelEmpleados(ArrayList<Employee> emps)
     {
-	path="src/Empleados.xls";
+	path=obtenerRuta()+"\\Empleados.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
             e.write("ID EMPLEADO\tDEPARTAMENTO\tNUMERO\tNOMBRE\tAPELLIDO\tCARGO\tTELF. TRABAJO\tEXTENSION\tTELF. PERSONAL\tTELF. CASA\t"
@@ -88,7 +101,7 @@ public class ReportsExcel {
     
     public boolean escribirExcelEquipos(ArrayList<Equipment> equips)
     {
-	path="src/Equipos.xls";
+	path=obtenerRuta()+"\\Equipos.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
             e.write("ID EQUIPO\tLOCACION\tEMPLEADO\tEQUIPO PADRE\tNUMERO\tMODELO\tSERIE\tTIPO\tESTADO\tFABRICANTE\t"
@@ -110,7 +123,7 @@ public class ReportsExcel {
     
     public boolean escribirExcelInstrucciones(ArrayList<Instruction> insts)
     {
-	path="src/Instrucciones.xls";
+	path=obtenerRuta()+"\\Instrucciones.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
             e.write("ID INSTRUCCION\tNUMERO\tDESCRIPCION\tHORAS\tNOTAS\n");
@@ -128,7 +141,7 @@ public class ReportsExcel {
     
     public boolean escribirExcelLocaciones(ArrayList<Location> locs)
     {
-	path="src/Locaciones.xls";
+	path=obtenerRuta()+"\\Locaciones.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
             e.write("ID LOCACION\tDEPARTAMENTO\tNUMERO LOCACION\tDESCRIPCION\n");
@@ -146,7 +159,7 @@ public class ReportsExcel {
     
     public boolean escribirExcelProveedores(ArrayList<Supplier> sups)
     {
-	path="src/Proveedores.xls";
+	path=obtenerRuta()+"\\Proveedores.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
             e.write("ID PROVEEDOR\tNUMERO PROVEEDOR\tNOMBRE\tCIUDAD\tDIRECCION\tTELEFONO\tEMAIL 1\tEMAIL2\n");
@@ -165,7 +178,7 @@ public class ReportsExcel {
     
     public boolean escribirExcelSecuencias(ArrayList<Sequence> secs)
     {
-	path="src/Secuencias.xls";
+	path=obtenerRuta()+"\\Secuencias.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
             e.write("ID SECUENCIA\tINSTRUCCION\tNUMERO\tDESCRIPCION\n");
@@ -183,7 +196,7 @@ public class ReportsExcel {
     
     public boolean escribirExcelMantenimientos(ArrayList<Mantenimientos> mants)
     {
-	path="src/Mantenimientos.xls";
+	path=obtenerRuta()+"\\Mantenimientos.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
             e.write("ID MANTENIMIENTO\tID EQUIPO\tID LOCACION\tNRO TAREA\tDESCRIPCION\tOFICIO\tFRECUENCIA\tDIAS\tDURACION TAREA\tFECHA INICIO\tFECHA PROG INICIO\tFECHA PROG TERMINO\tPROXIMA FECHA MANT\tHORAS PROGRAMADAS\n");
@@ -204,7 +217,7 @@ public class ReportsExcel {
     
     public boolean escribirExcelOrdenesTrabajo(ArrayList<OrdenTrabajos> ords)
     {
-	path="src/OrdenesTrabajo.xls";
+	path=obtenerRuta()+"\\OrdenesTrabajo.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
             e.write("ID ORDEN\tID MANTENIMIENTO\tNUMERO ORDEN\tDESCRIPCION\tESTADO\tTIPO\tPRIORIDAD\tFECHA SOLICITUD\tFECHA REQUERIDA\tRESPUESTA\tINICIO ORDEN\tTERMINO ORDEN\tFECHA ENTREGA\tDURACION DIAS\tACEPTADO POR\tFALLAS\tDESCRIPCION CAUSAS\tACCION REALIZADA\tPREVENCION TOMADA\n");
@@ -226,7 +239,7 @@ public class ReportsExcel {
     
     public boolean escribirExcelOperabilidad(ArrayList<OPERABILIDAD> ops)
     {
-	path="src/Operabilidad.xls";
+	path=obtenerRuta()+"\\Operabilidad.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
             e.write("ID OPERABILIDAD\tID DESCRIPCION EQUIPO\tDESCRIPCION OPERABILIDAD\n");
@@ -244,7 +257,7 @@ public class ReportsExcel {
     
     public boolean escribirExcelPeriodosOperabilidad(ArrayList<PERIODO> pers)
     {
-	path="src/PeriodosOperabilidad.xls";
+	path=obtenerRuta()+"\\PeriodosOperabilidad.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
             e.write("ID OPERABILIDAD\tFECHA INICIO\tFECHA FIN\tDIAS OPERABILIDAD\tDESCRIPCION PERIODO\tHORAS PERDIODO\tACTIVIDAD\n");
@@ -263,7 +276,7 @@ public class ReportsExcel {
     
     public boolean escribirExcelPedidoMateriales(ArrayList<PEDIDOMATERIAL> pedsM)
     {
-	path="src/PedidosMateriales.xls";
+	path=obtenerRuta()+"\\PedidoMateriales.xls";
 	try {
             FileWriter e = new FileWriter(path, false);
             e.write("ID PEDIDO\tARTICULO\tCANTIDAD\tUNIDAD MEDIDA\tPEDIPO POR\tENTREGADO A\tAUTORIZADO POR\tAPROBADO POR\tDESCRIPCION PEDIDO\tFECHA HORA SOLICITUD\tFECHA HORA ENTREGA\n");

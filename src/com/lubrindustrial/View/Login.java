@@ -13,7 +13,11 @@ import java.awt.Cursor;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import java.awt.Color;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
@@ -30,7 +34,7 @@ public class Login extends javax.swing.JFrame {
     
     public static int cuentaEmpleado; 
     
-    public Login() {
+    public Login() throws UnknownHostException {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
         }catch(Exception e){
@@ -40,6 +44,12 @@ public class Login extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         lbl_PassForgot.setForeground(Color.BLACK);
         lbl_register.setForeground(Color.BLACK);
+        mostrarIP();
+    }
+
+    public void mostrarIP() throws UnknownHostException {
+        lblIP.setText("Dirección IP: " + InetAddress.getLocalHost().getHostAddress());
+        lblHostName.setText("Nombre de Red: " + InetAddress.getLocalHost().getHostName());
     }
 
     /**
@@ -60,6 +70,8 @@ public class Login extends javax.swing.JFrame {
         btnIngresar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        lblIP = new javax.swing.JLabel();
+        lblHostName = new javax.swing.JLabel();
         lbl_register = new javax.swing.JLabel();
         lbl_PassForgot = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -106,6 +118,12 @@ public class Login extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/login.png"))); // NOI18N
 
+        lblIP.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblIP.setText("IP de equipo servidor");
+
+        lblHostName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblHostName.setText("Nombre Red equipo servidor");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -114,16 +132,25 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblIP, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHostName, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(47, 47, 47))
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblIP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblHostName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 320));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 340));
 
         lbl_register.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_register.setText("Registrarse");
@@ -198,7 +225,7 @@ int contador = 0;
             use = query.visualizar(txtCuenta.getText());
             
             for (User u : use) {
-                JOptionPane.showMessageDialog(null, "Usuario: "+u.getIdUser() + " - " + u.getNomUser() + " - " + u.getApeUser() + " - " + u.getPassUser(), "Usuario", JOptionPane.WARNING_MESSAGE);
+//                JOptionPane.showMessageDialog(null, "Usuario: "+u.getIdUser() + " - " + u.getNomUser() + " - " + u.getApeUser() + " - " + u.getPassUser(), "Usuario", JOptionPane.WARNING_MESSAGE);
                 datos[0] = Integer.toString(u.getIdUser());
                 datos[1] = u.getNomUser();
                 datos[2] = u.getApeUser();
@@ -336,7 +363,11 @@ int contador = 0;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                try {
+                    new Login().setVisible(true);
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -350,6 +381,8 @@ int contador = 0;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    public javax.swing.JLabel lblHostName;
+    public javax.swing.JLabel lblIP;
     private javax.swing.JLabel lbl_PassForgot;
     private javax.swing.JLabel lbl_register;
     public static javax.swing.JTextField txtCuenta;

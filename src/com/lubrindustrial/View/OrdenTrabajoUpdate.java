@@ -16,6 +16,7 @@ import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JSpinnerDateEditor;
+import com.toedter.components.JSpinField;
 import java.awt.Dimension;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -133,6 +134,30 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
         
     }
     
+    
+    private String obtenerHoraSpin(JSpinField jHora, JSpinField jMin, JSpinField jSeg){
+        int hora, minuto, segundo;
+        String h="", m="", s="";
+        hora=jHora.getValue();
+        minuto=jMin.getValue();
+        segundo=jSeg.getValue();
+        h=hora+"";
+        m=minuto+"";
+        s=segundo+"";
+        //System.out.println(hora);
+        if(h.length()==1){
+            h="0"+h;
+        }
+        if(m.length()==1){
+            m="0"+m;
+        }
+        if(s.length()==1){
+            s="0"+s;
+        }
+        String horatexto=h+":"+m+":"+s;
+        return horatexto;
+    }
+    
     private void Volver(){
         OrdenTrabajo obj = new OrdenTrabajo(user,host);
         Home.escritorio.add(obj);
@@ -218,14 +243,40 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
         jdcIniOrdtr = new com.toedter.calendar.JDateChooser();
         jdcTerOrdtr = new com.toedter.calendar.JDateChooser();
         jdcFechHorEntOrdtr = new com.toedter.calendar.JDateChooser();
+        jspinHoraSol = new com.toedter.components.JSpinField();
+        jLabel5 = new javax.swing.JLabel();
+        jspinMinSol = new com.toedter.components.JSpinField();
+        jLabel3 = new javax.swing.JLabel();
+        jspinSegSol = new com.toedter.components.JSpinField();
+        jspinHoraReq = new com.toedter.components.JSpinField();
+        jLabel6 = new javax.swing.JLabel();
+        jspinMinReq = new com.toedter.components.JSpinField();
+        jLabel7 = new javax.swing.JLabel();
+        jspinSegReq = new com.toedter.components.JSpinField();
+        jspinHoraIni = new com.toedter.components.JSpinField();
+        jLabel8 = new javax.swing.JLabel();
+        jspinMinIni = new com.toedter.components.JSpinField();
+        jLabel10 = new javax.swing.JLabel();
+        jspinSegIni = new com.toedter.components.JSpinField();
+        jspinHoraTer = new com.toedter.components.JSpinField();
+        jspinSegTer = new com.toedter.components.JSpinField();
+        jLabel16 = new javax.swing.JLabel();
+        jspinMinTer = new com.toedter.components.JSpinField();
+        jLabel17 = new javax.swing.JLabel();
+        jspinHoraEnt = new com.toedter.components.JSpinField();
+        jLabel29 = new javax.swing.JLabel();
+        jspinMinEnt = new com.toedter.components.JSpinField();
+        jLabel30 = new javax.swing.JLabel();
+        jspinSegEnt = new com.toedter.components.JSpinField();
 
+        setTitle("Modificar Orden de Trabajo");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setText("Nro. Orden Trabajo");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, 20));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, 20));
 
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/eraser.png"))); // NOI18N
         jButton11.setText("Limpiar campos");
@@ -234,10 +285,10 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 jButton11ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 370, -1, 30));
+        jPanel3.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 440, -1, 30));
 
         jLabel11.setText("Estado ");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, 20));
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, 20));
 
         NroOrdtr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,10 +303,10 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 NroOrdtrKeyTyped(evt);
             }
         });
-        jPanel3.add(NroOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 153, 20));
+        jPanel3.add(NroOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 160, 20));
 
         jLabel12.setText("Fecha Hora Solicitud ");
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, 20));
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, 20));
 
         priorOrdtr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,10 +321,10 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 priorOrdtrKeyTyped(evt);
             }
         });
-        jPanel3.add(priorOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 153, 20));
+        jPanel3.add(priorOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 160, 20));
 
         jLabel13.setText("Tipo ");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, 20));
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, 20));
 
         descOrdtr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,10 +339,10 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 descOrdtrKeyTyped(evt);
             }
         });
-        jPanel3.add(descOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 153, 20));
+        jPanel3.add(descOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 160, 20));
 
         jLabel18.setText("Fecha Hora Requerida");
-        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, 20));
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, 20));
 
         respOrdtr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,16 +357,16 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 respOrdtrKeyTyped(evt);
             }
         });
-        jPanel3.add(respOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 153, 20));
+        jPanel3.add(respOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 160, 20));
 
         jLabel19.setText("Respuesta");
-        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, 20));
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 60, 20));
 
         jLabel20.setText("Fecha Inicio");
-        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, -1, 20));
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 80, -1, 20));
 
         jLabel21.setText("Fecha Término ");
-        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, 20));
+        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, -1, 20));
 
         btnSave.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/guardar.png"))); // NOI18N
@@ -325,7 +376,7 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 btnSaveActionPerformed(evt);
             }
         });
-        jPanel3.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, -1, 30));
+        jPanel3.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 440, -1, 30));
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/cancelar.png"))); // NOI18N
@@ -335,7 +386,7 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel3.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 370, -1, 30));
+        jPanel3.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 440, -1, 30));
 
         tipOrdtr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -350,26 +401,26 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 tipOrdtrKeyTyped(evt);
             }
         });
-        jPanel3.add(tipOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 153, 20));
+        jPanel3.add(tipOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 160, 20));
 
         jLabel14.setText("Prioridad ");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, 20));
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, 20));
 
         jLabel15.setText("Descripción ");
-        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, 20));
-        jPanel3.add(estOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 150, 20));
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, 20));
+        jPanel3.add(estOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 160, 20));
 
         jLabel1.setText("Mantenimiento: ");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, 20));
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, 20));
 
         comboMant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel3.add(comboMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, 200, -1));
+        jPanel3.add(comboMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 200, -1));
 
         jLabel22.setText("Fecha Hora Entrega ");
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, -1, 20));
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 200, -1, 20));
 
         jLabel23.setText("Duración Días ");
-        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 180, -1, 20));
+        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 260, -1, 20));
 
         duraDiasOrdtr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,10 +435,10 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 duraDiasOrdtrKeyTyped(evt);
             }
         });
-        jPanel3.add(duraDiasOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 180, 153, 20));
+        jPanel3.add(duraDiasOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 260, 160, 20));
 
         jLabel24.setText("Aceptado por");
-        jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, -1, 20));
+        jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, -1, 20));
 
         aceptPorOrdtr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -402,10 +453,10 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 aceptPorOrdtrKeyTyped(evt);
             }
         });
-        jPanel3.add(aceptPorOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 210, 153, 20));
+        jPanel3.add(aceptPorOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 290, 160, 20));
 
         jLabel25.setText("Falla");
-        jPanel3.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 240, -1, 20));
+        jPanel3.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, -1, 20));
 
         fallaOrdtr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -420,10 +471,10 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 fallaOrdtrKeyTyped(evt);
             }
         });
-        jPanel3.add(fallaOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 240, 153, 20));
+        jPanel3.add(fallaOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 320, 160, 20));
 
         jLabel26.setText("Descripción Causa");
-        jPanel3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 270, -1, 20));
+        jPanel3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 350, -1, 20));
 
         descCausa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -438,10 +489,10 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 descCausaKeyTyped(evt);
             }
         });
-        jPanel3.add(descCausa, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 270, 153, 20));
+        jPanel3.add(descCausa, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 350, 160, 20));
 
         jLabel27.setText("Acción Realizada");
-        jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, -1, 20));
+        jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 380, -1, 20));
 
         accRealOrdtr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -456,10 +507,10 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 accRealOrdtrKeyTyped(evt);
             }
         });
-        jPanel3.add(accRealOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 300, 153, 20));
+        jPanel3.add(accRealOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 380, 160, 20));
 
         jLabel28.setText("Prevención Tomada");
-        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, -1, 20));
+        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 410, -1, 20));
 
         prevTomdaOrdtr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -474,7 +525,7 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
                 prevTomdaOrdtrKeyTyped(evt);
             }
         });
-        jPanel3.add(prevTomdaOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, 153, 20));
+        jPanel3.add(prevTomdaOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 410, 160, 20));
 
         botonBusqueda.setText("Buscar");
         botonBusqueda.addActionListener(new java.awt.event.ActionListener() {
@@ -489,17 +540,117 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
 
         txtMant.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel3.add(txtMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, 150, -1));
+        jPanel3.add(txtMant, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 160, -1));
 
         jLabel2.setText("Actual Mantenimiento:");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, -1, 20));
-        jPanel3.add(jdcFechHorSolOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 150, -1));
-        jPanel3.add(jdcFechHorReqOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 150, -1));
-        jPanel3.add(jdcIniOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, 150, -1));
-        jPanel3.add(jdcTerOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 120, 150, -1));
-        jPanel3.add(jdcFechHorEntOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 150, 150, -1));
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, -1, 20));
+        jPanel3.add(jdcFechHorSolOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 160, -1));
+        jPanel3.add(jdcFechHorReqOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 160, -1));
+        jPanel3.add(jdcIniOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 160, -1));
+        jPanel3.add(jdcTerOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 140, 160, -1));
+        jPanel3.add(jdcFechHorEntOrdtr, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, 160, -1));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 803, 420));
+        jspinHoraSol.setMaximum(23);
+        jspinHoraSol.setMinimum(0);
+        jPanel3.add(jspinHoraSol, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 45, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setText(":");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 10, -1));
+
+        jspinMinSol.setMaximum(59);
+        jspinMinSol.setMinimum(0);
+        jPanel3.add(jspinMinSol, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, 45, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText(":");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
+
+        jspinSegSol.setMaximum(59);
+        jspinSegSol.setMinimum(0);
+        jPanel3.add(jspinSegSol, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, 45, -1));
+
+        jspinHoraReq.setMaximum(23);
+        jspinHoraReq.setMinimum(0);
+        jPanel3.add(jspinHoraReq, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, 45, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setText(":");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 10, -1));
+
+        jspinMinReq.setMaximum(59);
+        jspinMinReq.setMinimum(0);
+        jPanel3.add(jspinMinReq, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, 45, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setText(":");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, -1, -1));
+
+        jspinSegReq.setMaximum(59);
+        jspinSegReq.setMinimum(0);
+        jPanel3.add(jspinSegReq, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 320, 45, -1));
+
+        jspinHoraIni.setMaximum(23);
+        jspinHoraIni.setMinimum(0);
+        jPanel3.add(jspinHoraIni, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 45, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setText(":");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, 10, -1));
+
+        jspinMinIni.setMaximum(59);
+        jspinMinIni.setMinimum(0);
+        jPanel3.add(jspinMinIni, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 110, 45, -1));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setText(":");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, -1, -1));
+
+        jspinSegIni.setMaximum(59);
+        jspinSegIni.setMinimum(0);
+        jPanel3.add(jspinSegIni, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 110, 45, -1));
+
+        jspinHoraTer.setMaximum(23);
+        jspinHoraTer.setMinimum(0);
+        jPanel3.add(jspinHoraTer, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 170, 45, -1));
+
+        jspinSegTer.setMaximum(59);
+        jspinSegTer.setMinimum(0);
+        jPanel3.add(jspinSegTer, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 170, 45, -1));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel16.setText(":");
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 170, -1, -1));
+
+        jspinMinTer.setMaximum(59);
+        jspinMinTer.setMinimum(0);
+        jPanel3.add(jspinMinTer, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 170, 45, -1));
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel17.setText(":");
+        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 170, 10, -1));
+
+        jspinHoraEnt.setMaximum(23);
+        jspinHoraEnt.setMinimum(0);
+        jPanel3.add(jspinHoraEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 230, 45, -1));
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel29.setText(":");
+        jPanel3.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 10, -1));
+
+        jspinMinEnt.setMaximum(59);
+        jspinMinEnt.setMinimum(0);
+        jPanel3.add(jspinMinEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, 45, -1));
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel30.setText(":");
+        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 230, -1, -1));
+
+        jspinSegEnt.setMaximum(59);
+        jspinSegEnt.setMinimum(0);
+        jPanel3.add(jspinSegEnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 230, 45, -1));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 803, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -587,7 +738,7 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
             otDes.setEstOrdtr(estOrdtr.getText());
             otDes.setTipoOrdtr(tipOrdtr.getText());
             otDes.setPriorOrdtr(priorOrdtr.getText());
-            otDes.setFechHorSolicitudOrdtr(obtenerFecha(jdcFechHorSolOrdtr));
+            otDes.setFechHorSolicitudOrdtr(obtenerFecha(jdcFechHorSolOrdtr)+" "+obtenerHoraSpin(jspinHoraSol,jspinMinSol,jspinSegSol));
             otDes.setFechHorReqOrdtr(obtenerFecha(jdcFechHorReqOrdtr));
             otDes.setRespOrdtr(respOrdtr.getText());
             otDes.setInicioOrdtr(obtenerFecha(jdcIniOrdtr));
@@ -757,11 +908,14 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
     private javax.swing.JTextField fallaOrdtr;
     private javax.swing.JButton jButton11;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -774,7 +928,14 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private com.toedter.calendar.JDateChooser jdcFechHorEntOrdtr;
@@ -782,6 +943,21 @@ public class OrdenTrabajoUpdate extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jdcFechHorSolOrdtr;
     private com.toedter.calendar.JDateChooser jdcIniOrdtr;
     private com.toedter.calendar.JDateChooser jdcTerOrdtr;
+    private com.toedter.components.JSpinField jspinHoraEnt;
+    private com.toedter.components.JSpinField jspinHoraIni;
+    private com.toedter.components.JSpinField jspinHoraReq;
+    private com.toedter.components.JSpinField jspinHoraSol;
+    private com.toedter.components.JSpinField jspinHoraTer;
+    private com.toedter.components.JSpinField jspinMinEnt;
+    private com.toedter.components.JSpinField jspinMinIni;
+    private com.toedter.components.JSpinField jspinMinReq;
+    private com.toedter.components.JSpinField jspinMinSol;
+    private com.toedter.components.JSpinField jspinMinTer;
+    private com.toedter.components.JSpinField jspinSegEnt;
+    private com.toedter.components.JSpinField jspinSegIni;
+    private com.toedter.components.JSpinField jspinSegReq;
+    private com.toedter.components.JSpinField jspinSegSol;
+    private com.toedter.components.JSpinField jspinSegTer;
     private javax.swing.JTextField prevTomdaOrdtr;
     private javax.swing.JTextField priorOrdtr;
     private javax.swing.JTextField respOrdtr;

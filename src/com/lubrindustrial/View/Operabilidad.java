@@ -7,16 +7,25 @@ package com.lubrindustrial.View;
 
 import com.lubrindustrial.Server.Article;
 import com.lubrindustrial.Server.ArticleCRUD;
+import com.lubrindustrial.Server.Conexion;
 import com.lubrindustrial.Server.OPERABILIDAD;
 import com.lubrindustrial.Server.OPERABILIDADCRUD;
 import com.lubrindustrial.Server.ReportsExcel;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
+import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -30,6 +39,8 @@ public class Operabilidad extends javax.swing.JInternalFrame {
     
     ArrayList<OPERABILIDAD> operabilidades = new ArrayList<OPERABILIDAD>();
     String host;
+    Conexion con;
+    Connection cn;
     public Operabilidad() {
         try{
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -41,7 +52,9 @@ public class Operabilidad extends javax.swing.JInternalFrame {
         this.setClosable(true);
         host="";
         agregarDatos();
-        
+        con = new Conexion(this.host);
+        this.con.Conectar();
+        cn =con.getCon();
     }
     
     public Operabilidad(String hostname) {
@@ -55,6 +68,9 @@ public class Operabilidad extends javax.swing.JInternalFrame {
         this.setClosable(true);
         this.host=hostname;
         agregarDatos();
+        con = new Conexion(this.host);
+        this.con.Conectar();
+        cn =con.getCon();
     }
     
     private void agregarDatos() {
@@ -97,6 +113,7 @@ public class Operabilidad extends javax.swing.JInternalFrame {
         btnNewPer = new javax.swing.JButton();
         btnShowPer = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setTitle("Operabilidad");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -134,7 +151,7 @@ public class Operabilidad extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tab_operabilidad);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 520, 150));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 530, 150));
 
         btnShowAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/show_all.png"))); // NOI18N
         btnShowAll.setText("Mostrar todo");
@@ -152,7 +169,7 @@ public class Operabilidad extends javax.swing.JInternalFrame {
                 btnNewPerActionPerformed(evt);
             }
         });
-        jPanel1.add(btnNewPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, -1, -1));
+        jPanel1.add(btnNewPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, -1, -1));
 
         btnShowPer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/edit.png"))); // NOI18N
         btnShowPer.setText("Ver Períodos");
@@ -161,7 +178,7 @@ public class Operabilidad extends javax.swing.JInternalFrame {
                 btnShowPerActionPerformed(evt);
             }
         });
-        jPanel1.add(btnShowPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 180, -1, -1));
+        jPanel1.add(btnShowPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, -1, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/excel_logo.png"))); // NOI18N
         jButton5.setToolTipText("Generar hoja de cálculo de Excel");
@@ -170,7 +187,16 @@ public class Operabilidad extends javax.swing.JInternalFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, 40, -1));
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 180, 40, -1));
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/pdf.png"))); // NOI18N
+        jButton6.setToolTipText("Generar informe en PDF");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, 40, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 550, 230));
 
@@ -228,6 +254,24 @@ public class Operabilidad extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+        try {
+             JasperReport reporte = null;
+             String path = "src\\lubrindustrial\\operabilidad.jasper";
+             reporte = (JasperReport)JRLoader.loadObjectFromFile(path);
+             JasperPrint jprint = JasperFillManager.fillReport(reporte, null,this.cn);
+//             JasperReport reporte = JasperCompileManager.compileReport("reportMantEmp2.jrxml");
+//            JasperPrint print = JasperFillManager.fillReport(reporte, null, this.cn);
+            JasperViewer jviewer = new JasperViewer(jprint,false);
+            jviewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            jviewer.setVisible(true);
+            //JasperViewer.viewReport(print);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -268,6 +312,7 @@ public class Operabilidad extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnShowAll;
     private javax.swing.JButton btnShowPer;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tab_operabilidad;

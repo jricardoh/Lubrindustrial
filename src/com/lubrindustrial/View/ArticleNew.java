@@ -129,12 +129,12 @@ public class ArticleNew extends javax.swing.JInternalFrame {
         txt_unidadStock = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Nuevo Artículo");
+        setTitle("Nuevo Material");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setText("No. Artículo");
+        jLabel5.setText("No. Material");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 90, 20));
 
         txt_Number.addActionListener(new java.awt.event.ActionListener() {
@@ -335,7 +335,7 @@ public class ArticleNew extends javax.swing.JInternalFrame {
         });
         jPanel2.add(txt_stock, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 140, -1));
 
-        jLabel20.setText("Unidad Stock");
+        jLabel20.setText("Unidad de Medida");
         jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 100, 20));
 
         txt_unidadStock.addKeyListener(new java.awt.event.KeyAdapter() {

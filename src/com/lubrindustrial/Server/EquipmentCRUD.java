@@ -19,11 +19,19 @@ public class EquipmentCRUD {
     String host;
     
     public EquipmentCRUD(){
-        
+        host = "";
     }
     
     public EquipmentCRUD(String hostname){
         this.host = hostname;
+    }
+    
+    public String getHost(){
+        return host;
+    }
+    
+    public void setHost(String host){
+        this.host = host;
     }
     
     public boolean insertar(Equipment equi) {
@@ -448,7 +456,7 @@ public class EquipmentCRUD {
         }
     }
     
-    public ResultSet cumplePuntoReorden() {
+    public ResultSet cumple2Anios() {
 
         //ArrayList<Article> listaEqui = new ArrayList<Article>();
         Conexion conexion = new Conexion();
@@ -492,6 +500,94 @@ public class EquipmentCRUD {
         return resultado;
     }
 
+    public ResultSet cumple1Anio() {
+
+        //ArrayList<Article> listaEqui = new ArrayList<Article>();
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
+        conexion.Conectar();
+        ResultSet resultado = null;
+        ResultSet resultado2 = null;
+        try {
+            conexion.getStmt();
+
+//            resultado= conexion.getStmt().executeQuery("SELECT a.ID_ART,a.ID_PROV,p.NOMBRE_PROV,a.NRO_ART,a.DESCRIPCION_ART,a.ESPECIFICACIONES_ART,a.FABRICANTE_ART," +
+//                                                        " a.UNIDADMEDIDA_ART,a.COSTOESTANDAR_ART,a.MAXIMO_ART,a.PUNTOREORDEN_ART,a.CANTIDADREORDEN_ART," +
+//                                                        " a.MINIMO_ART,a.TIEMPOENTR_NRODIAS_ART,a.NOTAS_ART,a.CANTIDAD_ART,a.DESCCANTIDAD_ART, a.ACTIVO" +
+//                                                        " FROM ARTICULO a JOIN PROVEEDOR p" +
+//                                                        " ON (a.ID_PROV = p.ID_PROV)" +
+//                                                        " WHERE a.ACTIVO <> 0 AND a.CANTIDAD_ART <= a.PUNTOREORDEN_ART");
+            resultado = conexion.getStmt().executeQuery("SELECT eq.ID_EMP,eq.ID_LOCT,lo.DESCRIPCION_LOCT,eq.ID_EQ,eq.DESCRIPCION_EQ, eq.IDPADRE_EQ,eq.DESCRIPCION_EQ,eq.ID_EQ,eq.DESCRIPCION_EQ,eq.NRO_EQ,"
+                    + "eq.NROMODELO_EQ,eq.NROSERIE_EQ,eq.TIPO_EQ,eq.ESTADO_EQ,eq.FABRICANTE_EQ,eq.FECHACOMPRA_EQ,eq.FECHAINI_EQ,eq.FECHAVEN_EQ,eq.CONTRATISTA_EQ,"
+                    + "eq.ACTIVO,de.ID_DEPT,de.DESCRIPCION_DEPT "
+                    + "FROM EQUIPO eq JOIN EMPLEADO em JOIN LOCACION lo JOIN DEPARTAMENTO de "
+                    + "ON(em.ID_EMP=eq.ID_EMP and eq.ID_LOCT=lo.ID_LOCT and lo.ID_DEPT=de.ID_DEPT) "
+                    + "WHERE eq.ACTIVO <> 0 AND (NOW() - eq.FECHAINI_EQ) = 365");
+
+            int contador = 0;
+            while (resultado.next()) {
+                contador++;
+            }
+            resultado.first();
+            resultado.beforeFirst();
+            System.out.println(contador);
+            if (contador == 0) {
+                resultado = null;
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error en devolver registros ARTICULOS: " + ex.getMessage());
+            ex.printStackTrace();
+
+        }
+        return resultado;
+    }
+    
+    public ResultSet cumple3Anios() {
+
+        //ArrayList<Article> listaEqui = new ArrayList<Article>();
+        Conexion conexion = new Conexion();
+        conexion.setHost(host);
+        
+        conexion.Conectar();
+        ResultSet resultado = null;
+        ResultSet resultado2 = null;
+        try {
+            conexion.getStmt();
+
+//            resultado= conexion.getStmt().executeQuery("SELECT a.ID_ART,a.ID_PROV,p.NOMBRE_PROV,a.NRO_ART,a.DESCRIPCION_ART,a.ESPECIFICACIONES_ART,a.FABRICANTE_ART," +
+//                                                        " a.UNIDADMEDIDA_ART,a.COSTOESTANDAR_ART,a.MAXIMO_ART,a.PUNTOREORDEN_ART,a.CANTIDADREORDEN_ART," +
+//                                                        " a.MINIMO_ART,a.TIEMPOENTR_NRODIAS_ART,a.NOTAS_ART,a.CANTIDAD_ART,a.DESCCANTIDAD_ART, a.ACTIVO" +
+//                                                        " FROM ARTICULO a JOIN PROVEEDOR p" +
+//                                                        " ON (a.ID_PROV = p.ID_PROV)" +
+//                                                        " WHERE a.ACTIVO <> 0 AND a.CANTIDAD_ART <= a.PUNTOREORDEN_ART");
+            resultado = conexion.getStmt().executeQuery("SELECT eq.ID_EMP,eq.ID_LOCT,lo.DESCRIPCION_LOCT,eq.ID_EQ,eq.DESCRIPCION_EQ, eq.IDPADRE_EQ,eq.DESCRIPCION_EQ,eq.ID_EQ,eq.DESCRIPCION_EQ,eq.NRO_EQ,"
+                    + "eq.NROMODELO_EQ,eq.NROSERIE_EQ,eq.TIPO_EQ,eq.ESTADO_EQ,eq.FABRICANTE_EQ,eq.FECHACOMPRA_EQ,eq.FECHAINI_EQ,eq.FECHAVEN_EQ,eq.CONTRATISTA_EQ,"
+                    + "eq.ACTIVO,de.ID_DEPT,de.DESCRIPCION_DEPT "
+                    + "FROM EQUIPO eq JOIN EMPLEADO em JOIN LOCACION lo JOIN DEPARTAMENTO de "
+                    + "ON(em.ID_EMP=eq.ID_EMP and eq.ID_LOCT=lo.ID_LOCT and lo.ID_DEPT=de.ID_DEPT) "
+                    + "WHERE eq.ACTIVO <> 0 AND (NOW() - eq.FECHAINI_EQ) = 1095");
+
+            int contador = 0;
+            while (resultado.next()) {
+                contador++;
+            }
+            resultado.first();
+            resultado.beforeFirst();
+            System.out.println(contador);
+            if (contador == 0) {
+                resultado = null;
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error en devolver registros ARTICULOS: " + ex.getMessage());
+            ex.printStackTrace();
+
+        }
+        return resultado;
+    }
+    
     public ArrayList<Equipment> enviarDatosTabla(ResultSet resultado) {
 
         ArrayList<Equipment> listaEqui = new ArrayList<Equipment>();

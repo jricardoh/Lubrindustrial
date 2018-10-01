@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4de1b5fe-1074-4a97-8196-7063587ee644">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="18"/>
+	<property name="ireport.y" value="24"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="PieChartDataset" uuid="01468a68-aeb7-4bf8-836c-b30eb2886982"/>
+	<queryString>
+		<![CDATA[SELECT e.ID_EMP, e.NRO_EMP, e.NOMBRE_EMP, e.APELLIDO_EMP, e.POSICION_EMP, e.EXTENSION_EMP, e.TELFTRAB_EMP, e.TELFPERS_EMP, e.TELFCASA_EMP, e.EMAIL_EMP, e.EMAIL2_EMP, e.LOCACIONOFICINA_EMP, e.SUELDO_EMP, e.SOBRETIEMPO_EMP, d.DESCRIPCION_DEPT, e.ACTIVO FROM EMPLEADO e JOIN DEPARTAMENTO d ON (d.ID_DEPT = e.ID_DEPT) WHERE e.ACTIVO <> 0]]>
+	</queryString>
+	<field name="ID_EMP" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NRO_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOMBRE_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="APELLIDO_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="POSICION_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EXTENSION_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELFTRAB_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELFPERS_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TELFCASA_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EMAIL_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EMAIL2_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOCACIONOFICINA_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SUELDO_EMP" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SOBRETIEMPO_EMP" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCRIPCION_DEPT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ACTIVO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="555" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="176" splitType="Stretch">
+			<staticText>
+				<reportElement style="SubTitle" x="336" y="65" width="449" height="29" forecolor="#333333" uuid="9fb88002-d7a6-40cd-8fbd-33dcdaca40d2"/>
+				<textElement textAlignment="Right">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Empleados]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="0" width="822" height="65" forecolor="#006699" backcolor="#006699" uuid="f33cf6f7-e6c7-4fa6-b3d6-5d5e5d7a7f35"/>
+				<staticText>
+					<reportElement style="Title" x="231" y="12" width="578" height="39" uuid="cb5d8559-aa1f-4e10-8f25-f83e3b80da7d"/>
+					<textElement textAlignment="Right">
+						<font fontName="MS PGothic" size="32" isBold="false"/>
+					</textElement>
+					<text><![CDATA[LUBRINDUSTRIAL]]></text>
+				</staticText>
+				<image>
+					<reportElement x="53" y="0" width="88" height="65" uuid="c160110e-3341-4583-b61c-fc9934eee262"/>
+					<imageExpression><![CDATA["D:\\Software lubricantes\\lubrindustrial_logo.png"]]></imageExpression>
+				</image>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="2" y="94" width="800" height="16" forecolor="#D0B48E" backcolor="#006699" uuid="4d7dbc75-95db-4551-8eaa-3148c09ce803"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="753" y="0" width="40" height="16" forecolor="#FFFFFF" uuid="5e787237-fa4e-4ab7-b984-c7e9ef51fc3b"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="654" y="0" width="99" height="16" forecolor="#FFFFFF" uuid="8bc27786-4523-4119-99ee-2d10da37e1cc"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="2" y="94" width="197" height="16" forecolor="#FFFFFF" uuid="1ffba92e-4156-46a7-a16b-fe5f87c863e1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="90" height="37" uuid="010814e7-b6f7-49a7-b9a9-7383384128e9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número Empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="89" y="0" width="100" height="37" uuid="0ed6c124-6192-47c0-bf47-1b4d49f0a7b8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="0" width="100" height="37" uuid="a964d68d-6b45-4d60-98ae-7ceef7e77cdb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="0" width="125" height="37" uuid="723d782b-a229-4f41-9b57-3ed8b0a928b8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cargo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="0" width="64" height="37" uuid="e9ec9399-6972-4b5b-a7e1-1c0bfa620f9a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Extensión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="478" y="0" width="89" height="37" uuid="dbbf6a89-2109-43d0-aacb-1a93cab3c0a3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teléfono  Trabajo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="567" y="0" width="160" height="37" uuid="7b239f06-3371-41c6-890f-2077713b6747"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="727" y="0" width="75" height="37" uuid="cb1c0bab-4fac-40a3-8cb6-43b44d70554d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Salario]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="2" y="23" width="800" height="1" uuid="4368d9c2-c310-4efc-ac0a-ac3a19209f12"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="0" width="90" height="20" uuid="762d0eaf-71e6-4c8d-a432-eb5682fbd3fe"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NRO_EMP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="89" y="0" width="100" height="20" uuid="b7c992b9-9e3d-4470-a436-df25ee06589d"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_EMP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="0" width="100" height="20" uuid="d10c85e2-943f-4482-83f2-4141842b5e08"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APELLIDO_EMP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="289" y="0" width="125" height="20" uuid="24fdcde6-bbff-4fc7-b968-23a220c69def"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{POSICION_EMP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="0" width="64" height="20" uuid="9e0a8538-ae77-41d0-b520-395178d26ebc"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EXTENSION_EMP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="0" width="89" height="20" uuid="79065480-651c-43ec-a417-10fef06f6e05"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TELFTRAB_EMP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="567" y="0" width="160" height="20" uuid="670b386f-9c07-49d0-bc91-86315fcce35f"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EMAIL_EMP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="727" y="0" width="75" height="20" uuid="d32f29c8-4e68-4611-bdcb-0e99f53fad7c"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SUELDO_EMP}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="24a1afcd-62b9-49b7-a4b9-c218492f4aba"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

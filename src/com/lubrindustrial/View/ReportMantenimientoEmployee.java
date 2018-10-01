@@ -13,15 +13,19 @@ import com.lubrindustrial.Server.OrdenTrabajoCRUD;
 import com.lubrindustrial.Server.OrdenTrabajos;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -215,16 +219,52 @@ public class ReportMantenimientoEmployee extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tab_mantenimientoMouseClicked
 
     private void btnGeneratePDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneratePDFActionPerformed
-
+        
+        String cad="";
         try {
-            JasperReport reporte = JasperCompileManager.compileReport("reportMantEmp2.jrxml");
-            JasperPrint print = JasperFillManager.fillReport(reporte, null, this.cn);
-            JasperViewer jviewer = new JasperViewer(print,false);
-            jviewer.show();
+            cad=comboEmp.getSelectedItem().toString();
+            String []split = cad.split(" ");
+            cad = split[0];
+             JasperReport reporte = null;
+             String path = "src\\lubrindustrial\\mantenimientoEmp.jasper";
+             Map parametro = new HashMap();
+             parametro.put("id_emp",cad);
+             reporte = (JasperReport)JRLoader.loadObjectFromFile(path);
+             JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro,this.cn);
+//             JasperReport reporte = JasperCompileManager.compileReport("reportMantEmp2.jrxml");
+//            JasperPrint print = JasperFillManager.fillReport(reporte, null, this.cn);
+            JasperViewer jviewer = new JasperViewer(jprint,false);
+            jviewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            jviewer.setVisible(true);
             //JasperViewer.viewReport(print);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        
+//        try {
+//             JasperReport reporte = null;
+//             String path = "src\\lubrindustrial\\materiales.jasper";
+//             reporte = (JasperReport)JRLoader.loadObjectFromFile(path);
+//             JasperPrint jprint = JasperFillManager.fillReport(reporte, null,this.cn);
+////             JasperReport reporte = JasperCompileManager.compileReport("reportMantEmp2.jrxml");
+////            JasperPrint print = JasperFillManager.fillReport(reporte, null, this.cn);
+//            JasperViewer jviewer = new JasperViewer(jprint,false);
+//            jviewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+//            jviewer.setVisible(true);
+//            //JasperViewer.viewReport(print);
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+        
+//        try {
+//            JasperReport reporte = JasperCompileManager.compileReport("reportMantEmp2.jrxml");
+//            JasperPrint print = JasperFillManager.fillReport(reporte, null, this.cn);
+//            JasperViewer jviewer = new JasperViewer(print,false);
+//            jviewer.show();
+//            //JasperViewer.viewReport(print);
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
         
     }//GEN-LAST:event_btnGeneratePDFActionPerformed
 

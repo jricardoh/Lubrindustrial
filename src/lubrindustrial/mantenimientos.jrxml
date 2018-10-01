@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4de1b5fe-1074-4a97-8196-7063587ee644">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="24"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="PieChartDataset" uuid="01468a68-aeb7-4bf8-836c-b30eb2886982"/>
+	<queryString>
+		<![CDATA[SELECT * FROM MANTENIMIENTO WHERE ACTIVO <> 0]]>
+	</queryString>
+	<field name="ID_MANT" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_EQ" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_LOCT" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NROTAREA_MANT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCRIPCION_MANT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="OFICIO_MANT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FRECUENCIA_MANT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DIAS_MANT" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DURACIONTAREA_MANT" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHAINICIO_MANT" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHAPROGRAMADAINICIO_MANT" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHAPROGRAMADATERMINO_MANT" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PROXIMAFECHA_MANT" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="HORASPROGRAMADAS_MANT" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ACTIVO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="555" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="176" splitType="Stretch">
+			<staticText>
+				<reportElement style="SubTitle" x="336" y="65" width="449" height="29" forecolor="#333333" uuid="9fb88002-d7a6-40cd-8fbd-33dcdaca40d2"/>
+				<textElement textAlignment="Right">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mantenimientos]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="0" width="822" height="65" forecolor="#006699" backcolor="#006699" uuid="f33cf6f7-e6c7-4fa6-b3d6-5d5e5d7a7f35"/>
+				<staticText>
+					<reportElement style="Title" x="231" y="12" width="578" height="39" uuid="cb5d8559-aa1f-4e10-8f25-f83e3b80da7d"/>
+					<textElement textAlignment="Right">
+						<font fontName="MS PGothic" size="32" isBold="false"/>
+					</textElement>
+					<text><![CDATA[LUBRINDUSTRIAL]]></text>
+				</staticText>
+				<image>
+					<reportElement x="53" y="0" width="88" height="65" uuid="c160110e-3341-4583-b61c-fc9934eee262"/>
+					<imageExpression><![CDATA["D:\\Software lubricantes\\lubrindustrial_logo.png"]]></imageExpression>
+				</image>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="2" y="94" width="800" height="16" forecolor="#D0B48E" backcolor="#006699" uuid="4d7dbc75-95db-4551-8eaa-3148c09ce803"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="753" y="0" width="40" height="16" forecolor="#FFFFFF" uuid="5e787237-fa4e-4ab7-b984-c7e9ef51fc3b"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="654" y="0" width="99" height="16" forecolor="#FFFFFF" uuid="8bc27786-4523-4119-99ee-2d10da37e1cc"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="2" y="94" width="197" height="16" forecolor="#FFFFFF" uuid="1ffba92e-4156-46a7-a16b-fe5f87c863e1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="72" height="37" uuid="c8ac090a-f53c-4257-ab9e-757c048a6e4a"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número de Tarea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="72" y="0" width="72" height="37" uuid="0dd7c475-c142-4551-bc5c-742750c72602"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="0" width="72" height="37" uuid="97dbe9a1-976e-4315-b771-6994eea65ea9"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Oficio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="0" width="72" height="37" uuid="fa213d7a-d350-46da-a25d-bc02e4fcd4bc"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Frecuencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="0" width="72" height="37" uuid="a7baeccd-821e-43db-a9c3-c24ead710da3"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Días]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="0" width="72" height="37" uuid="233cf2a4-020a-4ab6-aaa4-c59a7a01b3d1"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Duración de Tarea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="0" width="72" height="37" uuid="20d1389b-f194-4b5e-8d55-233a44b27ed2"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="504" y="0" width="72" height="37" uuid="acb37022-04a0-43a2-80c2-d5f173681d32"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Programada Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="576" y="0" width="72" height="37" uuid="1c3f72ff-dcac-4877-bee9-222579600748"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Programada Término]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="648" y="0" width="72" height="37" uuid="4fd50e4d-2a18-4c2c-aead-0192f4fee478"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Próxima  Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="720" y="0" width="72" height="37" uuid="f6af645f-e8c0-42a4-b4f1-087cf563472d"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Horas Programadas]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="2" y="23" width="800" height="1" uuid="4368d9c2-c310-4efc-ac0a-ac3a19209f12"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="0" width="72" height="20" uuid="c9f55b76-5c8c-4eb9-96b7-97db9df9c7eb"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NROTAREA_MANT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="0" width="72" height="20" uuid="24db6e16-d174-4226-b6f9-9fd9b3653ee9"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_MANT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="0" width="72" height="20" uuid="74b4db6a-6740-4a42-a037-032be153054b"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OFICIO_MANT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="216" y="0" width="72" height="20" uuid="dc1cb957-90ca-493f-9063-cd0815ab6b49"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FRECUENCIA_MANT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="288" y="0" width="72" height="20" uuid="42d52db8-d130-43e6-90ad-901ae6b1641a"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DIAS_MANT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="0" width="72" height="20" uuid="d12acf50-2801-4506-851c-353dea787506"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DURACIONTAREA_MANT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="0" width="72" height="20" uuid="dade1989-edaa-4c96-9365-5216f63ef09a"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHAINICIO_MANT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="504" y="0" width="72" height="20" uuid="a204f4f8-403c-41c4-9ec7-33e150f04188"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHAPROGRAMADAINICIO_MANT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="576" y="0" width="72" height="20" uuid="ae33c18b-cc1f-4064-adb2-b9c4b746d41d"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHAPROGRAMADATERMINO_MANT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="648" y="0" width="72" height="20" uuid="8bc89fb1-1cd5-4184-8f1d-de10c08b394b"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PROXIMAFECHA_MANT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="720" y="0" width="72" height="20" uuid="6c4c625a-07ca-43b5-b438-44b00d929dee"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HORASPROGRAMADAS_MANT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="24a1afcd-62b9-49b7-a4b9-c218492f4aba"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

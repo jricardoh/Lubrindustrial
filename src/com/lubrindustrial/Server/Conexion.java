@@ -41,7 +41,7 @@ public class Conexion {
     public Conexion() {
         host = "localhost";
         port = "3306";
-        database = "lubrindustriales";
+        database = "lubrindustrial";
         url = "jdbc:mysql://localhost:3306/" + database;
         userName = "administrador";
         password = "admin.soft.18.jcrh.1000";
@@ -54,7 +54,7 @@ public class Conexion {
     public Conexion(int num) {
         host = "localhost";
         port = "3306";
-        database = "lubrindustriales";
+        database = "lubrindustrial";
         url = "jdbc:mysql://localhost:3306/" + database;
 //        userName = "root";
 //        password = "";
@@ -68,7 +68,7 @@ public class Conexion {
         this.host = hostname;
 //        this.host = "localhost";
         port = "3306";
-        database = "lubrindustriales";
+        database = "lubrindustrial";
         url = "jdbc:mysql://"+this.host+":3306/" + database;
 //        url = "jdbc:mysql://localhost:3306/" + database;
 //        userName = "root";

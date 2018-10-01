@@ -21,6 +21,8 @@ import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
@@ -44,7 +46,18 @@ public class Alert extends javax.swing.JInternalFrame {
     //matriz donde se almacena los datos de cada celda de la tabla
     String info[][] = {};
 //    int tipo;
+    public Clip clip;
 
+    public void sound(){
+        try{
+            clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/Audio/beep.wav")));
+            clip.start();
+        } catch(Exception e){
+            e.getMessage();
+        }
+    }
+    
     public int getvalorencontrado() {
         int valorencontrado = valor_encontrado;
         return valorencontrado = valor_encontrado;
@@ -61,6 +74,7 @@ public class Alert extends javax.swing.JInternalFrame {
         this.setClosable(true);
         tab_alert.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tab_alert.doLayout();
+        sound();
     }
 
 //ArrayList<Articulos> lista = new ArrayList<Articulos>();
@@ -73,7 +87,7 @@ public class Alert extends javax.swing.JInternalFrame {
         switch (tipo) {
             case 0:
                 this.modelo = new DefaultTableModel(info, titulosArticulo);
-                this.title = "Alerta de Artículos";
+                this.title = "Alerta de Materiales";
                 break;
             case 1:
                 this.modelo = new DefaultTableModel(info, titulosEquipo);
@@ -89,6 +103,7 @@ public class Alert extends javax.swing.JInternalFrame {
                 break;
         }
         agregarDatos(tipo);
+        sound();
     }
 
 //    public int seleccionaritem() {
@@ -137,8 +152,8 @@ public class Alert extends javax.swing.JInternalFrame {
                 datos = new String[16];//ARRAY
                 //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
                 EquipmentCRUD equiCRUD = new EquipmentCRUD();
-                if (equiCRUD.cumplePuntoReorden() != null) {
-                    equipos = equiCRUD.enviarDatosTabla(equiCRUD.cumplePuntoReorden());
+                if (equiCRUD.cumple2Anios() != null) {
+                    equipos = equiCRUD.enviarDatosTabla(equiCRUD.cumple2Anios());
                 } else {
                     System.out.println("Sin notificaciones");
                 }
@@ -166,8 +181,8 @@ public class Alert extends javax.swing.JInternalFrame {
                 datos = new String[16];//ARRAY
                 //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
                 OrdenTrabajoCRUD otCRUD = new OrdenTrabajoCRUD();
-                if (otCRUD.cumplePuntoReorden() != null) {
-                    ot = otCRUD.enviarDatosTabla(otCRUD.cumplePuntoReorden());
+                if (otCRUD.cumpleMesAntes() != null) {
+                    ot = otCRUD.enviarDatosTabla(otCRUD.cumpleMesAntes());
                 } else {
                     System.out.println("Sin notificaciones");
                 }
@@ -198,8 +213,8 @@ public class Alert extends javax.swing.JInternalFrame {
                 datos = new String[16];//ARRAY
                 //LE PASO AL ARRAY LOS DATOS DEL ARRAYLIST 
                 MantenimientoCRUD mantCRUD = new MantenimientoCRUD();
-                if (mantCRUD.cumplePuntoReorden() != null) {
-                    mant = mantCRUD.enviarDatosTabla(mantCRUD.cumplePuntoReorden());
+                if (mantCRUD.cumpleMesAntes() != null) {
+                    mant = mantCRUD.enviarDatosTabla(mantCRUD.cumpleMesAntes());
                 } else {
                     System.out.println("Sin notificaciones");
                 }
@@ -284,6 +299,9 @@ public class Alert extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tab_alert = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblMensaje = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -303,6 +321,8 @@ public class Alert extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(javax.swing.UIManager.getDefaults().getColor("info"));
 
         tab_alert.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -343,30 +363,56 @@ public class Alert extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/alert.png"))); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Se requiere su atención");
+
+        lblMensaje.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        lblMensaje.setText(" ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 620, 240));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -391,8 +437,11 @@ public class Alert extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
     private javax.swing.JFrame jFrame1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    public javax.swing.JLabel lblMensaje;
     private javax.swing.JTable tab_alert;
     // End of variables declaration//GEN-END:variables
 }

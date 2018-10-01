@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4de1b5fe-1074-4a97-8196-7063587ee644">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="24"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="PieChartDataset" uuid="01468a68-aeb7-4bf8-836c-b30eb2886982"/>
+	<queryString>
+		<![CDATA[select * from auditoria]]>
+	</queryString>
+	<field name="ID_AUD" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_USU" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOMBRE_USU" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="APELLIDO_USU" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TABLAAFECTADA_AUD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCRIPCION_AUD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ACCION_AUD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="555" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="176" splitType="Stretch">
+			<staticText>
+				<reportElement style="SubTitle" x="336" y="65" width="449" height="29" forecolor="#333333" uuid="9fb88002-d7a6-40cd-8fbd-33dcdaca40d2"/>
+				<textElement textAlignment="Right">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Auditoría]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="0" width="822" height="65" forecolor="#006699" backcolor="#006699" uuid="f33cf6f7-e6c7-4fa6-b3d6-5d5e5d7a7f35"/>
+				<staticText>
+					<reportElement style="Title" x="231" y="12" width="578" height="39" uuid="cb5d8559-aa1f-4e10-8f25-f83e3b80da7d"/>
+					<textElement textAlignment="Right">
+						<font fontName="MS PGothic" size="32" isBold="false"/>
+					</textElement>
+					<text><![CDATA[LUBRINDUSTRIAL]]></text>
+				</staticText>
+				<image>
+					<reportElement x="53" y="0" width="88" height="65" uuid="c160110e-3341-4583-b61c-fc9934eee262"/>
+					<imageExpression><![CDATA["D:\\Software lubricantes\\lubrindustrial_logo.png"]]></imageExpression>
+				</image>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="2" y="94" width="800" height="16" forecolor="#D0B48E" backcolor="#006699" uuid="4d7dbc75-95db-4551-8eaa-3148c09ce803"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="753" y="0" width="40" height="16" forecolor="#FFFFFF" uuid="5e787237-fa4e-4ab7-b984-c7e9ef51fc3b"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="654" y="0" width="99" height="16" forecolor="#FFFFFF" uuid="8bc27786-4523-4119-99ee-2d10da37e1cc"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="2" y="94" width="197" height="16" forecolor="#FFFFFF" uuid="1ffba92e-4156-46a7-a16b-fe5f87c863e1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="114" height="20" uuid="eaff2d9c-e94f-4824-a84a-b95c2044ce41"/>
+				<text><![CDATA[Id Auditoría]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="0" width="114" height="20" uuid="928c6ce4-2a7a-4802-86cd-2b119c4cb827"/>
+				<text><![CDATA[Id Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="0" width="114" height="20" uuid="d8b8ddc5-a8ff-4746-a9b1-90647338ccb6"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="342" y="0" width="114" height="20" uuid="72220cb1-b19f-4b3c-afd7-0e80594bed6b"/>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="456" y="0" width="114" height="20" uuid="c6dcb92e-76b4-456f-bce9-8a7a42b9eb91"/>
+				<text><![CDATA[Tabla Afectada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="570" y="0" width="114" height="20" uuid="3043e004-36ad-4bec-bde9-66829f9a8f7a"/>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="684" y="0" width="114" height="20" uuid="cc4eb79b-1bf4-4660-9aaa-3229e83011f2"/>
+				<text><![CDATA[Acción]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="2" y="23" width="800" height="1" uuid="4368d9c2-c310-4efc-ac0a-ac3a19209f12"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="0" width="114" height="20" uuid="28e42a0b-63ce-409e-b15b-c0a2a0186192"/>
+				<textFieldExpression><![CDATA[$F{ID_AUD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="0" width="114" height="20" uuid="c8a850fe-a284-4c04-8518-9c2639e67178"/>
+				<textFieldExpression><![CDATA[$F{ID_USU}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="0" width="114" height="20" uuid="4ddf8d23-3201-460d-b29b-90ee40eb6d10"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_USU}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="342" y="0" width="114" height="20" uuid="e01e8f49-b75e-4e10-a64e-6ac487be7e4f"/>
+				<textFieldExpression><![CDATA[$F{APELLIDO_USU}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="456" y="0" width="114" height="20" uuid="eff73e39-f40f-45d9-8721-654a085e4825"/>
+				<textFieldExpression><![CDATA[$F{TABLAAFECTADA_AUD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="570" y="0" width="114" height="20" uuid="0056209d-aa0f-451f-a1fe-c15693f958f5"/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_AUD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="684" y="0" width="114" height="20" uuid="81e91356-f2b7-4509-a7ce-7f6100d64e49"/>
+				<textFieldExpression><![CDATA[$F{ACCION_AUD}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="24a1afcd-62b9-49b7-a4b9-c218492f4aba"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

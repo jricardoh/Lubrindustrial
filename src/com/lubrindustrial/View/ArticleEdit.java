@@ -151,16 +151,18 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
         txt_stock = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         txt_unidadStock = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txt_punto1 = new javax.swing.JTextField();
         lblID = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Editar Artículo");
+        setTitle("Editar Material");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setText("No. Artículo");
+        jLabel5.setText("No. Material");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 90, 20));
 
         txt_Number.addActionListener(new java.awt.event.ActionListener() {
@@ -173,10 +175,10 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
                 txt_NumberKeyTyped(evt);
             }
         });
-        jPanel2.add(txt_Number, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 140, -1));
+        jPanel2.add(txt_Number, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 140, -1));
 
-        jLabel6.setText("Proveedor");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 20));
+        jLabel6.setText("Actual");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 40, 20));
 
         btnSave.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/guardar.png"))); // NOI18N
@@ -248,7 +250,7 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
                 txt_puntoKeyTyped(evt);
             }
         });
-        jPanel2.add(txt_punto, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 140, -1));
+        jPanel2.add(txt_punto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 110, -1));
 
         jLabel12.setText("Cantidad Reorden");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 100, 20));
@@ -268,7 +270,7 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
                 cbox_suppliersActionPerformed(evt);
             }
         });
-        jPanel2.add(cbox_suppliers, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 140, -1));
+        jPanel2.add(cbox_suppliers, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 140, -1));
 
         jLabel13.setText("Fabricante");
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 100, 20));
@@ -283,7 +285,7 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
         });
         jPanel2.add(txt_fabricante, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 140, -1));
 
-        jLabel14.setText("Unidad de Medida");
+        jLabel14.setText("Densidad");
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 100, 20));
 
         txt_unidadMedida.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -361,7 +363,7 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
         });
         jPanel2.add(txt_stock, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 140, -1));
 
-        jLabel20.setText("Unidad Stock");
+        jLabel20.setText("Unidad de Medida");
         jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 100, 20));
 
         txt_unidadStock.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -373,6 +375,19 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(txt_unidadStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 140, -1));
+
+        jLabel8.setText("Proveedor");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 20));
+
+        txt_punto1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_punto1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_punto1KeyTyped(evt);
+            }
+        });
+        jPanel2.add(txt_punto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 140, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 575, 320));
         getContentPane().add(lblID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 339, 40, 10));
@@ -563,6 +578,14 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_unidadStockKeyTyped
 
+    private void txt_punto1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_punto1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_punto1KeyReleased
+
+    private void txt_punto1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_punto1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_punto1KeyTyped
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -583,6 +606,7 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JLabel lblID;
@@ -597,6 +621,7 @@ public class ArticleEdit extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField txt_notas;
     public static javax.swing.JTextField txt_nroDias;
     public static javax.swing.JTextField txt_punto;
+    public static javax.swing.JTextField txt_punto1;
     public static javax.swing.JTextField txt_stock;
     public static javax.swing.JTextField txt_unidadMedida;
     public static javax.swing.JTextField txt_unidadStock;

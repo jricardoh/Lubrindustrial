@@ -5,15 +5,24 @@
  */
 package com.lubrindustrial.View;
 
+import com.lubrindustrial.Server.Conexion;
 import com.lubrindustrial.Server.OPERABILIDAD;
 import com.lubrindustrial.Server.OPERABILIDADCRUD;
 import com.lubrindustrial.Server.PERIODO;
 import com.lubrindustrial.Server.PERIODOCRUD;
+import com.lubrindustrial.Server.ReportsExcel;
+import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author Marcelo
@@ -26,6 +35,8 @@ public class Periodos extends javax.swing.JInternalFrame {
     
     ArrayList<OPERABILIDAD> operabilidades = new ArrayList<OPERABILIDAD>();
     String host;
+    Conexion con;
+    Connection cn;
     
     public Periodos() {
         try{
@@ -38,6 +49,9 @@ public class Periodos extends javax.swing.JInternalFrame {
         this.setClosable(true);
         this.host = "";
         llenarComboBoxOperabilidades();
+        con = new Conexion(this.host);
+        this.con.Conectar();
+        cn =con.getCon();
         
     }
     
@@ -52,6 +66,9 @@ public class Periodos extends javax.swing.JInternalFrame {
         this.setClosable(true);
         this.host = hostname;
         llenarComboBoxOperabilidades();
+        con = new Conexion(this.host);
+        this.con.Conectar();
+        cn =con.getCon();
         
     }
     
@@ -80,12 +97,17 @@ public class Periodos extends javax.swing.JInternalFrame {
         comboOperabilidad = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         txAreaDatos = new java.awt.TextArea();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setTitle("Períodos");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Seleccione la operabilidad del equipo ");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 11, -1, -1));
 
         comboOperabilidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(comboOperabilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 32, 259, -1));
 
         jButton2.setText("Buscar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -93,36 +115,26 @@ public class Periodos extends javax.swing.JInternalFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 31, 118, -1));
+        getContentPane().add(txAreaDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 490, 234));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txAreaDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(comboOperabilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboOperabilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txAreaDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/excel_logo.png"))); // NOI18N
+        jButton5.setToolTipText("Generar hoja de cálculo de Excel");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 40, -1));
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/pdf.png"))); // NOI18N
+        jButton6.setToolTipText("Generar informe en PDF");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 40, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -178,6 +190,36 @@ public class Periodos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        ReportsExcel reporte = new ReportsExcel(host);
+        PERIODOCRUD eqCRUD = new PERIODOCRUD(host);
+        ArrayList<PERIODO> per = eqCRUD.visualizar();
+        if(reporte.escribirExcelPeriodosOperabilidad(per)){
+            JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE PERIODOS CREADO","ARCHIVO GUARDADO EXITOSAMENTE",JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE PERIODOS NO CREADO","ERROR EN GUARDADO", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+        try {
+             JasperReport reporte = null;
+             String path = "src\\lubrindustrial\\periodos.jasper";
+             reporte = (JasperReport)JRLoader.loadObjectFromFile(path);
+             JasperPrint jprint = JasperFillManager.fillReport(reporte, null,this.cn);
+//             JasperReport reporte = JasperCompileManager.compileReport("reportMantEmp2.jrxml");
+//            JasperPrint print = JasperFillManager.fillReport(reporte, null, this.cn);
+            JasperViewer jviewer = new JasperViewer(jprint,false);
+            jviewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            jviewer.setVisible(true);
+            //JasperViewer.viewReport(print);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -216,6 +258,8 @@ public class Periodos extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboOperabilidad;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private java.awt.TextArea txAreaDatos;
     // End of variables declaration//GEN-END:variables

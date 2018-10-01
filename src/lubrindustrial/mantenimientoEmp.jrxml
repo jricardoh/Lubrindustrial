@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4de1b5fe-1074-4a97-8196-7063587ee644">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="PieChartDataset" uuid="01468a68-aeb7-4bf8-836c-b30eb2886982"/>
+	<parameter name="id_emp" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select m.ID_MANT, m.ID_EQ, m.ID_LOCT, m.NROTAREA_MANT, m.DESCRIPCION_MANT, m.FRECUENCIA_MANT, m.DIAS_MANT, m.DURACIONTAREA_MANT, m.FECHAINICIO_MANT, m.FECHAPROGRAMADAINICIO_MANT , m.FECHAPROGRAMADATERMINO_MANT, m.PROXIMAFECHA_MANT, m.HORASPROGRAMADAS_MANT, e.NRO_EMP, e.NOMBRE_EMP, e.APELLIDO_EMP from mantenimiento m inner join emp_mant em on m.ID_MANT=em.ID_MANT INNER JOIN empleado e on em.ID_EMP=e.ID_EMP where m.ACTIVO <> 0 and e.ID_EMP= $P!{id_emp}]]>
+	</queryString>
+	<field name="ID_MANT" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_EQ" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_LOCT" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NROTAREA_MANT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCRIPCION_MANT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FRECUENCIA_MANT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DIAS_MANT" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DURACIONTAREA_MANT" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHAINICIO_MANT" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHAPROGRAMADAINICIO_MANT" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHAPROGRAMADATERMINO_MANT" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PROXIMAFECHA_MANT" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="HORASPROGRAMADAS_MANT" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NRO_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOMBRE_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="APELLIDO_EMP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="555" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="128" splitType="Stretch">
+			<staticText>
+				<reportElement style="SubTitle" x="336" y="65" width="449" height="29" forecolor="#333333" uuid="9fb88002-d7a6-40cd-8fbd-33dcdaca40d2"/>
+				<textElement textAlignment="Right">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mantenimiento por Empleado]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="0" width="822" height="65" forecolor="#006699" backcolor="#006699" uuid="f33cf6f7-e6c7-4fa6-b3d6-5d5e5d7a7f35"/>
+				<staticText>
+					<reportElement style="Title" x="231" y="12" width="578" height="39" uuid="cb5d8559-aa1f-4e10-8f25-f83e3b80da7d"/>
+					<textElement textAlignment="Right">
+						<font fontName="MS PGothic" size="32" isBold="false"/>
+					</textElement>
+					<text><![CDATA[LUBRINDUSTRIAL]]></text>
+				</staticText>
+				<image>
+					<reportElement x="53" y="0" width="88" height="65" uuid="c160110e-3341-4583-b61c-fc9934eee262"/>
+					<imageExpression><![CDATA["D:\\Software lubricantes\\lubrindustrial_logo.png"]]></imageExpression>
+				</image>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="2" y="94" width="800" height="16" forecolor="#D0B48E" backcolor="#006699" uuid="4d7dbc75-95db-4551-8eaa-3148c09ce803"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="753" y="0" width="40" height="16" forecolor="#FFFFFF" uuid="5e787237-fa4e-4ab7-b984-c7e9ef51fc3b"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="654" y="0" width="99" height="16" forecolor="#FFFFFF" uuid="8bc27786-4523-4119-99ee-2d10da37e1cc"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="2" y="94" width="197" height="16" forecolor="#FFFFFF" uuid="1ffba92e-4156-46a7-a16b-fe5f87c863e1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="41" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="255" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="2" y="252" width="800" height="1" uuid="4368d9c2-c310-4efc-ac0a-ac3a19209f12"/>
+			</line>
+			<staticText>
+				<reportElement x="40" y="58" width="159" height="20" uuid="ad0a1d11-367b-4a05-a152-248c7fb2ece0"/>
+				<text><![CDATA[No. Tarea Mantenimiento]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="213" y="58" width="146" height="20" uuid="bb68938d-4799-4589-a6de-15daa70487b6"/>
+				<textFieldExpression><![CDATA[$F{NROTAREA_MANT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="58" width="166" height="20" uuid="69809c44-0d11-467f-a775-558a7e490119"/>
+				<text><![CDATA[Fecha de Inicio]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="609" y="58" width="146" height="20" uuid="f99db0e9-e372-4df2-84db-c962ab176930"/>
+				<textFieldExpression><![CDATA[$F{FECHAINICIO_MANT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="93" width="159" height="20" uuid="886d42cf-4ce3-4749-97ce-f0621be96d07"/>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="213" y="93" width="146" height="20" uuid="fa103574-e9e4-4dbc-b880-71349b07a3d3"/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_MANT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="609" y="93" width="146" height="20" uuid="37bc2383-42b0-4ea7-8dd6-728b9c4b1081"/>
+				<textFieldExpression><![CDATA[$F{FECHAPROGRAMADAINICIO_MANT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="93" width="166" height="20" uuid="e3142a4d-6d72-47d5-8099-bf65e32257d4"/>
+				<text><![CDATA[Fecha Programada de Inicio]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="213" y="130" width="146" height="20" uuid="7c359645-a1db-432d-ba53-a3b77bba931d"/>
+				<textFieldExpression><![CDATA[$F{FRECUENCIA_MANT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="609" y="130" width="146" height="20" uuid="5583ca95-ebe8-4354-92cb-ccd9c688a157"/>
+				<textFieldExpression><![CDATA[$F{FECHAPROGRAMADATERMINO_MANT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="130" width="166" height="20" uuid="84ff622f-59ac-4d02-9562-76a5f39e6ca5"/>
+				<text><![CDATA[Fecha Programada de Término]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="130" width="159" height="20" uuid="b5e15da3-e63a-4746-b87e-96e16be693ae"/>
+				<text><![CDATA[Frecuencia Mantenimiento]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="213" y="169" width="146" height="20" uuid="ef8d7eee-5519-4e08-b0dd-0f6664c524db"/>
+				<textFieldExpression><![CDATA[$F{DIAS_MANT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="609" y="169" width="146" height="20" uuid="4d91f4a3-7400-4af6-9e63-2871c30293ea"/>
+				<textFieldExpression><![CDATA[$F{PROXIMAFECHA_MANT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="169" width="166" height="20" uuid="7b2ea14c-64f8-44f4-940a-c9004f2fdf80"/>
+				<text><![CDATA[Próxima Fecha Mantenimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="169" width="159" height="20" uuid="a4b3c054-d8c9-4d7c-8689-ecf732b0bbc6"/>
+				<text><![CDATA[Días Mantenimiento]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="213" y="208" width="146" height="20" uuid="be4c6cf6-b65e-41fb-99ba-a5e1341afd3e"/>
+				<textFieldExpression><![CDATA[$F{DURACIONTAREA_MANT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="609" y="208" width="146" height="20" uuid="6254a231-5dcc-4309-b5e8-356ec64c6461"/>
+				<textFieldExpression><![CDATA[$F{HORASPROGRAMADAS_MANT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="208" width="166" height="20" uuid="7efa01b9-2b98-4ee3-8e1a-157f2843a661"/>
+				<text><![CDATA[Horas Programadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="208" width="159" height="20" uuid="7fd2a124-bc86-42de-98b9-916e8479158e"/>
+				<text><![CDATA[Duración Tareas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="20" width="159" height="20" uuid="11c3274c-c3aa-443a-8331-5e6ce9a4ac68"/>
+				<text><![CDATA[Número Empleado]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="609" y="20" width="146" height="20" uuid="dd87d4cf-8403-4e2a-a04f-badc5348157a"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_EMP}+" "+$F{APELLIDO_EMP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="20" width="166" height="20" uuid="0d4428af-5a36-485d-b9d3-98aa75b6e26a"/>
+				<text><![CDATA[Nombre y Apellido Empleado]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="213" y="20" width="146" height="20" uuid="f8ebb756-d0ac-4462-9446-846a41dcb527"/>
+				<textFieldExpression><![CDATA[$F{NRO_EMP}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="24a1afcd-62b9-49b7-a4b9-c218492f4aba"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -26,6 +26,8 @@ import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
@@ -37,7 +39,7 @@ public class Home extends javax.swing.JFrame {
      */
     private static String cuenta;
     private static String nivel;
-    public String host;
+    public static String host="";
     User user = new User();
     Employees empView;
     Equipments equiView;
@@ -73,8 +75,71 @@ public class Home extends javax.swing.JFrame {
         Dimension dim = escritorio.getSize();
         Dimension lblSize = lblLogo.getSize();
         lblLogo.setLocation((dim.width - lblSize.width) / 2, (dim.height - lblSize.height) / 2);
+//        generarCopiaSeguridad();
     }
+    
+    public String obtenerRuta(){
+        String ruta="";
+        JFileChooser explorador = new JFileChooser();
+        explorador.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+       
+        explorador.showOpenDialog(explorador);
+            
+        ruta=explorador.getSelectedFile().getAbsolutePath();
+            
+        return ruta;
+    }
+    
+    public String obtenerFechaSistema() {
 
+//Instanciamos el objeto Calendar
+//en fecha obtenemos la fecha y hora del sistema
+        Calendar fecha = new GregorianCalendar();
+//Obtenemos el valor del año, mes, día,
+//hora, minuto y segundo del sistema
+//usando el método get y el parámetro correspondiente
+        int anio = fecha.get(Calendar.YEAR);
+        int mes = fecha.get(Calendar.MONTH)+1;
+        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+//        int hora = fecha.get(Calendar.HOUR_OF_DAY);
+//        int minuto = fecha.get(Calendar.MINUTE);
+//        int segundo = fecha.get(Calendar.SECOND);
+//        String ff = "" + dia + "/" + (mes + 1) + "/" + anio;
+        String ff;
+//                = System.out.println("Fecha Actual: "
+//                        + dia + "/" + (mes + 1) + "/" + año);
+//        System.out.printf("Hora Actual: %02d:%02d:%02d %n",
+//                hora, minuto, segundo);
+//        ff = hora + ":" + minuto + ":" + segundo + ".0";
+        ff = anio + "-" + mes + "-" + dia;
+        return ff;
+    }
+    
+    public void generarCopiaSeguridadNube()
+    {
+        JOptionPane.showMessageDialog(null, "A continuación seleccionesu carpeta en Google Drive para el respaldo de su información","BackUp Google Drive",JOptionPane.INFORMATION_MESSAGE);
+        String path=obtenerRuta();
+        try {
+            Process proceso = Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqldump -u administrador -padmin.soft.18.jcrh.1000 lubrindustrial");
+            InputStream is = proceso.getInputStream();
+            FileOutputStream fos = new FileOutputStream(path+"\\BackUp_"+obtenerFechaSistema()+".sql");
+
+            byte[] buffer = new byte[1000];
+            int leer = is.read(buffer);
+
+            while (leer > 0) {
+                fos.write(buffer, 0, leer);
+                leer = is.read(buffer);
+                //System.out.println("Estoy while");
+            }
+            fos.close();
+            JOptionPane.showMessageDialog(null, "RESPALDO GENERADO CORRECTAMENTE","RESPALDO CORRECTO",JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "RESPALDO NO GENERADO CORRECTAMENTE", "ERROR RESPALDO", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }
+    
     public Home(User us, String hostname) throws UnknownHostException { // utilizo para jalar el User y Host
         try {
             UIManager.setLookAndFeel(new NimbusLookAndFeel());
@@ -87,7 +152,7 @@ public class Home extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         lblCuenta.setVisible(false);
         lblNivel.setVisible(false);
-        //alertaMantenimiento();
+        alertaMantenimiento();
         mostrarIP();
         this.user = us;
         this.host = hostname;
@@ -177,9 +242,9 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
     public static void alertaMantenimiento() {
 
 //        ArrayList<Article> articulos = new ArrayList<Article>();
-        ArticleCRUD artCRUD = new ArticleCRUD();
+        ArticleCRUD artCRUD = new ArticleCRUD(host);
         if (artCRUD.cumplePuntoReorden() != null) {
-            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumplePuntoReorden());
+            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumple2Anios());
             Alert obj = new Alert(0);
             Home.escritorio.add(obj);
             obj.toFront();
@@ -189,12 +254,28 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
             Dimension FrameSize = obj.getSize();
             //obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
             obj.show();
+            obj.lblMensaje.setText("Los materiales mostrados han descendido del punto de reorden, realice un pedido");
         } else {
             System.out.println("Sin notificaciones de caducidad");
         }
-        EquipmentCRUD equiCRUD = new EquipmentCRUD();
-        if (equiCRUD.cumplePuntoReorden() != null) {
-            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumplePuntoReorden());
+        if (artCRUD.cumpleMinimo() != null) {
+            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumple2Anios());
+            Alert obj = new Alert(0);
+            Home.escritorio.add(obj);
+            obj.toFront();
+            //centrar
+            //Para centrar la ventana abierta
+            Dimension dimension = escritorio.getSize();
+            Dimension FrameSize = obj.getSize();
+            //obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
+            obj.show();
+            obj.lblMensaje.setText("Los materiales mostrados han descendido al nivel mínimo en bodega, realice un pedido inmediatamente");
+        } else {
+            System.out.println("Sin notificaciones de caducidad");
+        }
+        EquipmentCRUD equiCRUD = new EquipmentCRUD(host);
+        if (equiCRUD.cumple2Anios() != null) {
+            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumple2Anios());
             Alert obj = new Alert(1);
             Home.escritorio.add(obj);
             obj.toFront();
@@ -204,12 +285,43 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
             Dimension FrameSize = obj.getSize();
             //obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
             obj.show();
+            obj.lblMensaje.setText("Los equipos mostrados cumplen 2 años de uso");
         } else {
             System.out.println("Sin notificaciones de caducidad");
         }
-        OrdenTrabajoCRUD ordtrCRUD = new OrdenTrabajoCRUD();
-        if (ordtrCRUD.cumplePuntoReorden() != null) {
-            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumplePuntoReorden());
+        if (equiCRUD.cumple1Anio() != null) {
+            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumple2Anios());
+            Alert obj = new Alert(1);
+            Home.escritorio.add(obj);
+            obj.toFront();
+            //centrar
+            //Para centrar la ventana abierta
+            Dimension dimension = escritorio.getSize();
+            Dimension FrameSize = obj.getSize();
+            //obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
+            obj.show();
+            obj.lblMensaje.setText("Los equipos mostrados cumplen 1 año de uso");
+        } else {
+            System.out.println("Sin notificaciones de caducidad");
+        }
+        if (equiCRUD.cumple3Anios() != null) {
+            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumple2Anios());
+            Alert obj = new Alert(1);
+            Home.escritorio.add(obj);
+            obj.toFront();
+            //centrar
+            //Para centrar la ventana abierta
+            Dimension dimension = escritorio.getSize();
+            Dimension FrameSize = obj.getSize();
+            //obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
+            obj.show();
+            obj.lblMensaje.setText("Los equipos mostrados cumplen 3 años de uso");
+        } else {
+            System.out.println("Sin notificaciones de caducidad");
+        }
+        OrdenTrabajoCRUD ordtrCRUD = new OrdenTrabajoCRUD(host);
+        if (ordtrCRUD.cumpleMesAntes() != null) {
+            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumple2Anios());
             Alert obj = new Alert(0);
             Home.escritorio.add(obj);
             obj.toFront();
@@ -219,12 +331,12 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
             Dimension FrameSize = obj.getSize();
             //obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
             obj.show();
+            obj.lblMensaje.setText("Las siguientes órdenes de trabajo están a un mes o menos de cumplir la fecha requerida");
         } else {
             System.out.println("Sin notificaciones de caducidad");
         }
-        MantenimientoCRUD mantCRUD = new MantenimientoCRUD();
-        if (mantCRUD.cumplePuntoReorden() != null) {
-            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumplePuntoReorden());
+        if (ordtrCRUD.cumpleSemanaAntes() != null) {
+            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumple2Anios());
             Alert obj = new Alert(0);
             Home.escritorio.add(obj);
             obj.toFront();
@@ -234,6 +346,68 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
             Dimension FrameSize = obj.getSize();
             //obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
             obj.show();
+            obj.lblMensaje.setText("Las siguientes órdenes de trabajo están a una semana o menos de cumplir la fecha requerida");
+        } else {
+            System.out.println("Sin notificaciones de caducidad");
+        }
+        if (ordtrCRUD.cumpleDiaAntes() != null) {
+            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumple2Anios());
+            Alert obj = new Alert(0);
+            Home.escritorio.add(obj);
+            obj.toFront();
+            //centrar
+            //Para centrar la ventana abierta
+            Dimension dimension = escritorio.getSize();
+            Dimension FrameSize = obj.getSize();
+            //obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
+            obj.show();
+            obj.lblMensaje.setText("Las siguientes órdenes de trabajo están a 1 día de llegar a la fecha requerida");
+        } else {
+            System.out.println("Sin notificaciones de caducidad");
+        }
+        MantenimientoCRUD mantCRUD = new MantenimientoCRUD(host);
+        if (mantCRUD.cumpleMesAntes() != null) {
+            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumple2Anios());
+            Alert obj = new Alert(0);
+            Home.escritorio.add(obj);
+            obj.toFront();
+            //centrar
+            //Para centrar la ventana abierta
+            Dimension dimension = escritorio.getSize();
+            Dimension FrameSize = obj.getSize();
+            //obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
+            obj.show();
+            obj.lblMensaje.setText("Las siguientes tareas de mantenimiento están a 1 mes o menos de llegar a la fecha de término");
+        } else {
+            System.out.println("Sin notificaciones de caducidad");
+        }
+        if (mantCRUD.cumpleSemanaAntes() != null) {
+            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumple2Anios());
+            Alert obj = new Alert(0);
+            Home.escritorio.add(obj);
+            obj.toFront();
+            //centrar
+            //Para centrar la ventana abierta
+            Dimension dimension = escritorio.getSize();
+            Dimension FrameSize = obj.getSize();
+            //obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
+            obj.show();
+            obj.lblMensaje.setText("Las siguientes tareas de mantenimiento están a 1 semana o menos de llegar a la fecha de término");
+        } else {
+            System.out.println("Sin notificaciones de caducidad");
+        }
+        if (mantCRUD.cumpleDiaAntes() != null) {
+            //articulos = artCRUD.enviarDatosTabla(artCRUD.cumple2Anios());
+            Alert obj = new Alert(0);
+            Home.escritorio.add(obj);
+            obj.toFront();
+            //centrar
+            //Para centrar la ventana abierta
+            Dimension dimension = escritorio.getSize();
+            Dimension FrameSize = obj.getSize();
+            //obj.setLocation((dimension.width - FrameSize.width) / 2, (dimension.height - FrameSize.height) / 2);
+            obj.show();
+            obj.lblMensaje.setText("Las siguientes tareas de mantenimiento están a 1 día de llegar a la fecha de término");
         } else {
             System.out.println("Sin notificaciones de caducidad");
         }
@@ -255,9 +429,10 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         lblNomApe = new javax.swing.JLabel();
         lblIP = new javax.swing.JLabel();
         lblHostName = new javax.swing.JLabel();
-        lblLogo = new javax.swing.JLabel();
+        lblLogo2 = new javax.swing.JLabel();
         lblNomApe1 = new javax.swing.JLabel();
         lblNomApe2 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -302,8 +477,8 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         lblHostName.setForeground(new java.awt.Color(255, 255, 255));
         lblHostName.setText("Nombre Red equipo servidor");
 
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/lubrindustrial_logo (2).png"))); // NOI18N
-        lblLogo.setText(" ");
+        lblLogo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/Logo Grease Warehouse.jpeg"))); // NOI18N
+        lblLogo2.setText(" ");
 
         lblNomApe1.setForeground(new java.awt.Color(255, 255, 255));
         lblNomApe1.setText("Lubrinsdustrial v1.0");
@@ -311,62 +486,76 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
         lblNomApe2.setForeground(new java.awt.Color(255, 255, 255));
         lblNomApe2.setText("Jhonny Cajamarca / Ricardo Herrera");
 
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/lubrindustrial_logo (2).png"))); // NOI18N
+        lblLogo.setText(" ");
+
         escritorio.setLayer(jDesktopPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(lblCuenta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(lblNivel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(lblNomApe, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(lblIP, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(lblHostName, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(lblLogo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(lblLogo2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(lblNomApe1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(lblNomApe2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(lblLogo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(escritorioLayout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCuenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addComponent(lblNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNomApe, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(escritorioLayout.createSequentialGroup()
                         .addComponent(lblNomApe1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblNomApe2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblIP, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblHostName, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblNomApe2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblIP, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblHostName, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(escritorioLayout.createSequentialGroup()
+                                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblNomApe, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblLogo2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)))
                 .addGap(22, 22, 22))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(238, 238, 238))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(lblNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
-                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNomApe, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(escritorioLayout.createSequentialGroup()
+                                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16)
+                                .addComponent(lblCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblNomApe, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(72, 72, 72))
+                            .addGroup(escritorioLayout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblLogo2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(290, 290, 290))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
+                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)))
                 .addComponent(lblIP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -610,9 +799,14 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        this.dispose();
-        Login login = new Login();
-        login.setVisible(true);
+        try {
+            generarCopiaSeguridadNube();
+            this.dispose();
+            Login login = new Login();
+            login.setVisible(true);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -737,7 +931,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
 
         String path="";
         try{
-            Process proceso = Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqldump -u jhonny -pjhonny lubrindustriales_vfinal");
+            Process proceso = Runtime.getRuntime().exec("C:\\xampp\\mysql\\bin\\mysqldump -u administrador -padmin.soft.18.jcrh.1000 lubrindustrial");
             InputStream is = proceso.getInputStream();
             
             JFileChooser explorador = new JFileChooser();
@@ -745,9 +939,9 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
             explorador.showOpenDialog(explorador);
             
             path=explorador.getSelectedFile().getAbsolutePath();
-            System.out.println("ruta: "+path);
+            //System.out.println("ruta: "+path);
             
-            FileOutputStream fos = new FileOutputStream(path+"\\dump2.sql");
+            FileOutputStream fos = new FileOutputStream(path+"\\ArchivoRespaldo.sql");
             
             byte []buffer = new byte[1000];
             int leer = is.read(buffer);
@@ -758,9 +952,9 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
                 //System.out.println("Estoy while");
             }
             fos.close();
-            System.out.println("Respaldo de la base de datos correcto");
-        }catch(Exception ex){
-            System.out.println(""+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "RESPALDO GENERADO CORRECTAMENTE","RESPALDO CORRECTO",JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "RESPALDO NO GENERADO CORRECTAMENTE", "ERROR RESPALDO", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
 
@@ -896,6 +1090,7 @@ public void inicializarFrames(){ // hay que enviar tambien la direccion IP
     public javax.swing.JLabel lblHostName;
     public javax.swing.JLabel lblIP;
     private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblLogo2;
     public javax.swing.JLabel lblNivel;
     public javax.swing.JLabel lblNomApe;
     public javax.swing.JLabel lblNomApe1;

@@ -5,6 +5,7 @@
  */
 package com.lubrindustrial.View;
 
+import com.lubrindustrial.Server.Conexion;
 import com.lubrindustrial.Server.Department;
 import com.lubrindustrial.Server.DepartmentCRUD;
 import com.lubrindustrial.Server.Instruction;
@@ -13,12 +14,20 @@ import com.lubrindustrial.Server.ReportsExcel;
 import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
+import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Instructions extends javax.swing.JInternalFrame {
 
@@ -27,6 +36,8 @@ public class Instructions extends javax.swing.JInternalFrame {
     ArrayList<Instruction> instrucciones = new ArrayList<Instruction>();
     User user = new User();
     String host="";
+    Conexion con;
+    Connection cn;
     public int getvalorencontrado() {
         int valorencontrado = valor_encontrado;
         return valorencontrado = valor_encontrado;
@@ -45,6 +56,9 @@ public class Instructions extends javax.swing.JInternalFrame {
         agregarDatos();
 //        tab_instructions.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 //        tab_instructions.doLayout();
+        con = new Conexion(this.host);
+        this.con.Conectar();
+        cn =con.getCon();
     }
 
     public Instructions(User usu) {
@@ -60,6 +74,9 @@ public class Instructions extends javax.swing.JInternalFrame {
 //        tab_instructions.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 //        tab_instructions.doLayout();
         user = usu;
+        con = new Conexion(this.host);
+        this.con.Conectar();
+        cn =con.getCon();
     }
     
     public Instructions(User usu, String hostname) {
@@ -77,6 +94,9 @@ public class Instructions extends javax.swing.JInternalFrame {
         user = usu;
         host=hostname;
         agregarDatos();
+        con = new Conexion(this.host);
+        this.con.Conectar();
+        cn =con.getCon();
     }
     
     public int seleccionaritem() {
@@ -157,6 +177,7 @@ public class Instructions extends javax.swing.JInternalFrame {
         btnDelete = new javax.swing.JButton();
         btnSec = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -210,7 +231,7 @@ public class Instructions extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tab_instructions);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 690, 160));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 730, 160));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
 
@@ -246,7 +267,7 @@ public class Instructions extends javax.swing.JInternalFrame {
                 .addComponent(cbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtInput, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -264,7 +285,7 @@ public class Instructions extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 217, 700, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 217, 730, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/nuevo.png"))); // NOI18N
         jButton1.setText("Nuevo");
@@ -291,7 +312,7 @@ public class Instructions extends javax.swing.JInternalFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(605, 181, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 180, -1, -1));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/edit.png"))); // NOI18N
         jButton4.setText("Modificar");
@@ -327,9 +348,18 @@ public class Instructions extends javax.swing.JInternalFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 181, 40, -1));
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 180, 40, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 710, 310));
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/pdf.png"))); // NOI18N
+        jButton6.setToolTipText("Generar informe en PDF");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 180, 40, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 750, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -510,6 +540,24 @@ public class Instructions extends javax.swing.JInternalFrame {
                 
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+        try {
+             JasperReport reporte = null;
+             String path = "src\\lubrindustrial\\instrucciones.jasper";
+             reporte = (JasperReport)JRLoader.loadObjectFromFile(path);
+             JasperPrint jprint = JasperFillManager.fillReport(reporte, null,this.cn);
+//             JasperReport reporte = JasperCompileManager.compileReport("reportMantEmp2.jrxml");
+//            JasperPrint print = JasperFillManager.fillReport(reporte, null, this.cn);
+            JasperViewer jviewer = new JasperViewer(jprint,false);
+            jviewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            jviewer.setVisible(true);
+            //JasperViewer.viewReport(print);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
@@ -520,6 +568,7 @@ public class Instructions extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

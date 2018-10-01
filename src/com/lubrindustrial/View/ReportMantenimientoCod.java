@@ -14,6 +14,8 @@ import com.lubrindustrial.Server.MantenimientoCRUD;
 import com.lubrindustrial.Server.Mantenimientos;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -455,18 +457,37 @@ public class ReportMantenimientoCod extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_proxFechMantActionPerformed
 
     private void btnGeneratePDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneratePDFActionPerformed
-
-
+        String cad="";
         try {
-            JasperReport reporte = JasperCompileManager.compileReport("reportMantCod1.jrxml");
-            //JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/reportMantCod1.jrxml"));
-            JasperPrint print = JasperFillManager.fillReport(reporte, null, this.cn);
-            JasperViewer jviewer = new JasperViewer(print,false);
-            jviewer.show();
+            cad=comboMant.getSelectedItem().toString();
+            String []split = cad.split(" ");
+            cad = split[0];
+             JasperReport reporte = null;
+             String path = "src\\lubrindustrial\\mantenimientoCod.jasper";
+             Map parametro = new HashMap();
+             parametro.put("id_mant",cad);
+             reporte = (JasperReport)JRLoader.loadObjectFromFile(path);
+             JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro,this.cn);
+//             JasperReport reporte = JasperCompileManager.compileReport("reportMantEmp2.jrxml");
+//            JasperPrint print = JasperFillManager.fillReport(reporte, null, this.cn);
+            JasperViewer jviewer = new JasperViewer(jprint,false);
+            jviewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            jviewer.setVisible(true);
             //JasperViewer.viewReport(print);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        
+//        try {
+//            JasperReport reporte = JasperCompileManager.compileReport("reportMantCod1.jrxml");
+//            //JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/reportMantCod1.jrxml"));
+//            JasperPrint print = JasperFillManager.fillReport(reporte, null, this.cn);
+//            JasperViewer jviewer = new JasperViewer(print,false);
+//            jviewer.show();
+//            //JasperViewer.viewReport(print);
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
        
     }//GEN-LAST:event_btnGeneratePDFActionPerformed
 

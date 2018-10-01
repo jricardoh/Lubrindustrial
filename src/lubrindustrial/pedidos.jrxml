@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4de1b5fe-1074-4a97-8196-7063587ee644">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="24"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="PieChartDataset" uuid="01468a68-aeb7-4bf8-836c-b30eb2886982"/>
+	<queryString>
+		<![CDATA[SELECT p.ID_PED,a.ID_ART,a.NRO_ART,a.DESCRIPCION_ART,p.ID_EMP_PEDIDO AS id1,e1.NRO_EMP AS nro1,e1.NOMBRE_EMP AS nomb1,e1.APELLIDO_EMP AS ap1,p.ID_EMP_ENTREGADO AS id2,e2.NRO_EMP AS nro2,e2.NOMBRE_EMP AS nomb2,e2.APELLIDO_EMP AS ap2, p.ID_EMP_AUTORIZADO AS id3,e3.NRO_EMP AS nro3,e3.NOMBRE_EMP AS nomb3,e3.APELLIDO_EMP AS ap3,p.ID_EMP_APROBADO AS id4,e4.NRO_EMP AS nro4,e4.NOMBRE_EMP as nomb4,e4.APELLIDO_EMP AS ap4,p.CANTIDAD_PED,p.UNIDAD_PED, p.DESCRIPCION_PED,p.FECHAHORASOL_PED,p.FECHAHORAENTR_PED,p.ACTIVO FROM PEDIDOMATERIALES p JOIN articulo a JOIN empleado e1 JOIN empleado e2 JOIN empleado e3 JOIN empleado e4 ON (p.ID_ART=a.ID_ART and p.ID_EMP_PEDIDO=e1.ID_EMP and p.ID_EMP_ENTREGADO=e2.ID_EMP and p.ID_EMP_AUTORIZADO=e3.ID_EMP and p.ID_EMP_APROBADO=e4.ID_EMP) WHERE p.ACTIVO <> 0]]>
+	</queryString>
+	<field name="ID_PED" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID_ART" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NRO_ART" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCRIPCION_ART" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CANTIDAD_PED" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UNIDAD_PED" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DESCRIPCION_PED" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHAHORASOL_PED" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FECHAHORAENTR_PED" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id1" class="java.lang.Integer"/>
+	<field name="nro1" class="java.lang.String"/>
+	<field name="nomb1" class="java.lang.String"/>
+	<field name="ap1" class="java.lang.String"/>
+	<field name="id2" class="java.lang.Integer"/>
+	<field name="nro2" class="java.lang.String"/>
+	<field name="nomb2" class="java.lang.String"/>
+	<field name="ap2" class="java.lang.String"/>
+	<field name="id3" class="java.lang.Integer"/>
+	<field name="nro3" class="java.lang.String"/>
+	<field name="nomb3" class="java.lang.String"/>
+	<field name="ap3" class="java.lang.String"/>
+	<field name="id4" class="java.lang.Integer"/>
+	<field name="nro4" class="java.lang.String"/>
+	<field name="nomb4" class="java.lang.String"/>
+	<field name="ap4" class="java.lang.String"/>
+	<field name="ACTIVO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="555" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="176" splitType="Stretch">
+			<staticText>
+				<reportElement style="SubTitle" x="336" y="65" width="449" height="29" forecolor="#333333" uuid="9fb88002-d7a6-40cd-8fbd-33dcdaca40d2"/>
+				<textElement textAlignment="Right">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pedidos]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="0" width="822" height="65" forecolor="#006699" backcolor="#006699" uuid="f33cf6f7-e6c7-4fa6-b3d6-5d5e5d7a7f35"/>
+				<staticText>
+					<reportElement style="Title" x="231" y="12" width="578" height="39" uuid="cb5d8559-aa1f-4e10-8f25-f83e3b80da7d"/>
+					<textElement textAlignment="Right">
+						<font fontName="MS PGothic" size="32" isBold="false"/>
+					</textElement>
+					<text><![CDATA[LUBRINDUSTRIAL]]></text>
+				</staticText>
+				<image>
+					<reportElement x="53" y="0" width="88" height="65" uuid="c160110e-3341-4583-b61c-fc9934eee262"/>
+					<imageExpression><![CDATA["D:\\Software lubricantes\\lubrindustrial_logo.png"]]></imageExpression>
+				</image>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="2" y="94" width="800" height="16" forecolor="#D0B48E" backcolor="#006699" uuid="4d7dbc75-95db-4551-8eaa-3148c09ce803"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="753" y="0" width="40" height="16" forecolor="#FFFFFF" uuid="5e787237-fa4e-4ab7-b984-c7e9ef51fc3b"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="654" y="0" width="99" height="16" forecolor="#FFFFFF" uuid="8bc27786-4523-4119-99ee-2d10da37e1cc"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="2" y="94" width="197" height="16" forecolor="#FFFFFF" uuid="1ffba92e-4156-46a7-a16b-fe5f87c863e1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="114" height="20" uuid="a4945635-4cff-4dad-9c32-f367e9b329ae"/>
+				<text><![CDATA[Número Material]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="0" width="114" height="20" uuid="b91ca7ca-a4c5-4f95-bd75-bbdb19fd0153"/>
+				<text><![CDATA[Descripción Material]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="0" width="114" height="20" uuid="5133010f-4630-49cd-a79e-74a980c7314e"/>
+				<text><![CDATA[Cantidad Pedida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="342" y="0" width="114" height="20" uuid="510be608-4f1d-4aad-a547-2bfa60b5917b"/>
+				<text><![CDATA[Unidad de Medida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="456" y="0" width="114" height="20" uuid="49d3d982-e3b3-4f7b-b2f9-e57abd81430d"/>
+				<text><![CDATA[Descripción Pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="570" y="0" width="114" height="20" uuid="c2ccb486-a458-4db0-b3fb-6143097c9c75"/>
+				<text><![CDATA[Fecha Solicitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="684" y="0" width="114" height="20" uuid="b3f70404-1dfb-4123-9099-8a74428f13c2"/>
+				<text><![CDATA[Fecha Entrega]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="2" y="23" width="800" height="1" uuid="4368d9c2-c310-4efc-ac0a-ac3a19209f12"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="0" width="114" height="20" uuid="c6a0469b-3aaa-4ca1-8c50-4210e34cedc9"/>
+				<textFieldExpression><![CDATA[$F{NRO_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="0" width="114" height="20" uuid="eb135dbb-4c34-4bea-9f1f-13cb70cd542e"/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_ART}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="0" width="114" height="20" uuid="b4f2c957-633f-4611-8005-0263e30f2780"/>
+				<textFieldExpression><![CDATA[$F{CANTIDAD_PED}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="342" y="0" width="114" height="20" uuid="e1396848-cedc-427c-b464-d748e761f4a0"/>
+				<textFieldExpression><![CDATA[$F{UNIDAD_PED}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="456" y="0" width="114" height="20" uuid="92587b3c-c176-47b8-bd29-03d970a66f9b"/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_PED}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="570" y="0" width="114" height="20" uuid="dca42c7f-6c37-4f39-a9ec-6e757b84689a"/>
+				<textFieldExpression><![CDATA[$F{FECHAHORASOL_PED}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="684" y="0" width="114" height="20" uuid="c067486f-852b-4cd9-bb32-45b4a99a3ee9"/>
+				<textFieldExpression><![CDATA[$F{FECHAHORAENTR_PED}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="24a1afcd-62b9-49b7-a4b9-c218492f4aba"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

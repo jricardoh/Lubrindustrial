@@ -10,7 +10,10 @@ import com.lubrindustrial.Server.UserCRUD;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
@@ -44,7 +47,7 @@ public class RegisterNew extends javax.swing.JFrame {
         this.host = hostname;
     }
     
-    private void Volver() {
+    private void Volver() throws UnknownHostException {
         Login login = new Login();
         login.setVisible(true);
         login.setEnabled(true);
@@ -240,10 +243,14 @@ public class RegisterNew extends javax.swing.JFrame {
 int contador = 0;
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 
-        Login obj = new Login();
-        obj.setVisible(true);
-        obj.setEnabled(true);
-        this.dispose();
+        try {
+            Login obj = new Login();
+            obj.setVisible(true);
+            obj.setEnabled(true);
+            this.dispose();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(RegisterNew.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtApeMadreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApeMadreActionPerformed

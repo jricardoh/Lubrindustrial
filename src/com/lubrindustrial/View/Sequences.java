@@ -5,6 +5,7 @@
  */
 package com.lubrindustrial.View;
 
+import com.lubrindustrial.Server.Conexion;
 import com.lubrindustrial.Server.Department;
 import com.lubrindustrial.Server.DepartmentCRUD;
 import com.lubrindustrial.Server.Instruction;
@@ -15,12 +16,20 @@ import com.lubrindustrial.Server.SequenceCRUD;
 import com.lubrindustrial.Server.User;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
+import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Sequences extends javax.swing.JInternalFrame {
 
@@ -30,6 +39,8 @@ public class Sequences extends javax.swing.JInternalFrame {
     ArrayList<Instruction> instrucciones = new ArrayList<Instruction>();
     User user = new User();
     String host;
+    Conexion con;
+    Connection cn;
     
     public int getvalorencontrado() {
         int valorencontrado = valor_encontrado;
@@ -47,6 +58,9 @@ public class Sequences extends javax.swing.JInternalFrame {
         this.setIconifiable(true);
         this.setClosable(true);
         agregarDatos();
+        con = new Conexion(this.host);
+        this.con.Conectar();
+        cn =con.getCon();
 //        tab_sequences.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 //        tab_sequences.doLayout();
     }
@@ -64,6 +78,9 @@ public class Sequences extends javax.swing.JInternalFrame {
 //        tab_sequences.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 //        tab_sequences.doLayout();
         user = usu;
+        con = new Conexion(this.host);
+        this.con.Conectar();
+        cn =con.getCon();
     }
     
     public Sequences(User usu, String hostname) {
@@ -80,6 +97,9 @@ public class Sequences extends javax.swing.JInternalFrame {
 //        tab_sequences.doLayout();
         user = usu;
         this.host=hostname;
+        con = new Conexion(this.host);
+        this.con.Conectar();
+        cn =con.getCon();
     }
     
     public int seleccionaritem() {
@@ -168,6 +188,7 @@ public class Sequences extends javax.swing.JInternalFrame {
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -221,7 +242,7 @@ public class Sequences extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tab_sequences);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 600, 160));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 650, 160));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -253,7 +274,7 @@ public class Sequences extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, -1, 20));
         jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 70, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 217, 600, 80));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 217, 650, 80));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/nuevo.png"))); // NOI18N
         jButton1.setText("Nuevo");
@@ -280,7 +301,7 @@ public class Sequences extends javax.swing.JInternalFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 180, 100, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 100, -1));
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/edit.png"))); // NOI18N
         btnEdit.setText("Modificar");
@@ -307,9 +328,18 @@ public class Sequences extends javax.swing.JInternalFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 40, -1));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 180, 40, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 630, 310));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/pdf.png"))); // NOI18N
+        jButton5.setToolTipText("Generar informe en PDF");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 180, 40, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 670, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -476,6 +506,24 @@ public class Sequences extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        try {
+             JasperReport reporte = null;
+             String path = "src\\lubrindustrial\\secuencias.jasper";
+             reporte = (JasperReport)JRLoader.loadObjectFromFile(path);
+             JasperPrint jprint = JasperFillManager.fillReport(reporte, null,this.cn);
+//             JasperReport reporte = JasperCompileManager.compileReport("reportMantEmp2.jrxml");
+//            JasperPrint print = JasperFillManager.fillReport(reporte, null, this.cn);
+            JasperViewer jviewer = new JasperViewer(jprint,false);
+            jviewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            jviewer.setVisible(true);
+            //JasperViewer.viewReport(print);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
@@ -485,6 +533,7 @@ public class Sequences extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

@@ -7,16 +7,26 @@ package com.lubrindustrial.View;
 
 import com.lubrindustrial.Server.Article;
 import com.lubrindustrial.Server.ArticleCRUD;
+import com.lubrindustrial.Server.Conexion;
 import com.lubrindustrial.Server.PEDIDOMATERIAL;
 import com.lubrindustrial.Server.PEDIDOMATERIALCRUD;
+import com.lubrindustrial.Server.ReportsExcel;
 import static com.lubrindustrial.View.Home.escritorio;
 import java.awt.Dimension;
+import java.sql.Connection;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
-
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author Marcelo
@@ -32,6 +42,8 @@ public class Pedidos extends javax.swing.JInternalFrame {
     
     ArrayList<PEDIDOMATERIAL> pedidos = new ArrayList<PEDIDOMATERIAL>();
     String host;
+    Conexion con;
+    Connection cn;
     
     public Pedidos() {
         try{
@@ -46,6 +58,9 @@ public class Pedidos extends javax.swing.JInternalFrame {
         agregarDatos();
         tab_pedidos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tab_pedidos.doLayout();
+        con = new Conexion(this.host);
+        this.con.Conectar();
+        cn =con.getCon();
         
     }
     
@@ -62,6 +77,9 @@ public class Pedidos extends javax.swing.JInternalFrame {
         agregarDatos();
         tab_pedidos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tab_pedidos.doLayout();
+        con = new Conexion(this.host);
+        this.con.Conectar();
+        cn =con.getCon();
     }
     private void agregarDatos() {
         // ********** CAMBIO PARA MOSTRAR LAS 2 NUEVAS COLUMNAS DE LA BD
@@ -109,6 +127,8 @@ public class Pedidos extends javax.swing.JInternalFrame {
         tab_pedidos = new javax.swing.JTable();
         btnShowAll = new javax.swing.JButton();
         btnNewPer = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setTitle("Pedidos");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -164,9 +184,27 @@ public class Pedidos extends javax.swing.JInternalFrame {
                 btnNewPerActionPerformed(evt);
             }
         });
-        jPanel1.add(btnNewPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, -1, -1));
+        jPanel1.add(btnNewPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 660, 240));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/excel_logo.png"))); // NOI18N
+        jButton5.setToolTipText("Generar hoja de cálculo de Excel");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, 40, -1));
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/lubrindustrial/Icons/pdf.png"))); // NOI18N
+        jButton6.setToolTipText("Generar informe en PDF");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 40, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 660, 240));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -193,6 +231,36 @@ public class Pedidos extends javax.swing.JInternalFrame {
         //
         obj.show();
     }//GEN-LAST:event_btnNewPerActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        ReportsExcel reporte = new ReportsExcel(host);
+        PEDIDOMATERIALCRUD eqCRUD = new PEDIDOMATERIALCRUD(host);
+        ArrayList<PEDIDOMATERIAL> ped = eqCRUD.visualizar();
+        if(reporte.escribirExcelPedidoMateriales(ped)){
+            JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE PEDIDOS CREADO","ARCHIVO GUARDADO EXITOSAMENTE",JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null, "ARCHIVO EXCEL DE PEDIDOS NO CREADO","ERROR EN GUARDADO", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+       try {
+             JasperReport reporte = null;
+             String path = "src\\lubrindustrial\\pedidos.jasper";
+             reporte = (JasperReport)JRLoader.loadObjectFromFile(path);
+             JasperPrint jprint = JasperFillManager.fillReport(reporte, null,this.cn);
+//             JasperReport reporte = JasperCompileManager.compileReport("reportMantEmp2.jrxml");
+//            JasperPrint print = JasperFillManager.fillReport(reporte, null, this.cn);
+            JasperViewer jviewer = new JasperViewer(jprint,false);
+            jviewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            jviewer.setVisible(true);
+            //JasperViewer.viewReport(print);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -232,6 +300,8 @@ public class Pedidos extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNewPer;
     private javax.swing.JButton btnShowAll;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tab_pedidos;

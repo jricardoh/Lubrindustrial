@@ -20,11 +20,19 @@ public class OrdenTrabajoCRUD {
     String host;
     
     public OrdenTrabajoCRUD(){
-        
+        host = "";
     }
     
     public OrdenTrabajoCRUD(String hostname){
         this.host = hostname;
+    }
+    
+    public String getHost(){
+        return host;
+    }
+    
+    public void setHost(String host){
+        this.host = host;
     }
     
     public boolean insertar(OrdenTrabajos ot){
@@ -386,7 +394,44 @@ public class OrdenTrabajoCRUD {
         }
     }
     
-        public ResultSet cumplePuntoReorden(){
+        public ResultSet cumpleMesAntes(){
+        
+        //ArrayList<Article> listaArts = new ArrayList<Article>();
+        Conexion conexion = new Conexion(this.host);
+        conexion.Conectar();
+        ResultSet resultado=null;
+        try{
+            conexion.getStmt();
+
+//            resultado= conexion.getStmt().executeQuery("SELECT a.ID_ART,a.ID_PROV,p.NOMBRE_PROV,a.NRO_ART,a.DESCRIPCION_ART,a.ESPECIFICACIONES_ART,a.FABRICANTE_ART," +
+//                                                        " a.UNIDADMEDIDA_ART,a.COSTOESTANDAR_ART,a.MAXIMO_ART,a.PUNTOREORDEN_ART,a.CANTIDADREORDEN_ART," +
+//                                                        " a.MINIMO_ART,a.TIEMPOENTR_NRODIAS_ART,a.NOTAS_ART,a.CANTIDAD_ART,a.DESCCANTIDAD_ART, a.ACTIVO" +
+//                                                        " FROM ARTICULO a JOIN PROVEEDOR p" +
+//                                                        " ON (a.ID_PROV = p.ID_PROV)" +
+//                                                        " WHERE a.ACTIVO <> 0 AND a.CANTIDAD_ART <= a.PUNTOREORDEN_ART");
+//    
+            resultado= conexion.getStmt().executeQuery("SELECT * FROM ORDENTRABAJO WHERE ACTIVO <> 0 AND (FECHAHORAREQUERIDA_ORDTR - NOW())>=30");
+            
+            int contador = 0;
+            while (resultado.next()) {
+                contador++;
+            }
+            resultado.first();
+            resultado.beforeFirst();
+            System.out.println(contador);
+            if(contador==0){
+                resultado = null;
+            }
+            
+        } catch (SQLException ex){
+            System.err.println("Error en devolver registros ARTICULOS: " + ex.getMessage());
+            ex.printStackTrace();
+            
+        }
+        return resultado;
+    }    
+    
+    public ResultSet cumpleSemanaAntes(){
         
         //ArrayList<Article> listaArts = new ArrayList<Article>();
         Conexion conexion = new Conexion(this.host);
@@ -423,6 +468,42 @@ public class OrdenTrabajoCRUD {
         return resultado;
     }    
     
+    public ResultSet cumpleDiaAntes(){
+        
+        //ArrayList<Article> listaArts = new ArrayList<Article>();
+        Conexion conexion = new Conexion(this.host);
+        conexion.Conectar();
+        ResultSet resultado=null;
+        try{
+            conexion.getStmt();
+
+//            resultado= conexion.getStmt().executeQuery("SELECT a.ID_ART,a.ID_PROV,p.NOMBRE_PROV,a.NRO_ART,a.DESCRIPCION_ART,a.ESPECIFICACIONES_ART,a.FABRICANTE_ART," +
+//                                                        " a.UNIDADMEDIDA_ART,a.COSTOESTANDAR_ART,a.MAXIMO_ART,a.PUNTOREORDEN_ART,a.CANTIDADREORDEN_ART," +
+//                                                        " a.MINIMO_ART,a.TIEMPOENTR_NRODIAS_ART,a.NOTAS_ART,a.CANTIDAD_ART,a.DESCCANTIDAD_ART, a.ACTIVO" +
+//                                                        " FROM ARTICULO a JOIN PROVEEDOR p" +
+//                                                        " ON (a.ID_PROV = p.ID_PROV)" +
+//                                                        " WHERE a.ACTIVO <> 0 AND a.CANTIDAD_ART <= a.PUNTOREORDEN_ART");
+//    
+            resultado= conexion.getStmt().executeQuery("SELECT * FROM ORDENTRABAJO WHERE ACTIVO <> 0 AND (FECHAHORAREQUERIDA_ORDTR - NOW())>=1");
+            
+            int contador = 0;
+            while (resultado.next()) {
+                contador++;
+            }
+            resultado.first();
+            resultado.beforeFirst();
+            System.out.println(contador);
+            if(contador==0){
+                resultado = null;
+            }
+            
+        } catch (SQLException ex){
+            System.err.println("Error en devolver registros ARTICULOS: " + ex.getMessage());
+            ex.printStackTrace();
+            
+        }
+        return resultado;
+    }    
     
     public ArrayList<OrdenTrabajos> enviarDatosTabla(ResultSet resultado){
         

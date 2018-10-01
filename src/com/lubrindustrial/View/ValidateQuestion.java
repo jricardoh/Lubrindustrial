@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -260,10 +263,14 @@ int contador = 0;
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 
-        Login obj = new Login();
-        obj.setVisible(true);
-        obj.setEnabled(true);
-        this.dispose();
+        try {
+            Login obj = new Login();
+            obj.setVisible(true);
+            obj.setEnabled(true);
+            this.dispose();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(ValidateQuestion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtHostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHostActionPerformed
